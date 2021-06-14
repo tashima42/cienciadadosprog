@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='utf-8'?>
+<scheme version="2.0" title="Manipulação e Agregação de Dados" description="">
+	<nodes>
+		<node id="0" name="CSV File Import" qualified_name="Orange.widgets.data.owcsvimport.OWCSVFileImport" project_name="Orange3" version="" title="CSV File Import" position="(93.0, 368.0)" />
+		<node id="1" name="Data Table" qualified_name="Orange.widgets.data.owtable.OWDataTable" project_name="Orange3" version="" title="Data Table" position="(261.0, 294.0)" />
+		<node id="2" name="Data Table" qualified_name="Orange.widgets.data.owtable.OWDataTable" project_name="Orange3" version="" title="Tabela ordenada" position="(397.0, 405.0)" />
+		<node id="3" name="Pivot Table" qualified_name="Orange.widgets.data.owpivot.OWPivot" project_name="Orange3" version="" title="Pivot Table" position="(639.0, 535.0)" />
+		<node id="4" name="Data Table" qualified_name="Orange.widgets.data.owtable.OWDataTable" project_name="Orange3" version="" title="Médias por Quartos" position="(987.0, 462.0)" />
+		<node id="5" name="Pivot Table" qualified_name="Orange.widgets.data.owpivot.OWPivot" project_name="Orange3" version="" title="Pivot Table (1)" position="(768.0, 784.0)" />
+		<node id="6" name="Merge Data" qualified_name="Orange.widgets.data.owmergedata.OWMergeData" project_name="Orange3" version="" title="Merge Data" position="(1076.0, 8.0)" />
+		<node id="7" name="Data Table" qualified_name="Orange.widgets.data.owtable.OWDataTable" project_name="Orange3" version="" title="Tabela de Junção" position="(1313.0, -71.0)" />
+		<node id="8" name="Feature Constructor" qualified_name="Orange.widgets.data.owfeatureconstructor.OWFeatureConstructor" project_name="Orange3" version="" title="Feature Constructor" position="(1464.0, 50.0)" />
+		<node id="9" name="Data Table" qualified_name="Orange.widgets.data.owtable.OWDataTable" project_name="Orange3" version="" title="Diferença da média" position="(1631.0, 51.0)" />
+	</nodes>
+	<links>
+		<link id="0" source_node_id="0" sink_node_id="1" source_channel="Data" sink_channel="Data" enabled="true" />
+		<link id="1" source_node_id="0" sink_node_id="2" source_channel="Data" sink_channel="Data" enabled="true" />
+		<link id="2" source_node_id="2" sink_node_id="3" source_channel="Data" sink_channel="Data" enabled="true" />
+		<link id="3" source_node_id="3" sink_node_id="4" source_channel="Grouped Data" sink_channel="Data" enabled="true" />
+		<link id="4" source_node_id="2" sink_node_id="5" source_channel="Data" sink_channel="Data" enabled="true" />
+		<link id="5" source_node_id="2" sink_node_id="6" source_channel="Data" sink_channel="Data" enabled="true" />
+		<link id="6" source_node_id="4" sink_node_id="6" source_channel="Data" sink_channel="Extra Data" enabled="true" />
+		<link id="7" source_node_id="6" sink_node_id="7" source_channel="Data" sink_channel="Data" enabled="true" />
+		<link id="8" source_node_id="7" sink_node_id="8" source_channel="Data" sink_channel="Data" enabled="true" />
+		<link id="9" source_node_id="8" sink_node_id="9" source_channel="Data" sink_channel="Data" enabled="true" />
+	</links>
+	<annotations>
+		<text id="0" type="text/markdown" rect="(48.0, 61.0, 485.0, 84.0)" font-family="Sans Serif" font-size="16">O **Orange** possui diversas ações para transformação, agrupamento e agregação dos dados. </text>
+		<text id="1" type="text/markdown" rect="(16.0, 466.0, 222.0, 129.0)" font-family="Sans Serif" font-size="16">O CSV carregado contém dados de apartamentos para alugar na cidade de Curitiba.</text>
+		<arrow id="2" start="(98.0, 459.0)" end="(96.0, 422.0)" fill="#39B54A" />
+		<text id="3" type="text/markdown" rect="(46.0, 144.0, 183.0, 126.0)" font-family="Sans Serif" font-size="16">Use a ação *Data Table* para visualizar o conteúdo do arquivo carregado (clique duas vezes).</text>
+		<arrow id="4" start="(227.99999999999997, 227.99999999999997)" end="(255.99999999999997, 255.99999999999997)" fill="#39B54A" />
+		<text id="5" type="text/markdown" rect="(324.0, 202.0, 264.0, 164.0)" font-family="Sans Serif" font-size="16">Para ordenar uma tabela de acordo com uma coluna, basta clicar na coluna desejada na ação do Data Table. Neste caso, ordenamos a tabela pela coluna *aluguel* em ordem crescente</text>
+		<text id="6" type="text/markdown" rect="(622.0, 275.0, 295.0, 184.0)" font-family="Sans Serif" font-size="16">Uma funcionalidade muito útil é o agrupamento de valores. No Orange, agrupamentos são feitos pela ação Pivot Table. Neste exemplo, os valores são agrupados de acordo com o número de quartos. Nos grupos, a média é calculada para cada valor distinto de número de quartos. </text>
+		<text id="7" type="text/plain" rect="(1072.0, 396.0, 228.0, 183.0)" font-family="Sans Serif" font-size="16">Neste caso, apartamentos de 1 quarto têm valor médio de aluguel 701 enquanto os de 2 quartos têm valor médio 1095. Poderíamos também ter usado outras funções de agregação, como count, max, etc.</text>
+		<text id="8" type="text/plain" rect="(860.0, 533.0, 224.0, 202.0)" font-family="Sans Serif" font-size="16">Para obter os valores agrupados, é preciso editar a ligação entre as ações (clique duas vezes na linha). É preciso selecionar a ligação entre Grouped Data (que é a saída da Pivot Table) e Data (que é a entrada da Data Table).</text>
+		<arrow id="9" start="(843.0, 581.0)" end="(814.0, 515.0)" fill="#C1272D" />
+		<text id="10" type="text/plain" rect="(815.0, 750.0, 516.0, 88.0)" font-family="Sans Serif" font-size="16">Podemos escolher critérios diferentes para agrupar os dados. Nesta Pivot Table, agrupamos por número de quartos (linhas) e número de vagas (colunas). Assim, podemos obter as médias considerando estes dois critérios.</text>
+		<arrow id="11" start="(629.0000000000001, 457.99999999999994)" end="(623.0000000000001, 504.0)" fill="#39B54A" />
+		<text id="12" type="text/plain" rect="(1062.0, 67.0, 259.0, 202.0)" font-family="Sans Serif" font-size="16">Outra funcionalidade importante é a junção de tabelas. Neste exemplo vamos juntar a tabela original com a tabela de médias por quartos. Assim, cada anúncio vai ter valores adicionados referentes às médias para o número de quartos do anúncio.</text>
+		<text id="13" type="text/plain" rect="(1459.0, 115.0, 227.0, 240.0)" font-family="Sans Serif" font-size="16">Com os valores das médias adicionados à tabela, podemos calcular a diferença entre o valor do aluguel do anúncio e o valor da média dos aluguéis de apartamentos com o mesmo número de quartos do anúncio. Veja os valores da coluna diferenca_media na tabela resultante.</text>
+	</annotations>
+	<thumbnail />
+	<node_properties>
+		<properties node_id="0" format="literal">{'_session_items': [('/home/luizcelso/Insync/GDriveUTFPR/PycharmProjects/DataScienceIntro/orange/data/aluguel.csv', {'encoding': 'utf-8', 'delimiter': ',', 'quotechar': '"', 'doublequote': True, 'skipinitialspace': True, 'quoting': 0, 'columntypes': [{'start': 0, 'stop': 9, 'value': 'Auto'}], 'rowspec': [{'start': 0, 'stop': 1, 'value': 'Header'}], 'decimal_separator': '.', 'group_separator': ''})], 'controlAreaVisible': True, 'dialog_state': {'directory': '/home/luizcelso/Insync/GDriveUTFPR/PycharmProjects/DataScienceIntro/orange/data', 'filter': 'Text - comma separated (*.csv, *)'}, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x03=\x00\x00\x01=\x00\x00\x04v\x00\x00\x02\xa0\x00\x00\x03=\x00\x00\x01b\x00\x00\x04v\x00\x00\x02\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80\x00\x00\x03=\x00\x00\x01b\x00\x00\x04v\x00\x00\x02\xa0', '__version__': 1}</properties>
+		<properties node_id="1" format="literal">{'auto_commit': True, 'color_by_class': True, 'controlAreaVisible': True, 'dist_color_RGB': (220, 220, 220, 255), 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x02J\x00\x00\x00\xbd\x00\x00\x05i\x00\x00\x02\xd5\x00\x00\x02J\x00\x00\x00\xe2\x00\x00\x05i\x00\x00\x02\xd5\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80\x00\x00\x02J\x00\x00\x00\xe2\x00\x00\x05i\x00\x00\x02\xd5', 'select_rows': True, 'selected_cols': [], 'selected_rows': [], 'show_attribute_labels': True, 'show_distributions': False, '__version__': 1}</properties>
+		<properties node_id="2" format="literal">{'auto_commit': True, 'color_by_class': True, 'controlAreaVisible': True, 'dist_color_RGB': (220, 220, 220, 255), 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x02J\x00\x00\x00\xe2\x00\x00\x05i\x00\x00\x02\xfa\x00\x00\x02J\x00\x00\x01\x07\x00\x00\x05i\x00\x00\x02\xfa\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80\x00\x00\x02J\x00\x00\x01\x07\x00\x00\x05i\x00\x00\x02\xfa', 'select_rows': True, 'selected_cols': [], 'selected_rows': [], 'show_attribute_labels': True, 'show_distributions': False, '__version__': 1}</properties>
+		<properties node_id="3" format="pickle">gASV4QIAAAAAAAB9lCiMC2F1dG9fY29tbWl0lIiMEmNvbnRyb2xBcmVhVmlzaWJsZZSIjBNzYXZl
+ZFdpZGdldEdlb21ldHJ5lENCAdnQywADAAAAAAKaAAAA1gAABRkAAAMHAAACmgAAAPsAAAUZAAAD
+BwAAAAAAAAAAB4AAAAKaAAAA+wAABRkAAAMHlIwRc2VsX2FnZ19mdW5jdGlvbnOUj5QojBtPcmFu
+Z2Uud2lkZ2V0cy5kYXRhLm93cGl2b3SUjBhBZ2dyZWdhdGlvbkZ1bmN0aW9uc0VudW2Uk5RLA4WU
+UpSQjAtfX3ZlcnNpb25fX5RLAYwQY29udGV4dF9zZXR0aW5nc5RdlCiMFW9yYW5nZXdpZGdldC5z
+ZXR0aW5nc5SMB0NvbnRleHSUk5QpgZR9lCiMBnZhbHVlc5R9lCiMC2NvbF9mZWF0dXJllE5K/v//
+/4aUjAtyb3dfZmVhdHVyZZSMB3F1YXJ0b3OUS2WGlIwJc2VsZWN0aW9ulI+USv7///+GlIwLdmFs
+X2ZlYXR1cmWUjAdhbHVndWVslEtmhpRoDEsBdYwKYXR0cmlidXRlc5R9lCiMBmNvZGlnb5RLAmgZ
+SwGMBXN1aXRllEsBjARhcmVhlEsCjAR2YWdhlEsBaB9LAowKY29uZG9taW5pb5RLAowEZGF0YZRL
+BIwIU2VsZWN0ZWSUSwF1jAVtZXRhc5R9lIwIZW5kZXJlY2+USwNzdWJoESmBlH2UKGgUfZQojAtj
+b2xfZmVhdHVyZZSMB3F1YXJ0b3OUS2WGlIwLcm93X2ZlYXR1cmWUaDFLZYaUjAt2YWxfZmVhdHVy
+ZZSMB2FsdWd1ZWyUS2aGlGgMSwF1aCF9lCiMBmNvZGlnb5RLAmgxSwGMBXN1aXRllEsBjARhcmVh
+lEsCjAR2YWdhlEsBaDZLAowKY29uZG9taW5pb5RLAowEZGF0YZRLBHVoKn2UjAhlbmRlcmVjb5RL
+A3N1YmV1Lg==
+</properties>
+		<properties node_id="4" format="literal">{'auto_commit': True, 'color_by_class': True, 'controlAreaVisible': True, 'dist_color_RGB': (220, 220, 220, 255), 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x02J\x00\x00\x00\xbd\x00\x00\x05i\x00\x00\x02\xd5\x00\x00\x02J\x00\x00\x00\xe2\x00\x00\x05i\x00\x00\x02\xd5\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80\x00\x00\x02J\x00\x00\x00\xe2\x00\x00\x05i\x00\x00\x02\xd5', 'select_rows': True, 'selected_cols': [], 'selected_rows': [], 'show_attribute_labels': True, 'show_distributions': False, '__version__': 1}</properties>
+		<properties node_id="5" format="pickle">gASVHwIAAAAAAAB9lCiMC2F1dG9fY29tbWl0lIiMEmNvbnRyb2xBcmVhVmlzaWJsZZSIjBNzYXZl
+ZFdpZGdldEdlb21ldHJ5lENCAdnQywADAAAAAAKaAAAA1gAABRkAAAMHAAACmgAAAPsAAAUZAAAD
+BwAAAAAAAAAAB4AAAAKaAAAA+wAABRkAAAMHlIwRc2VsX2FnZ19mdW5jdGlvbnOUj5QojBtPcmFu
+Z2Uud2lkZ2V0cy5kYXRhLm93cGl2b3SUjBhBZ2dyZWdhdGlvbkZ1bmN0aW9uc0VudW2Uk5RLA4WU
+UpSQjAtfX3ZlcnNpb25fX5RLAYwQY29udGV4dF9zZXR0aW5nc5RdlIwVb3Jhbmdld2lkZ2V0LnNl
+dHRpbmdzlIwHQ29udGV4dJSTlCmBlH2UKIwGdmFsdWVzlH2UKIwLY29sX2ZlYXR1cmWUjAR2YWdh
+lEtlhpSMC3Jvd19mZWF0dXJllIwHcXVhcnRvc5RLZYaUjAlzZWxlY3Rpb26Uj5RK/v///4aUjAt2
+YWxfZmVhdHVyZZSMB2FsdWd1ZWyUS2aGlGgMSwF1jAphdHRyaWJ1dGVzlH2UKIwGY29kaWdvlEsC
+aBpLAYwFc3VpdGWUSwGMBGFyZWGUSwJoF0sBaCBLAowKY29uZG9taW5pb5RLAowEZGF0YZRLBIwI
+U2VsZWN0ZWSUSwF1jAVtZXRhc5R9lIwIZW5kZXJlY2+USwNzdWJhdS4=
+</properties>
+		<properties node_id="6" format="pickle">gASVCQIAAAAAAAB9lCiMCmF1dG9fYXBwbHmUiIwSY29udHJvbEFyZWFWaXNpYmxllIiMB21lcmdp
+bmeUSwCME3NhdmVkV2lkZ2V0R2VvbWV0cnmUQ0IB2dDLAAMAAAAAAvwAAAFgAAAEuAAAAnwAAAL8
+AAABhQAABLgAAAJ8AAAAAAAAAAAHgAAAAvwAAAGFAAAEuAAAAnyUjAtfX3ZlcnNpb25fX5RLAowQ
+Y29udGV4dF9zZXR0aW5nc5RdlIwVb3Jhbmdld2lkZ2V0LnNldHRpbmdzlIwHQ29udGV4dJSTlCmB
+lH2UKIwGdmFsdWVzlH2UKIwKYXR0cl9wYWlyc5RdlF2UKIwHcXVhcnRvc5RLZYaUaBNLZYaUZWFo
+BksCdYwKdmFyaWFibGVzMZR9lCiMBmNvZGlnb5RLZmgTS2WMBXN1aXRllEtljARhcmVhlEtmjAR2
+YWdhlEtljAdhbHVndWVslEtmjApjb25kb21pbmlvlEtmjARkYXRhlEtojAhTZWxlY3RlZJRLZYwI
+ZW5kZXJlY2+US2d1jAp2YXJpYWJsZXMylH2UKGgTS2WMDWNvZGlnbyAobWVhbimUS2aMC2FyZWEg
+KG1lYW4plEtmjA5hbHVndWVsIChtZWFuKZRLZowRY29uZG9taW5pbyAobWVhbimUS2aMC2RhdGEg
+KG1lYW4plEtmaB9LZXV1YmF1Lg==
+</properties>
+		<properties node_id="7" format="literal">{'auto_commit': True, 'color_by_class': True, 'controlAreaVisible': True, 'dist_color_RGB': (220, 220, 220, 255), 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x02J\x00\x00\x00\xe2\x00\x00\x05i\x00\x00\x02\xfa\x00\x00\x02J\x00\x00\x01\x07\x00\x00\x05i\x00\x00\x02\xfa\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80\x00\x00\x02J\x00\x00\x01\x07\x00\x00\x05i\x00\x00\x02\xfa', 'select_rows': True, 'selected_cols': [], 'selected_rows': [], 'show_attribute_labels': True, 'show_distributions': False, '__version__': 1}</properties>
+		<properties node_id="8" format="pickle">gASVcgIAAAAAAAB9lCiMEmNvbnRyb2xBcmVhVmlzaWJsZZSIjBNzYXZlZFdpZGdldEdlb21ldHJ5
+lENCAdnQywADAAAAAAKYAAAA4gAABRwAAAL6AAACmAAAAQcAAAUcAAAC+gAAAAAAAAAAB4AAAAKY
+AAABBwAABRwAAAL6lIwLX192ZXJzaW9uX1+USwGMEGNvbnRleHRfc2V0dGluZ3OUXZSMFW9yYW5n
+ZXdpZGdldC5zZXR0aW5nc5SMB0NvbnRleHSUk5QpgZR9lCiMBnZhbHVlc5R9lCiMDGN1cnJlbnRJ
+bmRleJRLAEr+////hpSMC2Rlc2NyaXB0b3JzlF2UjChPcmFuZ2Uud2lkZ2V0cy5kYXRhLm93ZmVh
+dHVyZWNvbnN0cnVjdG9ylIwUQ29udGludW91c0Rlc2NyaXB0b3KUk5SMD2RpZmVyZW5jYV9tZWRp
+YZSMGGFsdWd1ZWwgLSBhbHVndWVsX19tZWFuX5ROh5SBlGFoBEsBdYwKYXR0cmlidXRlc5R9lCiM
+BmNvZGlnb5RLAowHcXVhcnRvc5RLAYwFc3VpdGWUSwGMBGFyZWGUSwKMBHZhZ2GUSwGMB2FsdWd1
+ZWyUSwKMCmNvbmRvbWluaW+USwKMBGRhdGGUSwSMDWNvZGlnbyAobWVhbimUSwKMC2FyZWEgKG1l
+YW4plEsCjA5hbHVndWVsIChtZWFuKZRLAowRY29uZG9taW5pbyAobWVhbimUSwKMC2RhdGEgKG1l
+YW4plEsCjAhTZWxlY3RlZJRLAXWMBW1ldGFzlH2UKIwIZW5kZXJlY2+USwOMDFNlbGVjdGVkICgx
+KZRLAXV1YmF1Lg==
+</properties>
+		<properties node_id="9" format="literal">{'auto_commit': True, 'color_by_class': True, 'controlAreaVisible': True, 'dist_color_RGB': (220, 220, 220, 255), 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x02J\x00\x00\x01\x07\x00\x00\x05i\x00\x00\x02\xfa\x00\x00\x02J\x00\x00\x01\x07\x00\x00\x05i\x00\x00\x02\xfa\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80\x00\x00\x02J\x00\x00\x01\x07\x00\x00\x05i\x00\x00\x02\xfa', 'select_rows': True, 'selected_cols': [], 'selected_rows': [], 'show_attribute_labels': True, 'show_distributions': False, '__version__': 1}</properties>
+	</node_properties>
+	<session_state>
+		<window_groups />
+	</session_state>
+</scheme>

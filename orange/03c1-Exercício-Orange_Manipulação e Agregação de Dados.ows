@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<scheme version="2.0" title="Exercício - Manipulação e Agregação de Dados" description="">
+	<nodes>
+		<node id="0" name="CSV File Import" qualified_name="Orange.widgets.data.owcsvimport.OWCSVFileImport" project_name="Orange3" version="" title="CSV File Import" position="(96.0, 347.0)" />
+		<node id="1" name="Data Table" qualified_name="Orange.widgets.data.owtable.OWDataTable" project_name="Orange3" version="" title="Data Table" position="(283.0, 262.0)" />
+	</nodes>
+	<links>
+		<link id="0" source_node_id="0" sink_node_id="1" source_channel="Data" sink_channel="Data" enabled="true" />
+	</links>
+	<annotations>
+		<text id="0" type="text/markdown" rect="(120.0, 19.0, 573.0, 186.0)" font-family="Sans Serif" font-size="16"># Manipulação e Agregação de Dados - Exercícios
+
+Resolva os exercícios propostos abaixo. Os exercícios usam um dataset de reclamações registradas por cidadãos. O detaset foi derivado de dados do [Portal de Dados Abertos da Prefeitura de Curitiba](https://www.curitiba.pr.gov.br/DADOSABERTOS/).</text>
+		<arrow id="1" start="(98.0, 459.0)" end="(96.0, 422.0)" fill="#39B54A" />
+		<text id="2" type="text/markdown" rect="(5.0, 482.0, 448.0, 145.0)" font-family="Sans Serif" font-size="16">1- Importe dados a partir do arquivo 2017-02-01_156_-_Base_de_Dados_sample.csv
+
+**Atenção**: Use o Encoding *Wester Europe (ISO Latin 1)* para tratar corretamente os caracteres com acentos e o Cell delimiter *Semicolon* uma vez que o arquivo usa ponto e vírgula para separar os valores.</text>
+		<text id="3" type="text/markdown" rect="(608.0, 198.0, 262.0, 309.0)" font-family="Sans Serif" font-size="16">2- Crie uma nova tabela chamada `df_elogios` contendo apenas as linhas cujos valores na culuna `TIPO` são iguais a 'ELOGIO'. Esta tabela deve ter as colunas TIPO, ASSUNTO, e BAIRRO_CIDADAO.
+
+3- Quais são os 5 bairros com mais elogios? Agrupe pelo `BAIRRO_CIDADAO` e ordene o resultado para responder.</text>
+		<text id="4" type="text/markdown" rect="(917.0, 180.0, 221.0, 373.0)" font-family="Sans Serif" font-size="16">4- Crie duas novas tabelas, uma contendo a as linhas de reclamações de pessoas do sexo masculino e outra do sexo feminino. Use estas tabelas para responder:
+
+5-Crie uma nova tablea chamada `df_totais` contendo a contagem de reclamações de cada tipo para cada sexo. Dica: Faça os agrupamentos usando Pivot para as contagens e depois faça uma junção (merge) nas contagens para cada sexo.</text>
+	</annotations>
+	<thumbnail />
+	<node_properties>
+		<properties node_id="0" format="literal">{'_session_items': [('/home/luizcelso/Insync/GDriveUTFPR/PycharmProjects/DataScienceIntro/orange/data/2017-02-01_156_-_Base_de_Dados_sample.csv', {'encoding': 'iso8859-1', 'delimiter': ';', 'quotechar': '"', 'doublequote': True, 'skipinitialspace': True, 'quoting': 0, 'columntypes': [{'start': 0, 'stop': 20, 'value': 'Auto'}], 'rowspec': [{'start': 0, 'stop': 1, 'value': 'Header'}], 'decimal_separator': '.', 'group_separator': ''}), ('/home/luizcelso/Insync/GDriveUTFPR/PycharmProjects/DataScienceIntro/orange/data/aluguel.csv', {'encoding': 'utf-8', 'delimiter': ',', 'quotechar': '"', 'doublequote': True, 'skipinitialspace': True, 'quoting': 0, 'columntypes': [{'start': 0, 'stop': 9, 'value': 'Auto'}], 'rowspec': [{'start': 0, 'stop': 1, 'value': 'Header'}], 'decimal_separator': '.', 'group_separator': ''})], 'controlAreaVisible': True, 'dialog_state': {'directory': '/home/luizcelso/Insync/GDriveUTFPR/PycharmProjects/DataScienceIntro/orange/data', 'filter': 'Text - comma separated (*.csv, *)'}, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x04m\x00\x00\x01V\x00\x00\x05\xa6\x00\x00\x02\xb9\x00\x00\x04m\x00\x00\x01{\x00\x00\x05\xa6\x00\x00\x02\xb9\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80\x00\x00\x04m\x00\x00\x01{\x00\x00\x05\xa6\x00\x00\x02\xb9', '__version__': 1}</properties>
+		<properties node_id="1" format="literal">{'auto_commit': True, 'color_by_class': True, 'controlAreaVisible': True, 'dist_color_RGB': (220, 220, 220, 255), 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x02J\x00\x00\x01\x07\x00\x00\x05i\x00\x00\x02\xfa\x00\x00\x02J\x00\x00\x01\x07\x00\x00\x05i\x00\x00\x02\xfa\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80\x00\x00\x02J\x00\x00\x01\x07\x00\x00\x05i\x00\x00\x02\xfa', 'select_rows': True, 'selected_cols': [], 'selected_rows': [], 'show_attribute_labels': True, 'show_distributions': False, '__version__': 1}</properties>
+	</node_properties>
+	<session_state>
+		<window_groups />
+	</session_state>
+</scheme>
