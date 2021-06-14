@@ -1,10 +1,10 @@
 # Introdução a Ciência de Dados com Python
 
-Este repositório contém exemplos de código para suporte às disciplinas relacionadas com Ciência de Dados na UTFPR-Curitiba. Os exemplos se encontram na pasta *notebooks*.
+Este repositório contém exemplos de código para suporte às disciplinas relacionadas com Ciência de Dados na UTFPR-Curitiba. Os exemplos de python/jupyter se encontram na pasta *notebooks*. Os exemplos de Orange se encontram na pasta *orange*.
 
 Os notebooks podem ser executados usando o Binder. Clique no link: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gl/introcienciadedados%2Ftutoriais/master)
 
-## Requistos e instalações
+## Requistos e instalações (Python)
 
 Para executar os exemplos localmente, é preciso ter instalado:
 
@@ -16,7 +16,7 @@ O Python e o Jupyter Notebook (e diversos outros pacotes relacionados) podem ser
 
 O Git pode ser obtido em: [https://git-scm.com/downloads](https://git-scm.com/downloads)
 
-##  Download dos exemplos e execução
+###  Download dos tutoriais e execução
 
 Para fazer o download dos exemplos, inicie uma janela de terminal e execute (Linux):
 
@@ -27,3 +27,13 @@ jupyter-notebook
 ```
 
 O Jupyter iniciará uma janela do navegador mostrando a lista de diretórios do projeto. Os exemplos se encontram na pasta `notebooks`.
+
+## Requistos e instalações (Orange)
+
+O Orange pode ser obtido em: [https://orangedatamining.com/download/](https://orangedatamining.com/download/)
+
+###  Download dos tutoriais e execução
+
+Para fazer o download dos exemplos, clique neste [link](https://gitlab.com/introcienciadedados/tutoriais/-/archive/master/tutoriais-master.zip)
+
+Para abrir os exemplos, primeiro descompacte o arquivo baixado. Em seguida, abra o Orange, cliquem em `open` e navegue até o diretório onde você descompactou os tutoriais.
