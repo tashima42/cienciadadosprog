@@ -18,7 +18,9 @@ O Git pode ser obtido em: [https://git-scm.com/downloads](https://git-scm.com/do
 
 ###  Download dos tutoriais e execução
 
-Para fazer o download dos exemplos, inicie uma janela de terminal e execute (Linux):
+Para fazer o download dos exemplos, clique neste [link](https://gitlab.com/introcienciadedados/tutoriais/-/archive/master/tutoriais-master.zip)
+
+Para fazer o download dos exemplos usando o git, inicie uma janela de terminal e execute (Linux):
 
 ```
 git clone https://gitlab.com/luizcelso/datascience.git
