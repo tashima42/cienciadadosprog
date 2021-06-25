@@ -1,0 +1,163 @@
+<?xml version='1.0' encoding='utf-8'?>
+<scheme version="2.0" title="Análise Exploratória" description="">
+	<nodes>
+		<node id="0" name="CSV File Import" qualified_name="Orange.widgets.data.owcsvimport.OWCSVFileImport" project_name="Orange3" version="" title="CSV File Import" position="(93.0, 368.0)" />
+		<node id="1" name="Data Table" qualified_name="Orange.widgets.data.owtable.OWDataTable" project_name="Orange3" version="" title="Data Table" position="(344.0, 439.0)" />
+		<node id="2" name="Distributions" qualified_name="Orange.widgets.visualize.owdistributions.OWDistributions" project_name="Orange3" version="" title="Histograma - aluguel" position="(677.0, 504.0)" />
+		<node id="3" name="Distributions" qualified_name="Orange.widgets.visualize.owdistributions.OWDistributions" project_name="Orange3" version="" title="Histograma - condominio" position="(524.0, 519.0)" />
+		<node id="4" name="Box Plot" qualified_name="Orange.widgets.visualize.owboxplot.OWBoxPlot" project_name="Orange3" version="" title="Box Plot" position="(953.0, 472.0)" />
+		<node id="5" name="Edit Domain" qualified_name="Orange.widgets.data.oweditdomain.OWEditDomain" project_name="Orange3" version="" title="Edit Domain" position="(226.0, 301.0)" />
+		<node id="6" name="Correlations" qualified_name="Orange.widgets.data.owcorrelations.OWCorrelations" project_name="Orange3" version="" title="Correlations" position="(875.0, 221.0)" />
+		<node id="7" name="Scatter Plot" qualified_name="Orange.widgets.visualize.owscatterplot.OWScatterPlot" project_name="Orange3" version="" title="Scatter Plot" position="(1221.0, 301.0)" />
+		<node id="8" name="Feature Statistics" qualified_name="Orange.widgets.data.owfeaturestatistics.OWFeatureStatistics" project_name="Orange3" version="" title="Feature Statistics" position="(315.0, 529.0)" />
+	</nodes>
+	<links>
+		<link id="0" source_node_id="1" sink_node_id="2" source_channel="Data" sink_channel="Data" enabled="true" />
+		<link id="1" source_node_id="1" sink_node_id="3" source_channel="Data" sink_channel="Data" enabled="true" />
+		<link id="2" source_node_id="1" sink_node_id="4" source_channel="Data" sink_channel="Data" enabled="true" />
+		<link id="3" source_node_id="5" sink_node_id="1" source_channel="Data" sink_channel="Data" enabled="true" />
+		<link id="4" source_node_id="0" sink_node_id="5" source_channel="Data" sink_channel="Data" enabled="true" />
+		<link id="5" source_node_id="1" sink_node_id="6" source_channel="Selected Data" sink_channel="Data" enabled="true" />
+		<link id="6" source_node_id="1" sink_node_id="7" source_channel="Selected Data" sink_channel="Data" enabled="true" />
+		<link id="7" source_node_id="5" sink_node_id="8" source_channel="Data" sink_channel="Data" enabled="true" />
+	</links>
+	<annotations>
+		<text id="0" type="text/markdown" rect="(34.0, 24.0, 756.0, 259.0)" font-family="Sans Serif" font-size="16"># Análise Exploratória
+
+A Análise Exploratória é uma fase importante de uma tarefa de Ciência de Dados. É nesta fase que buscamos entender os dados com os seguintes objetivos:
+
+- Identificar padrões iniciais
+- Formular perguntas de pesquisa e hipóteses
+- Identificar dados incompletos ou não confiáveis
+
+Para atingir os objetivos, em geral usa-se uma combinação de análises estatísticas com uma grande ênfase em geração e interpretação de gráficos.</text>
+		<text id="1" type="text/markdown" rect="(17.0, 465.0, 222.0, 449.0)" font-family="Sans Serif" font-size="16">A ação carrega o arquivo *aluguel.csv* que se encontra na pasta *data*. Este arquivo contém registros de anúncios de apartamentos para alugar.</text>
+		<text id="2" type="text/markdown" rect="(299.0, 268.0, 183.0, 126.0)" font-family="Sans Serif" font-size="16">Editamos o domínio (tipo) dos atributos para criar colunas categóricas para deixar as análises mais ricas.</text>
+		<text id="3" type="text/plain" rect="(1222.0, 386.0, 357.0, 288.0)" font-family="Sans Serif" font-size="16">A correlação é uma boa medida de associação entre variáveis, mas ela não oferece detalhes sobre a distribuição ou sobre a presença de outliers. Para se ter uma ideia melhor das associações, é interessante visualizar os dados no plano cartesiano. Para isto usamos gráficos de dispersão (Scatter Plots). Perceba a concentração de valores na diagonal indica que quanto maior a área, maior o aluguel. Porém, esta correlação não é perfeita. Tente encontrar no gráfico os apartamentos que estão super ou subvalorizados de acordo com a área.</text>
+		<text id="4" type="text/markdown" rect="(431.0, 590.0, 411.0, 434.0)" font-family="Sans Serif" font-size="16">Visualizar as distribuições das variaveis nos ajuda a identificar os primeiros padrões. Acima exibimos os histogramas para `aluguel` e `condomínio`. É possivel ver que a maior concentração de apartamentos é de aluguéis entre 600 e 900. Há também uma concentração menor em aluguéis em torno de 1200. Já a distribuição dos condomínios é mais homogênea, com a maior parte dos valores por volta de 370.
+
+Faz sentido este comportamento? Aparentemente o condomínio não varia na mesma proporção do valor do aluguel. Ou seja, se um apartamento de 600 paga 300 de condomínio, não se espera que um apartamento de 1200 pague 600 de condomínio. Esta pode ser uma questão a se explorar em passos futuros das análises.</text>
+		<text id="5" type="text/markdown" rect="(879.0, 526.0, 277.0, 411.0)" font-family="Sans Serif" font-size="16">Outra forma de visualizar a distribuição de variáveis é através de Box Plots. Acima exibimos um gráfico para aluguéis agrupados pelo número de quartos. No gráfico, podemos perceber que a variação de valores de apartamentos de 2 quartos é maior. O Orange permite calcular automaticamente a relevância estatística das diferenças das médias entre os grupos. Neste caso, o p-value menor que 0,01 indica que a diferença entre as médias de valores entre aluguéis de 1 e 2 quartos pode ser extrapolada para além desta pequena amostra (com algumas ressalvas que não discutiremos aqui).</text>
+		<text id="6" type="text/plain" rect="(933.0, 35.0, 316.0, 255.0)" font-family="Sans Serif" font-size="16">Para identificar associações entre as variáveis podemos utilizar diversas ferramentas estatísticas e visuais. A ação ao lado calcula a correlação (Pearson) entre todos os pares de variáves. Podemos ver que a maior correlação está entre a área do apartamento e o aluguel. Isto significa que, aparentemente, o tamanho do apartamento é o que mais influencia no valor total.</text>
+		<text id="7" type="text/plain" rect="(226.0, 589.0, 194.0, 151.0)" font-family="Sans Serif" font-size="16">A ação Feature Statistics mostra diversos elementos que nos ajudam a ter uma compreensão inicial dos dados.</text>
+	</annotations>
+	<thumbnail />
+	<node_properties>
+		<properties node_id="0" format="literal">{'_session_items': [], '_session_items_v2': [({'type': 'AbsPath', 'path': '/home/luizcelso/Insync/GDriveUTFPR/PycharmProjects/DataScienceIntro/orange/data/aluguel.csv'}, {'encoding': 'utf-8', 'delimiter': ',', 'quotechar': '"', 'doublequote': True, 'skipinitialspace': True, 'quoting': 0, 'columntypes': [{'start': 0, 'stop': 9, 'value': 'Auto'}], 'rowspec': [{'start': 0, 'stop': 1, 'value': 'Header'}], 'decimal_separator': '.', 'group_separator': ''})], 'compatibility_mode': True, 'controlAreaVisible': True, 'dialog_state': {'directory': '/home/luizcelso/Insync/GDriveUTFPR/PycharmProjects/DataScienceIntro/orange/data', 'filter': 'Text - comma separated (*.csv, *)'}, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x03=\x00\x00\x01b\x00\x00\x04v\x00\x00\x02\xa0\x00\x00\x03=\x00\x00\x01b\x00\x00\x04v\x00\x00\x02\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80\x00\x00\x03=\x00\x00\x01b\x00\x00\x04v\x00\x00\x02\xa0', '__version__': 3}</properties>
+		<properties node_id="1" format="literal">{'auto_commit': True, 'color_by_class': True, 'controlAreaVisible': True, 'dist_color_RGB': (220, 220, 220, 255), 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x02J\x00\x00\x01\x07\x00\x00\x05i\x00\x00\x02\xfa\x00\x00\x02J\x00\x00\x01\x07\x00\x00\x05i\x00\x00\x02\xfa\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80\x00\x00\x02J\x00\x00\x01\x07\x00\x00\x05i\x00\x00\x02\xfa', 'select_rows': True, 'selected_cols': [], 'selected_rows': [], 'show_attribute_labels': True, 'show_distributions': False, '__version__': 2}</properties>
+		<properties node_id="2" format="pickle">gASV+AMAAAAAAAB9lCiMCmF1dG9fYXBwbHmUiIwSY29udHJvbEFyZWFWaXNpYmxllIiMEGN1bXVs
+YXRpdmVfZGlzdHKUiYwTZml0dGVkX2Rpc3RyaWJ1dGlvbpRLAIwJaGlkZV9iYXJzlImMDWtkZV9z
+bW9vdGhpbmeUSwqME3NhdmVkV2lkZ2V0R2VvbWV0cnmUQ0IB2dDLAAMAAAAAAgMAAAC2AAAFsQAA
+AycAAAIDAAAA2wAABbEAAAMnAAAAAAAAAAAHgAAAAgMAAADbAAAFsQAAAyeUjApzaG93X3Byb2Jz
+lImMDHNvcnRfYnlfZnJlcZSJjA9zdGFja2VkX2NvbHVtbnOUiYwLX192ZXJzaW9uX1+USwGMEGNv
+bnRleHRfc2V0dGluZ3OUXZQojBVvcmFuZ2V3aWRnZXQuc2V0dGluZ3OUjAdDb250ZXh0lJOUKYGU
+fZQojAZ2YWx1ZXOUfZQojARjdmFylE5K/v///4aUjA5udW1iZXJfb2ZfYmluc5RLAEr+////hpSM
+CXNlbGVjdGlvbpSPlEr+////hpSMA3ZhcpSMB2FsdWd1ZWyUS2aGlGgMSwF1jAphdHRyaWJ1dGVz
+lH2UKIwHcXVhcnRvc5RLAYwFc3VpdGWUSwGMBGFyZWGUSwKMBHZhZ2GUSwFoHksCjApjb25kb21p
+bmlvlEsCjAhTZWxlY3RlZJRLAXWMBW1ldGFzlH2UKIwIZW5kZXJlY2+USwOMBGRhdGGUSwSMBmNv
+ZGlnb5RLA3V1YmgRKYGUfZQoaBR9lChoFk5K/v///4aUaBhLAEr+////hpRoGo+USv7///+GlGgd
+aB5LZoaUaAxLAXVoIH2UKGgsSwJoIksBaCNLAWgkSwJoJUsBaB5LAmgmSwJoJ0sBdWgofZQoaCpL
+A2grSwR1dWJoESmBlH2UKGgUfZQoaBZOSv7///+GlGgYSwBK/v///4aUaBqPlEr+////hpRoHWge
+S2aGlGgMSwF1aCB9lChoLEsCaCJLAmgjSwJoJEsCaCVLAmgeSwJoJksCaCdLAXVoKH2UKGgqSwNo
+K0sEdXViaBEpgZR9lChoFH2UKGgWTkr+////hpRoGEsASv7///+GlGgaj5RK/v///4aUaB1oHktm
+hpRoDEsBdWggfZQoaCxLAmgiSwJoI0sCaCRLAmglSwJoHksCaCZLAmgnSwF1aCh9lChoKksDaCtL
+A3V1YmgRKYGUfZQoaBR9lChoFk5K/v///4aUaBhLBEr+////hpRoGo+USv7///+GlGgdaCxLZoaU
+aAxLAXVoIH2UKGgsSwJoIksCaCNLAmgkSwJoJUsCaB5LAmgmSwJ1aCh9lChoKksDaCtLA3V1YmV1
+Lg==
+</properties>
+		<properties node_id="3" format="pickle">gASV+AMAAAAAAAB9lCiMCmF1dG9fYXBwbHmUiIwSY29udHJvbEFyZWFWaXNpYmxllIiMEGN1bXVs
+YXRpdmVfZGlzdHKUiYwTZml0dGVkX2Rpc3RyaWJ1dGlvbpRLAIwJaGlkZV9iYXJzlImMDWtkZV9z
+bW9vdGhpbmeUSwqME3NhdmVkV2lkZ2V0R2VvbWV0cnmUQ0IB2dDLAAMAAAAAAgMAAAC2AAAFsQAA
+AycAAAIDAAAA2wAABbEAAAMnAAAAAAAAAAAHgAAAAgMAAADbAAAFsQAAAyeUjApzaG93X3Byb2Jz
+lImMDHNvcnRfYnlfZnJlcZSJjA9zdGFja2VkX2NvbHVtbnOUiYwLX192ZXJzaW9uX1+USwGMEGNv
+bnRleHRfc2V0dGluZ3OUXZQojBVvcmFuZ2V3aWRnZXQuc2V0dGluZ3OUjAdDb250ZXh0lJOUKYGU
+fZQojAZ2YWx1ZXOUfZQojARjdmFylE5K/v///4aUjA5udW1iZXJfb2ZfYmluc5RLAkr+////hpSM
+CXNlbGVjdGlvbpSPlEr+////hpSMA3ZhcpSMCmNvbmRvbWluaW+US2aGlGgMSwF1jAphdHRyaWJ1
+dGVzlH2UKIwHcXVhcnRvc5RLAYwFc3VpdGWUSwGMBGFyZWGUSwKMBHZhZ2GUSwGMB2FsdWd1ZWyU
+SwJoHksCjAhTZWxlY3RlZJRLAXWMBW1ldGFzlH2UKIwIZW5kZXJlY2+USwOMBGRhdGGUSwSMBmNv
+ZGlnb5RLA3V1YmgRKYGUfZQoaBR9lChoFk5K/v///4aUaBhLAkr+////hpRoGo+USv7///+GlGgd
+aB5LZoaUaAxLAXVoIH2UKGgsSwJoIksBaCNLAWgkSwJoJUsBaCZLAmgeSwJoJ0sBdWgofZQoaCpL
+A2grSwR1dWJoESmBlH2UKGgUfZQoaBZOSv7///+GlGgYSwJK/v///4aUaBqPlEr+////hpRoHWge
+S2aGlGgMSwF1aCB9lChoLEsCaCJLAmgjSwJoJEsCaCVLAmgmSwJoHksCaCdLAXVoKH2UKGgqSwNo
+K0sEdXViaBEpgZR9lChoFH2UKGgWTkr+////hpRoGEsCSv7///+GlGgaj5RK/v///4aUaB1oHktm
+hpRoDEsBdWggfZQoaCxLAmgiSwJoI0sCaCRLAmglSwJoJksCaB5LAmgnSwF1aCh9lChoKksDaCtL
+A3V1YmgRKYGUfZQoaBR9lChoFk5K/v///4aUaBhLBEr+////hpRoGo+USv7///+GlGgdaCxLZoaU
+aAxLAXVoIH2UKGgsSwJoIksCaCNLAmgkSwJoJUsCaCZLAmgeSwJ1aCh9lChoKksDaCtLA3V1YmV1
+Lg==
+</properties>
+		<properties node_id="4" format="pickle">gASV0QMAAAAAAAB9lCiMB2NvbXBhcmWUSwKMEmNvbnRyb2xBcmVhVmlzaWJsZZSIjBNvcmRlcl9i
+eV9pbXBvcnRhbmNllImMHG9yZGVyX2dyb3VwaW5nX2J5X2ltcG9ydGFuY2WUiYwTc2F2ZWRXaWRn
+ZXRHZW9tZXRyeZRDQgHZ0MsAAwAAAAACGAAAAOIAAAWbAAAC+gAAAhgAAAEHAAAFmwAAAvoAAAAA
+AAAAAAeAAAACGAAAAQcAAAWbAAAC+pSMEHNob3dfYW5ub3RhdGlvbnOUiIwLc2hvd19sYWJlbHOU
+iIwNc2lnX3RocmVzaG9sZJRHP6mZmZmZmZqMCnNvcnRfZnJlcXOUiYwIc3RhdHRlc3SUSwCMCXN0
+cmV0Y2hlZJSIjAtfX3ZlcnNpb25fX5RLAYwQY29udGV4dF9zZXR0aW5nc5RdlCiMFW9yYW5nZXdp
+ZGdldC5zZXR0aW5nc5SMB0NvbnRleHSUk5QpgZR9lCiMBnZhbHVlc5R9lCiMCWF0dHJpYnV0ZZSM
+B2FsdWd1ZWyUS2aGlIwJZ3JvdXBfdmFylIwHcXVhcnRvc5RLZYaUjAlzZWxlY3Rpb26UKUr+////
+hpRoDUsBdYwKYXR0cmlidXRlc5R9lChoG0sBjAVzdWl0ZZRLAYwEYXJlYZRLAowEdmFnYZRLAWgY
+SwKMCmNvbmRvbWluaW+USwKMCFNlbGVjdGVklEsBdYwFbWV0YXOUfZQojAhlbmRlcmVjb5RLA4wE
+ZGF0YZRLBIwGY29kaWdvlEsDdXViaBIpgZR9lChoFX2UKGgXaBhLZoaUaBpoG0tlhpRoHSlK/v//
+/4aUaA1LAXVoH32UKGgqSwJoG0sBaCFLAWgiSwJoI0sBaBhLAmgkSwJoJUsBdWgmfZQoaChLA2gp
+SwR1dWJoEimBlH2UKGgVfZQoaBdoGEtmhpRoGk5K/v///4aUaB0pSv7///+GlGgNSwF1aB99lCho
+KksCaBtLAmghSwJoIksCaCNLAmgYSwJoJEsCaCVLAXVoJn2UKGgoSwNoKUsEdXViaBIpgZR9lCho
+FX2UKGgXaBhLZoaUaBpOSv7///+GlGgdKUr+////hpRoDUsBdWgffZQoaCpLAmgbSwJoIUsCaCJL
+AmgjSwJoGEsCaCRLAmglSwF1aCZ9lChoKEsDaClLA3V1YmgSKYGUfZQoaBV9lChoF2gqS2aGlGga
+Tkr+////hpRoHSlK/v///4aUaA1LAXVoH32UKGgqSwJoG0sCaCFLAmgiSwJoI0sCaBhLAmgkSwJ1
+aCZ9lChoKEsDaClLA3V1YmV1Lg==
+</properties>
+		<properties node_id="5" format="pickle">gASVgQIAAAAAAAB9lCiMEmNvbnRyb2xBcmVhVmlzaWJsZZSIjBNzYXZlZFdpZGdldEdlb21ldHJ5
+lENCAdnQywADAAAAAAKQAAAAeQAABSMAAAMZAAACkAAAAJ4AAAUjAAADGQAAAAAAAAAAB4AAAAKQ
+AAAAngAABSMAAAMZlIwLX192ZXJzaW9uX1+USwKMEGNvbnRleHRfc2V0dGluZ3OUXZSMFW9yYW5n
+ZXdpZGdldC5zZXR0aW5nc5SMB0NvbnRleHSUk5QpgZR9lCiMBnZhbHVlc5R9lCiMFF9kb21haW5f
+Y2hhbmdlX3N0b3JllH2UKIwGU3RyaW5nlIwEZGF0YZQpiYeUhpRdlIwGQXNUaW1llCmGlGGMBFJl
+YWyUKIwHcXVhcnRvc5RLAIwBZpSGlCmJdJSGlF2UjA1Bc0NhdGVnb3JpY2FslCmGlGFoFyiMBXN1
+aXRllEsAaBmGlCmJdJSGlF2UaB4phpRhaBcojAR2YWdhlEsAaBmGlCmJdJSGlF2UaB4phpRhaBco
+jAZjb2RpZ2+USwBoGYaUKYl0lIaUXZSMCEFzU3RyaW5nlCmGlGF1Sv7///+GlIwWX21lcmdlX2Rp
+YWxvZ19zZXR0aW5nc5R9lEr8////hpSMDl9zZWxlY3RlZF9pdGVtlGgsSwKGlEr+////hpSMEW91
+dHB1dF90YWJsZV9uYW1llIwAlEr+////hpRoBEsCdYwKYXR0cmlidXRlc5R9lChoLEsCaBhLAmgg
+SwKMBGFyZWGUSwJoJksCjAdhbHVndWVslEsCjApjb25kb21pbmlvlEsCdYwFbWV0YXOUfZQojAhl
+bmRlcmVjb5RLA4wEZGF0YZRLA3V1YmF1Lg==
+</properties>
+		<properties node_id="6" format="pickle">gASVyAEAAAAAAAB9lCiMEmNvbnRyb2xBcmVhVmlzaWJsZZSIjBBjb3JyZWxhdGlvbl90eXBllEsA
+jBNzYXZlZFdpZGdldEdlb21ldHJ5lENCAdnQywADAAAAAAMrAAABOQAABIgAAALIAAADKwAAATkA
+AASIAAACyAAAAAAAAAAAB4AAAAMrAAABOQAABIgAAALIlIwLX192ZXJzaW9uX1+USwOMEGNvbnRl
+eHRfc2V0dGluZ3OUXZQojBVvcmFuZ2V3aWRnZXQuc2V0dGluZ3OUjAdDb250ZXh0lJOUKYGUfZQo
+jAZ2YWx1ZXOUfZQojAdmZWF0dXJllE5K/v///4aUjAlzZWxlY3Rpb26UXZQojAdhbHVndWVslEtm
+hpSMBGFyZWGUS2aGlGVK/f///4aUaAVLA3WMCmF0dHJpYnV0ZXOUfZQojARkYXRhlEsEaBVLAmgT
+SwKMCmNvbmRvbWluaW+USwJ1jAVtZXRhc5R9lHViaAopgZR9lChoDX2UKGgPTkr+////hpRoEV2U
+KGgTS2aGlGgVS2aGlGVK/f///4aUaAVLA3VoGH2UKGgaSwSMBmNvZGlnb5RLAmgVSwJoE0sCaBtL
+AnVoHH2UdWJldS4=
+</properties>
+		<properties node_id="7" format="pickle">gASVZAMAAAAAAAB9lCiMC2F1dG9fY29tbWl0lIiMC2F1dG9fc2FtcGxllIiMEmNvbnRyb2xBcmVh
+VmlzaWJsZZSIjBNzYXZlZFdpZGdldEdlb21ldHJ5lENCAdnQywADAAAAAAGkAAAAegAABg8AAANi
+AAABpAAAAJ8AAAYPAAADYgAAAAAAAAAAB4AAAAGkAAAAnwAABg8AAANilIwJc2VsZWN0aW9ulE6M
+EXRvb2x0aXBfc2hvd3NfYWxslIiMD3Zpc3VhbF9zZXR0aW5nc5R9lIwFZ3JhcGiUfZQojAthbHBo
+YV92YWx1ZZRLgIwNY2xhc3NfZGVuc2l0eZSJjBFqaXR0ZXJfY29udGludW91c5SIjAtqaXR0ZXJf
+c2l6ZZRLAIwTbGFiZWxfb25seV9zZWxlY3RlZJSJjBZvcnRob25vcm1hbF9yZWdyZXNzaW9ulImM
+C3BvaW50X3dpZHRolEsKjAlzaG93X2dyaWSUiYwLc2hvd19sZWdlbmSUiIwNc2hvd19yZWdfbGlu
+ZZSJdYwLX192ZXJzaW9uX1+USwWMEGNvbnRleHRfc2V0dGluZ3OUXZQojBVvcmFuZ2V3aWRnZXQu
+c2V0dGluZ3OUjAdDb250ZXh0lJOUKYGUfZQojAZ2YWx1ZXOUfZQojAphdHRyX2NvbG9ylE5K/v//
+/4aUjAphdHRyX2xhYmVslE5K/v///4aUjAphdHRyX3NoYXBllE5K/v///4aUjAlhdHRyX3NpemWU
+Tkr+////hpSMBmF0dHJfeJSMB2FsdWd1ZWyUS2aGlIwGYXR0cl95lIwEYXJlYZRLZoaUaAp9lGgW
+SwV1jAphdHRyaWJ1dGVzlH2UKIwHcXVhcnRvc5RLAYwFc3VpdGWUSwFoLEsCjAR2YWdhlEsBaClL
+AowKY29uZG9taW5pb5RLAnWMBW1ldGFzlH2UKIwIZW5kZXJlY2+USwOMBGRhdGGUSwSMBmNvZGln
+b5RLA3V1YmgbKYGUfZQoaB59lChoIE5K/v///4aUaCJOSv7///+GlGgkTkr+////hpRoJk5K/v//
+/4aUaChoKUtmhpRoK2gsS2aGlGgKfZRoFksFdWgvfZQoaDlLAmgxSwFoMksBaCxLAmgzSwFoKUsC
+aDRLAnVoNX2UKGg3SwNoOEsEdXViZXUu
+</properties>
+		<properties node_id="8" format="pickle">gASVMAIAAAAAAAB9lCiMC2F1dG9fY29tbWl0lIiMEmNvbnRyb2xBcmVhVmlzaWJsZZSIjBNzYXZl
+ZFdpZGdldEdlb21ldHJ5lENCAdnQywADAAAAAAHNAAAA4gAABeYAAAL6AAABzQAAAQcAAAXmAAAC
++gAAAAAAAAAAB4AAAAHNAAABBwAABeYAAAL6lIwHc29ydGluZ5RLAIwJUHlRdDUuc2lwlIwOX3Vu
+cGlja2xlX2VudW2Uk5SMDFB5UXQ1LlF0Q29yZZSMCVNvcnRPcmRlcpRLAIeUUpSGlIwLX192ZXJz
+aW9uX1+USwKMEGNvbnRleHRfc2V0dGluZ3OUXZQojBVvcmFuZ2V3aWRnZXQuc2V0dGluZ3OUjAdD
+b250ZXh0lJOUKYGUfZQojAZ2YWx1ZXOUfZQojAljb2xvcl92YXKUTkr+////hpSMDXNlbGVjdGVk
+X3ZhcnOUXZRoDksCdYwKYXR0cmlidXRlc5R9lCiMB3F1YXJ0b3OUSwGMBXN1aXRllEsBjARhcmVh
+lEsCjAR2YWdhlEsBjAdhbHVndWVslEsCjApjb25kb21pbmlvlEsCdYwFbWV0YXOUfZQojAhlbmRl
+cmVjb5RLA4wEZGF0YZRLBIwGY29kaWdvlEsDdXViaBMpgZR9lChoFn2UKGgYTkr+////hpRoGl2U
+aA5LAnVoHH2UKGgoSwJoHksBaB9LAWggSwJoIUsBaCJLAmgjSwJ1aCR9lChoJksDaCdLBHV1YmV1
+Lg==
+</properties>
+	</node_properties>
+	<session_state>
+		<window_groups />
+	</session_state>
+</scheme>
