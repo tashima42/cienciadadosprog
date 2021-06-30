@@ -4,7 +4,7 @@
 		<node id="0" name="CSV File Import" qualified_name="Orange.widgets.data.owcsvimport.OWCSVFileImport" project_name="Orange3" version="" title="CSV File Import" position="(93.0, 368.0)" />
 		<node id="1" name="Data Table" qualified_name="Orange.widgets.data.owtable.OWDataTable" project_name="Orange3" version="" title="Data Table" position="(344.0, 439.0)" />
 		<node id="2" name="Distributions" qualified_name="Orange.widgets.visualize.owdistributions.OWDistributions" project_name="Orange3" version="" title="Histograma - aluguel" position="(677.0, 504.0)" />
-		<node id="3" name="Distributions" qualified_name="Orange.widgets.visualize.owdistributions.OWDistributions" project_name="Orange3" version="" title="Histograma - condominio" position="(524.0, 519.0)" />
+		<node id="3" name="Distributions" qualified_name="Orange.widgets.visualize.owdistributions.OWDistributions" project_name="Orange3" version="" title="Histograma - condominio" position="(524.0, 518.0)" />
 		<node id="4" name="Box Plot" qualified_name="Orange.widgets.visualize.owboxplot.OWBoxPlot" project_name="Orange3" version="" title="Box Plot" position="(953.0, 472.0)" />
 		<node id="5" name="Edit Domain" qualified_name="Orange.widgets.data.oweditdomain.OWEditDomain" project_name="Orange3" version="" title="Edit Domain" position="(226.0, 301.0)" />
 		<node id="6" name="Correlations" qualified_name="Orange.widgets.data.owcorrelations.OWCorrelations" project_name="Orange3" version="" title="Correlations" position="(875.0, 221.0)" />
@@ -33,13 +33,14 @@ A Análise Exploratória é uma fase importante de uma tarefa de Ciência de Dad
 Para atingir os objetivos, em geral usa-se uma combinação de análises estatísticas com uma grande ênfase em geração e interpretação de gráficos.</text>
 		<text id="1" type="text/markdown" rect="(17.0, 465.0, 222.0, 449.0)" font-family="Sans Serif" font-size="16">A ação carrega o arquivo *aluguel.csv* que se encontra na pasta *data*. Este arquivo contém registros de anúncios de apartamentos para alugar.</text>
 		<text id="2" type="text/markdown" rect="(299.0, 268.0, 183.0, 126.0)" font-family="Sans Serif" font-size="16">Editamos o domínio (tipo) dos atributos para criar colunas categóricas para deixar as análises mais ricas.</text>
-		<text id="3" type="text/plain" rect="(1222.0, 386.0, 357.0, 288.0)" font-family="Sans Serif" font-size="16">A correlação é uma boa medida de associação entre variáveis, mas ela não oferece detalhes sobre a distribuição ou sobre a presença de outliers. Para se ter uma ideia melhor das associações, é interessante visualizar os dados no plano cartesiano. Para isto usamos gráficos de dispersão (Scatter Plots). Perceba a concentração de valores na diagonal indica que quanto maior a área, maior o aluguel. Porém, esta correlação não é perfeita. Tente encontrar no gráfico os apartamentos que estão super ou subvalorizados de acordo com a área.</text>
+		<text id="3" type="text/plain" rect="(1213.0, 358.0, 357.0, 288.0)" font-family="Sans Serif" font-size="16">A correlação é uma boa medida de associação entre variáveis, mas ela não oferece detalhes sobre a distribuição ou sobre a presença de outliers. Para se ter uma ideia melhor das associações, é interessante visualizar os dados no plano cartesiano. Para isto usamos gráficos de dispersão (Scatter Plots). Perceba a concentração de valores na diagonal indica que quanto maior a área, maior o aluguel. Porém, esta correlação não é perfeita. Tente encontrar no gráfico os apartamentos que estão super ou subvalorizados de acordo com a área.</text>
 		<text id="4" type="text/markdown" rect="(431.0, 590.0, 411.0, 434.0)" font-family="Sans Serif" font-size="16">Visualizar as distribuições das variaveis nos ajuda a identificar os primeiros padrões. Acima exibimos os histogramas para `aluguel` e `condomínio`. É possivel ver que a maior concentração de apartamentos é de aluguéis entre 600 e 900. Há também uma concentração menor em aluguéis em torno de 1200. Já a distribuição dos condomínios é mais homogênea, com a maior parte dos valores por volta de 370.
 
 Faz sentido este comportamento? Aparentemente o condomínio não varia na mesma proporção do valor do aluguel. Ou seja, se um apartamento de 600 paga 300 de condomínio, não se espera que um apartamento de 1200 pague 600 de condomínio. Esta pode ser uma questão a se explorar em passos futuros das análises.</text>
 		<text id="5" type="text/markdown" rect="(879.0, 526.0, 277.0, 411.0)" font-family="Sans Serif" font-size="16">Outra forma de visualizar a distribuição de variáveis é através de Box Plots. Acima exibimos um gráfico para aluguéis agrupados pelo número de quartos. No gráfico, podemos perceber que a variação de valores de apartamentos de 2 quartos é maior. O Orange permite calcular automaticamente a relevância estatística das diferenças das médias entre os grupos. Neste caso, o p-value menor que 0,01 indica que a diferença entre as médias de valores entre aluguéis de 1 e 2 quartos pode ser extrapolada para além desta pequena amostra (com algumas ressalvas que não discutiremos aqui).</text>
 		<text id="6" type="text/plain" rect="(933.0, 35.0, 316.0, 255.0)" font-family="Sans Serif" font-size="16">Para identificar associações entre as variáveis podemos utilizar diversas ferramentas estatísticas e visuais. A ação ao lado calcula a correlação (Pearson) entre todos os pares de variáves. Podemos ver que a maior correlação está entre a área do apartamento e o aluguel. Isto significa que, aparentemente, o tamanho do apartamento é o que mais influencia no valor total.</text>
 		<text id="7" type="text/plain" rect="(226.0, 589.0, 194.0, 151.0)" font-family="Sans Serif" font-size="16">A ação Feature Statistics mostra diversos elementos que nos ajudam a ter uma compreensão inicial dos dados.</text>
+		<text id="8" type="text/markdown" rect="(1225.0, 769.0, 305.0, 286.0)" font-family="Sans Serif" font-size="16">A **análise exploratória** não se limita aos elementos apresentados aqui. Qualquer outra visualização, modelo ou técnica estatística pode ser usada nesta fase. O importante é que o foco seja aprender sobre os dados e não necessariamente responder perguntas e testar hipóteses.</text>
 	</annotations>
 	<thumbnail />
 	<node_properties>
@@ -117,44 +118,45 @@ dHB1dF90YWJsZV9uYW1llIwAlEr+////hpRoBEsCdYwKYXR0cmlidXRlc5R9lChoLEsCaBhLAmgg
 SwKMBGFyZWGUSwJoJksCjAdhbHVndWVslEsCjApjb25kb21pbmlvlEsCdYwFbWV0YXOUfZQojAhl
 bmRlcmVjb5RLA4wEZGF0YZRLA3V1YmF1Lg==
 </properties>
-		<properties node_id="6" format="pickle">gASVyAEAAAAAAAB9lCiMEmNvbnRyb2xBcmVhVmlzaWJsZZSIjBBjb3JyZWxhdGlvbl90eXBllEsA
-jBNzYXZlZFdpZGdldEdlb21ldHJ5lENCAdnQywADAAAAAAMrAAABOQAABIgAAALIAAADKwAAATkA
-AASIAAACyAAAAAAAAAAAB4AAAAMrAAABOQAABIgAAALIlIwLX192ZXJzaW9uX1+USwOMEGNvbnRl
+		<properties node_id="6" format="pickle">gASV7QEAAAAAAAB9lCiMEmNvbnRyb2xBcmVhVmlzaWJsZZSIjBBjb3JyZWxhdGlvbl90eXBllEsA
+jBNzYXZlZFdpZGdldEdlb21ldHJ5lENCAdnQywADAAAAAANIAAABCwAABKUAAAK/AAADSAAAATAA
+AASlAAACvwAAAAAAAAAAB4AAAANIAAABMAAABKUAAAK/lIwLX192ZXJzaW9uX1+USwOMEGNvbnRl
 eHRfc2V0dGluZ3OUXZQojBVvcmFuZ2V3aWRnZXQuc2V0dGluZ3OUjAdDb250ZXh0lJOUKYGUfZQo
 jAZ2YWx1ZXOUfZQojAdmZWF0dXJllE5K/v///4aUjAlzZWxlY3Rpb26UXZQojAdhbHVndWVslEtm
-hpSMBGFyZWGUS2aGlGVK/f///4aUaAVLA3WMCmF0dHJpYnV0ZXOUfZQojARkYXRhlEsEaBVLAmgT
-SwKMCmNvbmRvbWluaW+USwJ1jAVtZXRhc5R9lHViaAopgZR9lChoDX2UKGgPTkr+////hpRoEV2U
-KGgTS2aGlGgVS2aGlGVK/f///4aUaAVLA3VoGH2UKGgaSwSMBmNvZGlnb5RLAmgVSwJoE0sCaBtL
-AnVoHH2UdWJldS4=
+hpSMCmNvbmRvbWluaW+US2aGlGVK/f///4aUaAVLA3WMCmF0dHJpYnV0ZXOUfZQojARkYXRhlEsE
+jARhcmVhlEsCjAdhbHVndWVslEsCjApjb25kb21pbmlvlEsCdYwFbWV0YXOUfZR1YmgKKYGUfZQo
+aA19lCiMB2ZlYXR1cmWUTkr+////hpSMCXNlbGVjdGlvbpRdlChoHEtmhpRoG0tmhpRlSv3///+G
+lGgFSwN1aBh9lChoGksEjAZjb2RpZ2+USwJoG0sCaBxLAmgdSwJ1aB59lHViZXUu
 </properties>
-		<properties node_id="7" format="pickle">gASVZAMAAAAAAAB9lCiMC2F1dG9fY29tbWl0lIiMC2F1dG9fc2FtcGxllIiMEmNvbnRyb2xBcmVh
+		<properties node_id="7" format="pickle">gASVvQMAAAAAAAB9lCiMC2F1dG9fY29tbWl0lIiMC2F1dG9fc2FtcGxllIiMEmNvbnRyb2xBcmVh
 VmlzaWJsZZSIjBNzYXZlZFdpZGdldEdlb21ldHJ5lENCAdnQywADAAAAAAGkAAAAegAABg8AAANi
 AAABpAAAAJ8AAAYPAAADYgAAAAAAAAAAB4AAAAGkAAAAnwAABg8AAANilIwJc2VsZWN0aW9ulE6M
 EXRvb2x0aXBfc2hvd3NfYWxslIiMD3Zpc3VhbF9zZXR0aW5nc5R9lIwFZ3JhcGiUfZQojAthbHBo
 YV92YWx1ZZRLgIwNY2xhc3NfZGVuc2l0eZSJjBFqaXR0ZXJfY29udGludW91c5SIjAtqaXR0ZXJf
 c2l6ZZRLAIwTbGFiZWxfb25seV9zZWxlY3RlZJSJjBZvcnRob25vcm1hbF9yZWdyZXNzaW9ulImM
 C3BvaW50X3dpZHRolEsKjAlzaG93X2dyaWSUiYwLc2hvd19sZWdlbmSUiIwNc2hvd19yZWdfbGlu
-ZZSJdYwLX192ZXJzaW9uX1+USwWMEGNvbnRleHRfc2V0dGluZ3OUXZQojBVvcmFuZ2V3aWRnZXQu
+ZZSIdYwLX192ZXJzaW9uX1+USwWMEGNvbnRleHRfc2V0dGluZ3OUXZQojBVvcmFuZ2V3aWRnZXQu
 c2V0dGluZ3OUjAdDb250ZXh0lJOUKYGUfZQojAZ2YWx1ZXOUfZQojAphdHRyX2NvbG9ylE5K/v//
-/4aUjAphdHRyX2xhYmVslE5K/v///4aUjAphdHRyX3NoYXBllE5K/v///4aUjAlhdHRyX3NpemWU
-Tkr+////hpSMBmF0dHJfeJSMB2FsdWd1ZWyUS2aGlIwGYXR0cl95lIwEYXJlYZRLZoaUaAp9lGgW
-SwV1jAphdHRyaWJ1dGVzlH2UKIwHcXVhcnRvc5RLAYwFc3VpdGWUSwFoLEsCjAR2YWdhlEsBaClL
-AowKY29uZG9taW5pb5RLAnWMBW1ldGFzlH2UKIwIZW5kZXJlY2+USwOMBGRhdGGUSwSMBmNvZGln
-b5RLA3V1YmgbKYGUfZQoaB59lChoIE5K/v///4aUaCJOSv7///+GlGgkTkr+////hpRoJk5K/v//
-/4aUaChoKUtmhpRoK2gsS2aGlGgKfZRoFksFdWgvfZQoaDlLAmgxSwFoMksBaCxLAmgzSwFoKUsC
-aDRLAnVoNX2UKGg3SwNoOEsEdXViZXUu
+/4aUjAphdHRyX2xhYmVslE5K/v///4aUjAphdHRyX3NoYXBllIwFc3VpdGWUS2WGlIwJYXR0cl9z
+aXpllIwKY29uZG9taW5pb5RLZoaUjAZhdHRyX3iUjAdhbHVndWVslEtmhpSMBmF0dHJfeZSMBGFy
+ZWGUS2aGlGgKfZRoFksFdYwKYXR0cmlidXRlc5R9lCiMB3F1YXJ0b3OUSwGMBXN1aXRllEsBjARh
+cmVhlEsCjAR2YWdhlEsBjAdhbHVndWVslEsCjApjb25kb21pbmlvlEsCdYwFbWV0YXOUfZQojAhl
+bmRlcmVjb5RLA4wEZGF0YZRLBIwGY29kaWdvlEsDdXViaBspgZR9lChoHn2UKIwKYXR0cl9jb2xv
+cpROSv7///+GlIwKYXR0cl9sYWJlbJROSv7///+GlIwKYXR0cl9zaGFwZZROSv7///+GlIwJYXR0
+cl9zaXpllE5K/v///4aUjAZhdHRyX3iUaDdLZoaUjAZhdHRyX3mUaDVLZoaUjAVncmFwaJR9lGgW
+SwV1aDF9lChoPUsCaDNLAWg0SwFoNUsCaDZLAWg3SwJoOEsCdWg5fZQoaDtLA2g8SwR1dWJldS4=
 </properties>
-		<properties node_id="8" format="pickle">gASVMAIAAAAAAAB9lCiMC2F1dG9fY29tbWl0lIiMEmNvbnRyb2xBcmVhVmlzaWJsZZSIjBNzYXZl
+		<properties node_id="8" format="pickle">gASVWwIAAAAAAAB9lCiMC2F1dG9fY29tbWl0lIiMEmNvbnRyb2xBcmVhVmlzaWJsZZSIjBNzYXZl
 ZFdpZGdldEdlb21ldHJ5lENCAdnQywADAAAAAAHNAAAA4gAABeYAAAL6AAABzQAAAQcAAAXmAAAC
 +gAAAAAAAAAAB4AAAAHNAAABBwAABeYAAAL6lIwHc29ydGluZ5RLAIwJUHlRdDUuc2lwlIwOX3Vu
 cGlja2xlX2VudW2Uk5SMDFB5UXQ1LlF0Q29yZZSMCVNvcnRPcmRlcpRLAIeUUpSGlIwLX192ZXJz
 aW9uX1+USwKMEGNvbnRleHRfc2V0dGluZ3OUXZQojBVvcmFuZ2V3aWRnZXQuc2V0dGluZ3OUjAdD
 b250ZXh0lJOUKYGUfZQojAZ2YWx1ZXOUfZQojAljb2xvcl92YXKUTkr+////hpSMDXNlbGVjdGVk
-X3ZhcnOUXZRoDksCdYwKYXR0cmlidXRlc5R9lCiMB3F1YXJ0b3OUSwGMBXN1aXRllEsBjARhcmVh
-lEsCjAR2YWdhlEsBjAdhbHVndWVslEsCjApjb25kb21pbmlvlEsCdYwFbWV0YXOUfZQojAhlbmRl
-cmVjb5RLA4wEZGF0YZRLBIwGY29kaWdvlEsDdXViaBMpgZR9lChoFn2UKGgYTkr+////hpRoGl2U
-aA5LAnVoHH2UKGgoSwJoHksBaB9LAWggSwJoIUsBaCJLAmgjSwJ1aCR9lChoJksDaCdLBHV1YmV1
-Lg==
+X3ZhcnOUXZSMBHZhZ2GUS2WGlGFK/f///4aUaA5LAnWMCmF0dHJpYnV0ZXOUfZQojAdxdWFydG9z
+lEsBjAVzdWl0ZZRLAYwEYXJlYZRLAowEdmFnYZRLAYwHYWx1Z3VlbJRLAowKY29uZG9taW5pb5RL
+AnWMBW1ldGFzlH2UKIwIZW5kZXJlY2+USwOMBGRhdGGUSwSMBmNvZGlnb5RLA3V1YmgTKYGUfZQo
+aBZ9lCiMCWNvbG9yX3ZhcpROSv7///+GlIwNc2VsZWN0ZWRfdmFyc5RdlGgOSwJ1aB99lChoK0sC
+aCFLAWgiSwFoI0sCaCRLAWglSwJoJksCdWgnfZQoaClLA2gqSwR1dWJldS4=
 </properties>
 	</node_properties>
 	<session_state>

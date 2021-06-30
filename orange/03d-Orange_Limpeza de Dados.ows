@@ -3,10 +3,14 @@
 	<nodes>
 		<node id="0" name="CSV File Import" qualified_name="Orange.widgets.data.owcsvimport.OWCSVFileImport" project_name="Orange3" version="" title="CSV File Import" position="(96.0, 347.0)" />
 		<node id="1" name="Data Table" qualified_name="Orange.widgets.data.owtable.OWDataTable" project_name="Orange3" version="" title="Data Table" position="(225.0, 446.0)" />
-		<node id="2" name="Impute" qualified_name="Orange.widgets.data.owimpute.OWImpute" project_name="Orange3" version="" title="Impute" position="(745.0, 436.0)" />
-		<node id="3" name="Edit Domain" qualified_name="Orange.widgets.data.oweditdomain.OWEditDomain" project_name="Orange3" version="" title="Edit Domain" position="(470.0, 443.0)" />
+		<node id="2" name="Impute" qualified_name="Orange.widgets.data.owimpute.OWImpute" project_name="Orange3" version="" title="Impute" position="(694.0, 436.0)" />
+		<node id="3" name="Edit Domain" qualified_name="Orange.widgets.data.oweditdomain.OWEditDomain" project_name="Orange3" version="" title="Edit Domain" position="(470.0, 442.0)" />
 		<node id="4" name="Data Table" qualified_name="Orange.widgets.data.owtable.OWDataTable" project_name="Orange3" version="" title="Domínos Corrigidos" position="(499.0, 619.0)" />
-		<node id="5" name="Data Table" qualified_name="Orange.widgets.data.owtable.OWDataTable" project_name="Orange3" version="" title="Valores Preenchidos" position="(910.0, 607.0)" />
+		<node id="5" name="Data Table" qualified_name="Orange.widgets.data.owtable.OWDataTable" project_name="Orange3" version="" title="Valores Preenchidos" position="(861.0, 437.0)" />
+		<node id="6" name="Outliers" qualified_name="Orange.widgets.data.owoutliers.OWOutliers" project_name="Orange3" version="" title="Outliers" position="(1134.0, 313.0)" />
+		<node id="7" name="Data Table" qualified_name="Orange.widgets.data.owtable.OWDataTable" project_name="Orange3" version="" title="Inliers" position="(1304.0, 305.0)" />
+		<node id="8" name="Data Table" qualified_name="Orange.widgets.data.owtable.OWDataTable" project_name="Orange3" version="" title="Outliers" position="(1340.0, 457.0)" />
+		<node id="9" name="Save Data" qualified_name="Orange.widgets.data.owsave.OWSave" project_name="Orange3" version="" title="Save Data" position="(1447.0, 306.0)" />
 	</nodes>
 	<links>
 		<link id="0" source_node_id="0" sink_node_id="1" source_channel="Data" sink_channel="Data" enabled="true" />
@@ -14,6 +18,10 @@
 		<link id="2" source_node_id="0" sink_node_id="3" source_channel="Data" sink_channel="Data" enabled="true" />
 		<link id="3" source_node_id="3" sink_node_id="2" source_channel="Data" sink_channel="Data" enabled="true" />
 		<link id="4" source_node_id="2" sink_node_id="5" source_channel="Data" sink_channel="Data" enabled="true" />
+		<link id="5" source_node_id="5" sink_node_id="6" source_channel="Data" sink_channel="Data" enabled="true" />
+		<link id="6" source_node_id="6" sink_node_id="7" source_channel="Inliers" sink_channel="Data" enabled="true" />
+		<link id="7" source_node_id="6" sink_node_id="8" source_channel="Outliers" sink_channel="Data" enabled="true" />
+		<link id="8" source_node_id="7" sink_node_id="9" source_channel="Data" sink_channel="Data" enabled="true" />
 	</links>
 	<annotations>
 		<text id="0" type="text/markdown" rect="(78.0, 21.0, 573.0, 186.0)" font-family="Sans Serif" font-size="16"># Limpeza de Dados
@@ -22,13 +30,15 @@ Os processos de limpeza e preparação de dados são muito importantes. Dados li
 		<arrow id="1" start="(98.0, 459.0)" end="(96.0, 422.0)" fill="#39B54A" />
 		<text id="2" type="text/markdown" rect="(5.0, 481.0, 175.0, 150.0)" font-family="Sans Serif" font-size="16">Importamos um arquivo CSV que contém alguns erros. Veja as linhas com problemas no Data Table.</text>
 		<text id="3" type="text/markdown" rect="(337.0, 189.0, 262.0, 309.0)" font-family="Sans Serif" font-size="16">Primeiramente, vamos editar e verificar os domínios (tipos) dos dados automaticamente identificados pelo Orange. Usando o Edit Domain, é possível ver que a coluna Data não foi identificada corretamente. Dentro da interface é possível escolher um tipo adequado (Time).</text>
-		<text id="4" type="text/markdown" rect="(851.0, 82.0, 257.0, 411.0)" font-family="Sans Serif" font-size="16">Vamos usar a ação Impute para decidir o que fazer com os valores faltantes/nulos. Neste caso, decidimos substitur os valores nulos de área e condomínio pelas médias das respectivas colunas, e remover as linhas (drop) sem o valor de aluguel. Esta decisão vai depender de cada caso. No nosso exemplo, aluguel é um dado importante, então preferimos excluir as linhas sem o dado. Já área e condomínio são menos importantes, então é melhor manter as linhas e preencher os dados faltantes com valores que provavelmente não vão atrapalhar as análises.</text>
+		<text id="4" type="text/markdown" rect="(668.0, 83.0, 350.0, 308.0)" font-family="Sans Serif" font-size="16">Vamos usar a ação Impute para decidir o que fazer com os valores faltantes/nulos. Neste caso, decidimos substitur os valores nulos de área e condomínio pelas médias das respectivas colunas, e remover as linhas (drop) sem o valor de aluguel. Esta decisão vai depender de cada caso. No nosso exemplo, aluguel é um dado importante, então preferimos excluir as linhas sem o dado. Já área e condomínio são menos importantes, então é melhor manter as linhas e preencher os dados faltantes com valores que provavelmente não vão atrapalhar as análises.</text>
+		<text id="5" type="text/plain" rect="(1021.0, 404.0, 216.0, 335.0)" font-family="Sans Serif" font-size="16">Outro passo importante na limpeza dos dados é a remoção de anomalias (outliers). No nosso caso, temos algumas ofertas de aluguel destoantes e podemos querer removê-las. Na ação de Outliers acima, escolhemos o modelo LOF, que determinou que dois dos apartamentos são outliers. No caso, são ofertas com valor muito alto para aluguel ou condomínio. </text>
+		<text id="6" type="text/plain" rect="(1338.0, 99.0, 176.0, 152.0)" font-family="Sans Serif" font-size="16">Por fim, salvamos os dados limpos e com outliers removidos em um novo arquivo csv para ser usado nas análises futuras.</text>
 	</annotations>
 	<thumbnail />
 	<node_properties>
 		<properties node_id="0" format="literal">{'_session_items': [], '_session_items_v2': [({'type': 'AbsPath', 'path': '/home/luizcelso/Insync/GDriveUTFPR/PycharmProjects/DataScienceIntro/orange/data/aluguel-com-erros.csv'}, {'encoding': 'utf-8', 'delimiter': ',', 'quotechar': '"', 'doublequote': True, 'skipinitialspace': True, 'quoting': 0, 'columntypes': [{'start': 0, 'stop': 9, 'value': 'Auto'}], 'rowspec': [{'start': 0, 'stop': 1, 'value': 'Header'}], 'decimal_separator': '.', 'group_separator': ''}), ({'type': 'AbsPath', 'path': '/home/luizcelso/Insync/GDriveUTFPR/PycharmProjects/DataScienceIntro/orange/data/2017-02-01_156_-_Base_de_Dados_sample.csv'}, {'encoding': 'iso8859-1', 'delimiter': ';', 'quotechar': '"', 'doublequote': True, 'skipinitialspace': True, 'quoting': 0, 'columntypes': [{'start': 0, 'stop': 20, 'value': 'Auto'}], 'rowspec': [{'start': 0, 'stop': 1, 'value': 'Header'}], 'decimal_separator': '.', 'group_separator': ''}), ({'type': 'AbsPath', 'path': '/home/luizcelso/Insync/GDriveUTFPR/PycharmProjects/DataScienceIntro/orange/data/aluguel.csv'}, {'encoding': 'utf-8', 'delimiter': ',', 'quotechar': '"', 'doublequote': True, 'skipinitialspace': True, 'quoting': 0, 'columntypes': [{'start': 0, 'stop': 9, 'value': 'Auto'}], 'rowspec': [{'start': 0, 'stop': 1, 'value': 'Header'}], 'decimal_separator': '.', 'group_separator': ''})], 'compatibility_mode': True, 'controlAreaVisible': True, 'dialog_state': {'directory': '/home/luizcelso/Insync/GDriveUTFPR/PycharmProjects/DataScienceIntro/orange/data', 'filter': 'Text - comma separated (*.csv, *)'}, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x04m\x00\x00\x01V\x00\x00\x05\xa6\x00\x00\x02\xb9\x00\x00\x04m\x00\x00\x01{\x00\x00\x05\xa6\x00\x00\x02\xb9\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80\x00\x00\x04m\x00\x00\x01{\x00\x00\x05\xa6\x00\x00\x02\xb9', '__version__': 3}</properties>
-		<properties node_id="1" format="literal">{'auto_commit': True, 'color_by_class': True, 'controlAreaVisible': True, 'dist_color_RGB': (220, 220, 220, 255), 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x01r\x00\x00\x00\xde\x00\x00\x06~\x00\x00\x02\xf5\x00\x00\x01r\x00\x00\x01\x03\x00\x00\x06~\x00\x00\x02\xf5\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80\x00\x00\x01r\x00\x00\x01\x03\x00\x00\x06~\x00\x00\x02\xf5', 'select_rows': True, 'selected_cols': [], 'selected_rows': [], 'show_attribute_labels': True, 'show_distributions': False, '__version__': 2}</properties>
-		<properties node_id="2" format="pickle">gASVEQMAAAAAAAB9lCiMFV9kZWZhdWx0X21ldGhvZF9pbmRleJRLB4wKYXV0b2NvbW1pdJSIjBJj
+		<properties node_id="1" format="literal">{'auto_commit': True, 'color_by_class': True, 'controlAreaVisible': True, 'dist_color_RGB': (220, 220, 220, 255), 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x01r\x00\x00\x01\x03\x00\x00\x06~\x00\x00\x02\xf5\x00\x00\x01r\x00\x00\x01\x03\x00\x00\x06~\x00\x00\x02\xf5\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80\x00\x00\x01r\x00\x00\x01\x03\x00\x00\x06~\x00\x00\x02\xf5', 'select_rows': True, 'selected_cols': [0, 1, 2, 3, 4, 5, 6, 7, 8], 'selected_rows': [2], 'show_attribute_labels': True, 'show_distributions': False, '__version__': 2}</properties>
+		<properties node_id="2" format="pickle">gASVNQQAAAAAAAB9lCiMFV9kZWZhdWx0X21ldGhvZF9pbmRleJRLB4wKYXV0b2NvbW1pdJSIjBJj
 b250cm9sQXJlYVZpc2libGWUiIwVZGVmYXVsdF9udW1lcmljX3ZhbHVllEcAAAAAAAAAAIwMZGVm
 YXVsdF90aW1llEsAjBNzYXZlZFdpZGdldEdlb21ldHJ5lENCAdnQywADAAAAAAHMAAABJQAABDMA
 AANOAAABzAAAAUoAAAQzAAADTgAAAAAAAAAAB4AAAAHMAAABSgAABDMAAANOlIwLX192ZXJzaW9u
@@ -37,25 +47,35 @@ ZXh0lJOUKYGUfZQojAZ2YWx1ZXOUfZQojBpfdmFyaWFibGVfaW1wdXRhdGlvbl9zdGF0ZZR9lCiM
 J09yYW5nZS5kYXRhLnZhcmlhYmxlLkNvbnRpbnVvdXNWYXJpYWJsZZSMBGFyZWGUhpRLAimGlIwn
 T3JhbmdlLmRhdGEudmFyaWFibGUuQ29udGludW91c1ZhcmlhYmxllIwHYWx1Z3VlbJSGlEsGKYaU
 jCdPcmFuZ2UuZGF0YS52YXJpYWJsZS5Db250aW51b3VzVmFyaWFibGWUjApjb25kb21pbmlvlIaU
-SwIphpR1Sv7///+GlGgISwF1jAphdHRyaWJ1dGVzlH2UKIwGY29kaWdvlEsCjAdxdWFydG9zlEsC
-jAVzdWl0ZZRLAowEYXJlYZRLAowEdmFnYZRLAowHYWx1Z3VlbJRLAowKY29uZG9taW5pb5RLAnWM
-BW1ldGFzlH2UKIwIZW5kZXJlY2+USwOMBGRhdGGUSwR1dWJoDSmBlH2UKGgQfZQoaBJ9lIwnT3Jh
-bmdlLmRhdGEudmFyaWFibGUuQ29udGludW91c1ZhcmlhYmxllGglhpRLBimGlHNK/v///4aUaAhL
-AXVoIX2UKGgjSwJoJEsCaCVLAmgmSwJoJ0sCaChLAmgpSwJ1aCp9lChoLEsDaC1LA3V1YmV1Lg==
+SwIphpR1Sv7///+GlGgISwF1jAphdHRyaWJ1dGVzlH2UKIwHcXVhcnRvc5RLAowFc3VpdGWUSwJo
+FUsCjAR2YWdhlEsCaBlLAmgdSwJ1jAVtZXRhc5R9lCiMCGVuZGVyZWNvlEsDjARkYXRhlEsEjAZj
+b2RpZ2+USwN1dWJoDSmBlH2UKGgQfZQoaBJ9lCiMJ09yYW5nZS5kYXRhLnZhcmlhYmxlLkNvbnRp
+bnVvdXNWYXJpYWJsZZRoFYaUaBeMJ09yYW5nZS5kYXRhLnZhcmlhYmxlLkNvbnRpbnVvdXNWYXJp
+YWJsZZRoGYaUaBuMJ09yYW5nZS5kYXRhLnZhcmlhYmxlLkNvbnRpbnVvdXNWYXJpYWJsZZRoHYaU
+aB91Sv7///+GlGgISwF1aCF9lCiMBmNvZGlnb5RLAowHcXVhcnRvc5RLAowFc3VpdGWUSwKMBGFy
+ZWGUSwKMBHZhZ2GUSwKMB2FsdWd1ZWyUSwKMCmNvbmRvbWluaW+USwJ1aCZ9lCiMCGVuZGVyZWNv
+lEsDjARkYXRhlEsEdXViaA0pgZR9lChoEH2UKIwaX3ZhcmlhYmxlX2ltcHV0YXRpb25fc3RhdGWU
+fZSMJ09yYW5nZS5kYXRhLnZhcmlhYmxlLkNvbnRpbnVvdXNWYXJpYWJsZZRoOYaUSwYphpRzSv7/
+//+GlGgISwF1aCF9lChoN0sCaDhLAmg5SwJoOksCaDtLAmg8SwJoPUsCdWgmfZQoaD9LA2hASwN1
+dWJldS4=
 </properties>
-		<properties node_id="3" format="pickle">gASV+QEAAAAAAAB9lCiMEmNvbnRyb2xBcmVhVmlzaWJsZZSIjBNzYXZlZFdpZGdldEdlb21ldHJ5
-lENCAdnQywADAAAAAAKQAAAAeQAABSMAAAMZAAACkAAAAJ4AAAUjAAADGQAAAAAAAAAAB4AAAAKQ
+		<properties node_id="3" format="pickle">gASVKgIAAAAAAAB9lCiMEmNvbnRyb2xBcmVhVmlzaWJsZZSIjBNzYXZlZFdpZGdldEdlb21ldHJ5
+lENCAdnQywADAAAAAAKQAAAAngAABSMAAAMZAAACkAAAAJ4AAAUjAAADGQAAAAAAAAAAB4AAAAKQ
 AAAAngAABSMAAAMZlIwLX192ZXJzaW9uX1+USwKMEGNvbnRleHRfc2V0dGluZ3OUXZSMFW9yYW5n
 ZXdpZGdldC5zZXR0aW5nc5SMB0NvbnRleHSUk5QpgZR9lCiMBnZhbHVlc5R9lCiMFF9kb21haW5f
-Y2hhbmdlX3N0b3JllH2UjAZTdHJpbmeUjARkYXRhlCmJh5SGlF2UjAZBc1RpbWWUKYaUYXNK/v//
-/4aUjBZfbWVyZ2VfZGlhbG9nX3NldHRpbmdzlH2USvz///+GlIwOX3NlbGVjdGVkX2l0ZW2UaBFL
-BIaUSv7///+GlIwRb3V0cHV0X3RhYmxlX25hbWWUjACUSv7///+GlGgESwJ1jAphdHRyaWJ1dGVz
-lH2UKIwGY29kaWdvlEsCjAdxdWFydG9zlEsCjAVzdWl0ZZRLAowEYXJlYZRLAowEdmFnYZRLAowH
-YWx1Z3VlbJRLAowKY29uZG9taW5pb5RLAnWMBW1ldGFzlH2UKIwIZW5kZXJlY2+USwNoEUsDdXVi
-YXUu
+Y2hhbmdlX3N0b3JllH2UKIwGU3RyaW5nlIwEZGF0YZQpiYeUhpRdlIwGQXNUaW1llCmGlGGMBFJl
+YWyUKIwGY29kaWdvlEsAjAFmlIaUKYl0lIaUXZSMCEFzU3RyaW5nlCmGlGF1Sv7///+GlIwWX21l
+cmdlX2RpYWxvZ19zZXR0aW5nc5R9lEr8////hpSMDl9zZWxlY3RlZF9pdGVtlGgYSwKGlEr+////
+hpSMEW91dHB1dF90YWJsZV9uYW1llIwAlEr+////hpRoBEsCdYwKYXR0cmlidXRlc5R9lCiMBmNv
+ZGlnb5RLAowHcXVhcnRvc5RLAowFc3VpdGWUSwKMBGFyZWGUSwKMBHZhZ2GUSwKMB2FsdWd1ZWyU
+SwKMCmNvbmRvbWluaW+USwJ1jAVtZXRhc5R9lCiMCGVuZGVyZWNvlEsDaBFLA3V1YmF1Lg==
 </properties>
-		<properties node_id="4" format="literal">{'auto_commit': True, 'color_by_class': True, 'controlAreaVisible': True, 'dist_color_RGB': (220, 220, 220, 255), 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x011\x00\x00\x00m\x00\x00\x05\xe1\x00\x00\x02\x85\x00\x00\x011\x00\x00\x00\x92\x00\x00\x05\xe1\x00\x00\x02\x85\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80\x00\x00\x011\x00\x00\x00\x92\x00\x00\x05\xe1\x00\x00\x02\x85', 'select_rows': True, 'selected_cols': [0, 1, 2, 3, 4, 5, 6, 7, 8], 'selected_rows': [5], 'show_attribute_labels': True, 'show_distributions': False, '__version__': 2}</properties>
-		<properties node_id="5" format="literal">{'auto_commit': True, 'color_by_class': True, 'controlAreaVisible': True, 'dist_color_RGB': (220, 220, 220, 255), 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x01q\x00\x00\x02\x1f\x00\x00\x06!\x00\x00\x047\x00\x00\x01q\x00\x00\x02D\x00\x00\x06!\x00\x00\x047\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80\x00\x00\x01q\x00\x00\x02D\x00\x00\x06!\x00\x00\x047', 'select_rows': True, 'selected_cols': [0, 1, 2, 3, 4, 5, 6, 7, 8], 'selected_rows': [11], 'show_attribute_labels': True, 'show_distributions': False, '__version__': 2}</properties>
+		<properties node_id="4" format="literal">{'auto_commit': True, 'color_by_class': True, 'controlAreaVisible': True, 'dist_color_RGB': (220, 220, 220, 255), 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x011\x00\x00\x00m\x00\x00\x05\xe1\x00\x00\x02\x85\x00\x00\x011\x00\x00\x00\x92\x00\x00\x05\xe1\x00\x00\x02\x85\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80\x00\x00\x011\x00\x00\x00\x92\x00\x00\x05\xe1\x00\x00\x02\x85', 'select_rows': True, 'selected_cols': [], 'selected_rows': [], 'show_attribute_labels': True, 'show_distributions': False, '__version__': 2}</properties>
+		<properties node_id="5" format="literal">{'auto_commit': True, 'color_by_class': True, 'controlAreaVisible': True, 'dist_color_RGB': (220, 220, 220, 255), 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x01h\x00\x00\x01\xdb\x00\x00\x06\x18\x00\x00\x03\xf3\x00\x00\x01h\x00\x00\x02\x00\x00\x00\x06\x18\x00\x00\x03\xf3\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80\x00\x00\x01h\x00\x00\x02\x00\x00\x00\x06\x18\x00\x00\x03\xf3', 'select_rows': True, 'selected_cols': [], 'selected_rows': [], 'show_attribute_labels': True, 'show_distributions': False, '__version__': 2}</properties>
+		<properties node_id="6" format="literal">{'auto_commit': True, 'controlAreaVisible': True, 'outlier_method': 2, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x037\x00\x00\x01b\x00\x00\x04|\x00\x00\x02z\x00\x00\x037\x00\x00\x01\x87\x00\x00\x04|\x00\x00\x02z\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80\x00\x00\x037\x00\x00\x01\x87\x00\x00\x04|\x00\x00\x02z', 'cov_editor': {'cont': 10, 'empirical_covariance': False, 'support_fraction': 1}, 'isf_editor': {'cont': 10, 'replicable': False}, 'lof_editor': {'cont': 10, 'metric_index': 0, 'n_neighbors': 5}, 'svm_editor': {'gamma': 0.01, 'nu': 50}, '__version__': 2}</properties>
+		<properties node_id="7" format="literal">{'auto_commit': True, 'color_by_class': True, 'controlAreaVisible': True, 'dist_color_RGB': (220, 220, 220, 255), 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x02^\x00\x00\x00\xf7\x00\x00\x05\xc9\x00\x00\x02\xff\x00\x00\x02^\x00\x00\x01\x1c\x00\x00\x05\xc9\x00\x00\x02\xff\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80\x00\x00\x02^\x00\x00\x01\x1c\x00\x00\x05\xc9\x00\x00\x02\xff', 'select_rows': True, 'selected_cols': [], 'selected_rows': [], 'show_attribute_labels': True, 'show_distributions': False, '__version__': 2}</properties>
+		<properties node_id="8" format="literal">{'auto_commit': True, 'color_by_class': True, 'controlAreaVisible': True, 'dist_color_RGB': (220, 220, 220, 255), 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x02^\x00\x00\x00\xf7\x00\x00\x05\xc9\x00\x00\x02\xff\x00\x00\x02^\x00\x00\x01\x1c\x00\x00\x05\xc9\x00\x00\x02\xff\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80\x00\x00\x02^\x00\x00\x01\x1c\x00\x00\x05\xc9\x00\x00\x02\xff', 'select_rows': True, 'selected_cols': [], 'selected_rows': [], 'show_attribute_labels': True, 'show_distributions': False, '__version__': 2}</properties>
+		<properties node_id="9" format="literal">{'add_type_annotations': True, 'auto_save': False, 'controlAreaVisible': True, 'filter': 'Comma-separated values (*.csv)', 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x03W\x00\x00\x01\x8e\x00\x00\x04\x9b\x00\x00\x02N\x00\x00\x03W\x00\x00\x01\xb3\x00\x00\x04\x9b\x00\x00\x02N\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80\x00\x00\x03W\x00\x00\x01\xb3\x00\x00\x04\x9b\x00\x00\x02N', 'stored_name': 'aluguel-limpo-orange.csv', 'stored_path': 'data', '__version__': 2}</properties>
 	</node_properties>
 	<session_state>
 		<window_groups />
