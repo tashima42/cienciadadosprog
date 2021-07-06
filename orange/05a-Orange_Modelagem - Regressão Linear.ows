@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='utf-8'?>
+<scheme version="2.0" title="Regressão Linear" description="">
+	<nodes>
+		<node id="0" name="CSV File Import" qualified_name="Orange.widgets.data.owcsvimport.OWCSVFileImport" project_name="Orange3" version="" title="CSV File Import" position="(93.0, 368.0)" />
+		<node id="1" name="Data Table" qualified_name="Orange.widgets.data.owtable.OWDataTable" project_name="Orange3" version="" title="Data Table" position="(443.0, 288.0)" />
+		<node id="2" name="Edit Domain" qualified_name="Orange.widgets.data.oweditdomain.OWEditDomain" project_name="Orange3" version="" title="Edit Domain" position="(257.0, 369.0)" />
+		<node id="3" name="Linear Regression" qualified_name="Orange.widgets.model.owlinearregression.OWLinearRegression" project_name="Orange3" version="" title="Linear Regression" position="(802.0, 376.0)" />
+		<node id="4" name="Select Columns" qualified_name="Orange.widgets.data.owselectcolumns.OWSelectAttributes" project_name="Orange3" version="" title="Select Columns" position="(503.0, 431.0)" />
+		<node id="5" name="Test and Score" qualified_name="Orange.widgets.evaluate.owtestandscore.OWTestAndScore" project_name="Orange3" version="" title="Test and Score" position="(948.0, 240.0)" />
+		<node id="6" name="Create Instance" qualified_name="Orange.widgets.data.owcreateinstance.OWCreateInstance" project_name="Orange3" version="" title="Create Instance" position="(739.0, 542.0)" />
+		<node id="7" name="Predictions" qualified_name="Orange.widgets.evaluate.owpredictions.OWPredictions" project_name="Orange3" version="" title="Predictions" position="(1010.0, 473.0)" />
+	</nodes>
+	<links>
+		<link id="0" source_node_id="0" sink_node_id="2" source_channel="Data" sink_channel="Data" enabled="true" />
+		<link id="1" source_node_id="2" sink_node_id="1" source_channel="Data" sink_channel="Data" enabled="true" />
+		<link id="2" source_node_id="2" sink_node_id="4" source_channel="Data" sink_channel="Data" enabled="true" />
+		<link id="3" source_node_id="3" sink_node_id="5" source_channel="Learner" sink_channel="Learner" enabled="true" />
+		<link id="4" source_node_id="4" sink_node_id="5" source_channel="Data" sink_channel="Data" enabled="true" />
+		<link id="5" source_node_id="4" sink_node_id="6" source_channel="Data" sink_channel="Data" enabled="true" />
+		<link id="6" source_node_id="6" sink_node_id="7" source_channel="Data" sink_channel="Data" enabled="true" />
+		<link id="7" source_node_id="4" sink_node_id="3" source_channel="Data" sink_channel="Data" enabled="true" />
+		<link id="8" source_node_id="3" sink_node_id="7" source_channel="Model" sink_channel="Predictors" enabled="true" />
+	</links>
+	<annotations>
+		<text id="0" type="text/markdown" rect="(100.0, 28.0, 573.0, 221.0)" font-family="Sans Serif" font-size="16">## Regressão Linear
+
+A regressão linear é muito usada para prever o valor de uma variável com base em outras variáveis conhecidas. Por exemplo, abaixo criamos um modelo capaz de prever o preço do aluguel de um apartamento com base na sua área, número de quartos, etc.
+
+A variável que queremos prever é chamada de variável dependente, ou variável de resposta, ou variável de saída. As variáveis usadas na previsão são chamadas de variáveis independentes, de entrada, etc.</text>
+		<text id="1" type="text/markdown" rect="(17.0, 465.0, 222.0, 449.0)" font-family="Sans Serif" font-size="16">1 - Carregamos o arquivo *aluguel.csv* que se encontra na pasta *data*. Este arquivo contém registros de anúncios de apartamentos para alugar.
+</text>
+		<text id="2" type="text/markdown" rect="(1007.0, 158.0, 262.0, 170.0)" font-family="Sans Serif" font-size="16">3 - Incluímos o modelo de regressão linear e o ligamos à ação *Test and Score* para avaliação. Nesta ação podemos ver os valores de erro do modelo e seu r2, que são indicadores de qualidade.</text>
+		<text id="3" type="text/markdown" rect="(281.0, 498.0, 257.0, 240.0)" font-family="Sans Serif" font-size="16">2 - Usamos a ação *Edit Domain* para ajustar os tipos dos dados e a ação *Select Columns* para escolher as variáveis de entrada (Features) e a de resposta (Target).</text>
+		<text id="4" type="text/markdown" rect="(691.0, 614.0, 277.0, 279.0)" font-family="Sans Serif" font-size="16">4 - Se estivermos satisfeitos com o modelo criado, podemos usá-lo para prever valores de novas instâncias. Neste exemplo criamos uma instância com valores aleatórios e a usamos na ação de predição. Você pode alterar os valores da instância para ver o impacto na previsão.</text>
+	</annotations>
+	<thumbnail />
+	<node_properties>
+		<properties node_id="0" format="literal">{'_session_items': [], '_session_items_v2': [({'type': 'AbsPath', 'path': '/home/luizcelso/Insync/GDriveUTFPR/PycharmProjects/DataScienceIntro/orange/data/aluguel.csv'}, {'encoding': 'utf-8', 'delimiter': ',', 'quotechar': '"', 'doublequote': True, 'skipinitialspace': True, 'quoting': 0, 'columntypes': [{'start': 0, 'stop': 9, 'value': 'Auto'}], 'rowspec': [{'start': 0, 'stop': 1, 'value': 'Header'}], 'decimal_separator': '.', 'group_separator': ''})], 'compatibility_mode': True, 'controlAreaVisible': True, 'dialog_state': {'directory': '/home/luizcelso/Insync/GDriveUTFPR/PycharmProjects/DataScienceIntro/orange/data', 'filter': 'Text - comma separated (*.csv, *)'}, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x03=\x00\x00\x01=\x00\x00\x04v\x00\x00\x02\xa0\x00\x00\x03=\x00\x00\x01b\x00\x00\x04v\x00\x00\x02\xa0\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80\x00\x00\x03=\x00\x00\x01b\x00\x00\x04v\x00\x00\x02\xa0', '__version__': 3}</properties>
+		<properties node_id="1" format="literal">{'auto_commit': True, 'color_by_class': True, 'controlAreaVisible': True, 'dist_color_RGB': (220, 220, 220, 255), 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x02J\x00\x00\x01\x07\x00\x00\x05i\x00\x00\x02\xfa\x00\x00\x02J\x00\x00\x01\x07\x00\x00\x05i\x00\x00\x02\xfa\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80\x00\x00\x02J\x00\x00\x01\x07\x00\x00\x05i\x00\x00\x02\xfa', 'select_rows': True, 'selected_cols': [], 'selected_rows': [], 'show_attribute_labels': True, 'show_distributions': False, '__version__': 2}</properties>
+		<properties node_id="2" format="pickle">gASVtQIAAAAAAAB9lCiMEmNvbnRyb2xBcmVhVmlzaWJsZZSIjBNzYXZlZFdpZGdldEdlb21ldHJ5
+lENCAdnQywADAAAAAARNAAAAqAAABuAAAANIAAAETQAAAM0AAAbgAAADSAAAAAAAAAAAB4AAAARN
+AAAAzQAABuAAAANIlIwLX192ZXJzaW9uX1+USwKMEGNvbnRleHRfc2V0dGluZ3OUXZSMFW9yYW5n
+ZXdpZGdldC5zZXR0aW5nc5SMB0NvbnRleHSUk5QpgZR9lCiMBnZhbHVlc5R9lCiMFF9kb21haW5f
+Y2hhbmdlX3N0b3JllH2UKIwGU3RyaW5nlIwEZGF0YZQpiYeUhpRdlIwGQXNUaW1llCmGlGGMBFJl
+YWyUKIwHcXVhcnRvc5RLAIwBZpSGlCmJdJSGlF2UaBcojAVzdWl0ZZRLAGgZhpQpiXSUhpRdlIwN
+QXNDYXRlZ29yaWNhbJQphpRhaBcojAR2YWdhlEsAaBmGlCmJdJSGlF2UaCMphpRhaBcojAZjb2Rp
+Z2+USwBoGYaUKYl0lIaUXZSMCEFzU3RyaW5nlCmGlGGMBFJlYWyUKIwHYWx1Z3VlbJRLAGgZhpQp
+iXSUhpRdlHVK/v///4aUjBZfbWVyZ2VfZGlhbG9nX3NldHRpbmdzlH2USvz///+GlIwOX3NlbGVj
+dGVkX2l0ZW2UjAdxdWFydG9zlEsChpRK/v///4aUjBFvdXRwdXRfdGFibGVfbmFtZZSMAJRK/v//
+/4aUaARLAnWMCmF0dHJpYnV0ZXOUfZQojAZjb2RpZ2+USwKMB3F1YXJ0b3OUSwKMBXN1aXRllEsC
+jARhcmVhlEsCjAR2YWdhlEsCaDNLAowKY29uZG9taW5pb5RLAnWMBW1ldGFzlH2UKIwIZW5kZXJl
+Y2+USwOMBGRhdGGUSwN1dWJhdS4=
+</properties>
+		<properties node_id="3" format="literal">{'alpha_index': 0, 'auto_apply': True, 'autosend': True, 'controlAreaVisible': True, 'fit_intercept': True, 'l2_ratio': 0.5, 'learner_name': '', 'reg_type': 0, 'ridge': False, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x03"\x00\x00\x01!\x00\x00\x04\x91\x00\x00\x02\xbb\x00\x00\x03"\x00\x00\x01F\x00\x00\x04\x91\x00\x00\x02\xbb\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80\x00\x00\x03"\x00\x00\x01F\x00\x00\x04\x91\x00\x00\x02\xbb', '__version__': 1}</properties>
+		<properties node_id="4" format="pickle">gASVPgMAAAAAAAB9lCiMC2F1dG9fY29tbWl0lIiMEmNvbnRyb2xBcmVhVmlzaWJsZZSIjBNpZ25v
+cmVfbmV3X2ZlYXR1cmVzlImME3NhdmVkV2lkZ2V0R2VvbWV0cnmUQ0IB2dDLAAMAAAAAAq4AAACL
+AAAFBQAAAwcAAAKuAAAAsAAABQUAAAMHAAAAAAAAAAAHgAAAAq4AAACwAAAFBQAAAweUjBJ1c2Vf
+aW5wdXRfZmVhdHVyZXOUiYwLX192ZXJzaW9uX1+USwGMEGNvbnRleHRfc2V0dGluZ3OUXZQojBVv
+cmFuZ2V3aWRnZXQuc2V0dGluZ3OUjAdDb250ZXh0lJOUKYGUfZQojAZ2YWx1ZXOUfZQojBFkb21h
+aW5fcm9sZV9oaW50c5R9lCiMBGRhdGGUSwSGlIwJYXZhaWxhYmxllEsAhpSMB3F1YXJ0b3OUSwKG
+lIwJYXR0cmlidXRllEsAhpSMCmNvbmRvbWluaW+USwKGlGgZSwGGlIwEYXJlYZRLAoaUaBlLAoaU
+jAVzdWl0ZZRLAYaUaBlLA4aUjAR2YWdhlEsBhpRoGUsEhpSMB2FsdWd1ZWyUSwKGlIwFY2xhc3OU
+SwCGlIwIZW5kZXJlY2+USwOGlIwEbWV0YZRLAIaUjAZjb2RpZ2+USwOGlGgtSwGGlHVK/v///4aU
+aAdLAXWMCmF0dHJpYnV0ZXOUfZQoaBdLAmghSwFoHksCaCRLAWgnSwJoG0sCdYwFbWV0YXOUfZQo
+aCtLA2gTSwRoL0sDdXViaAwpgZR9lChoD32UKGgRfZQoaBNLBIaUaBVLAIaUaCtLA4aUaBVLAYaU
+aBtLAoaUaBlLAIaUaB5LAoaUaBlLAYaUaBdLAYaUaBlLAoaUaCFLAYaUaBlLA4aUaCRLAYaUaBlL
+BIaUaCdLAoaUaClLAIaUaC9LA4aUaC1LAIaUdUr+////hpRoB0sBdWgzfZQojAdxdWFydG9zlEsB
+jAVzdWl0ZZRLAYwEYXJlYZRLAowEdmFnYZRLAYwHYWx1Z3VlbJRLAowKY29uZG9taW5pb5RLAnVo
+NX2UKIwIZW5kZXJlY2+USwOMBGRhdGGUSwSMBmNvZGlnb5RLA3V1YmV1Lg==
+</properties>
+		<properties node_id="5" format="pickle">gASVRgQAAAAAAAB9lCiMFGNvbXBhcmlzb25fY3JpdGVyaW9ulEsAjBJjb250cm9sQXJlYVZpc2li
+bGWUiIwNY3Zfc3RyYXRpZmllZJSIjAduX2ZvbGRzlEsCjAluX3JlcGVhdHOUSwOMCnJlc2FtcGxp
+bmeUSwCMBHJvcGWURz+5mZmZmZmajAtzYW1wbGVfc2l6ZZRLCYwTc2F2ZWRXaWRnZXRHZW9tZXRy
+eZRDQgHZ0MsAAwAAAAADawAAAX8AAAZ2AAADxAAAA2sAAAGkAAAGdgAAA8QAAAAAAAAAAAeAAAAD
+awAAAaQAAAZ2AAADxJSMEnNodWZmbGVfc3RyYXRpZmllZJSIjAh1c2Vfcm9wZZSJjAtzY29yZV90
+YWJsZZR9lIwMc2hvd25fc2NvcmVzlI+UKIwCRjGUjAJSMpSMBFJNU0WUjAlQcmVjaXNpb26UjANN
+QUWUjANBVUOUjAZSZWNhbGyUjAJDQZSMA01TRZSQc4wLX192ZXJzaW9uX1+USwOMEGNvbnRleHRf
+c2V0dGluZ3OUXZQojBVvcmFuZ2V3aWRnZXQuc2V0dGluZ3OUjAdDb250ZXh0lJOUKYGUfZQojAZ2
+YWx1ZXOUfZQojA9jbGFzc19zZWxlY3Rpb26UjBYoQXZlcmFnZSBvdmVyIGNsYXNzZXMplEr/////
+hpSMDGZvbGRfZmVhdHVyZZROSv7///+GlIwVZm9sZF9mZWF0dXJlX3NlbGVjdGVklIlK/v///4aU
+aA19lGgaSwN1jAphdHRyaWJ1dGVzlCiMB3F1YXJ0b3OUSwKGlIwKY29uZG9taW5pb5RLAoaUjARh
+cmVhlEsChpSMBXN1aXRllEsBhpSMBHZhZ2GUSwGGlHSUjAVtZXRhc5SMCGVuZGVyZWNvlEsDhpSM
+BmNvZGlnb5RLA4aUhpSMCmNsYXNzX3ZhcnOUjAdhbHVndWVslEsChpSFlHViaB8pgZR9lChoIn2U
+KGgkaCVK/////4aUaCdOSv7///+GlGgpiUr+////hpRoDX2UaBpLA3VoLChoLUsChpRoL0sChpRo
+MUsChpRoM0sBhpR0lGg4aDlLA4aUaDtLA4aUhpRoPmg/SwKGlIWUdWJoHymBlH2UKGgifZQoaCRo
+JUr/////hpRoJ05K/v///4aUaCmJSv7///+GlGgNfZRoGksDdWgsaC1LAoaUaC9LAoaUaDFLAoaU
+h5RoOGg5SwOGlGg7SwOGlIaUaD5oP0sChpSFlHViaB8pgZR9lChoIn2UKGgkaCVK/////4aUaCdO
+Sv7///+GlGgpiUr+////hpRoDX2UaBpLA3VoLCiMCmNvbmRvbWluaW+USwKGlIwEYXJlYZRLAoaU
+jAdxdWFydG9zlEsBhpSMBXN1aXRllEsBhpSMBHZhZ2GUSwGGlHSUaDiMBmNvZGlnb5RLA4aUhZRo
+PowHYWx1Z3VlbJRLAoaUhZR1YmV1Lg==
+</properties>
+		<properties node_id="6" format="literal">{'append_to_data': False, 'auto_commit': True, 'controlAreaVisible': True, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x03\x00\x00\x00\x00\x02\xae\x00\x00\x00\xe2\x00\x00\x05\x05\x00\x00\x02\xfa\x00\x00\x02\xae\x00\x00\x01\x07\x00\x00\x05\x05\x00\x00\x02\xfa\x00\x00\x00\x00\x00\x00\x00\x00\x07\x80\x00\x00\x02\xae\x00\x00\x01\x07\x00\x00\x05\x05\x00\x00\x02\xfa', 'values': {'quartos': 1.0, 'condominio': 400.0, 'area': 70.0, 'suite': 1, 'vaga': 1, 'aluguel': 928.0, 'endereco': '', 'codigo': ''}, '__version__': 1}</properties>
+		<properties node_id="7" format="pickle">gASVCgEAAAAAAAB9lCiMEmNvbnRyb2xBcmVhVmlzaWJsZZSIjBNzYXZlZFdpZGdldEdlb21ldHJ5
+lENCAdnQywADAAAAAAJeAAAA+QAABdsAAAL9AAACXgAAAR4AAAXbAAAC/QAAAAAAAAAAB4AAAAJe
+AAABHgAABdsAAAL9lIwJc2VsZWN0aW9ulF2UjAtzY29yZV90YWJsZZR9lIwMc2hvd25fc2NvcmVz
+lI+UKIwCRjGUjAJSMpSMBFJNU0WUjAlQcmVjaXNpb26UjANNQUWUjANBVUOUjAZSZWNhbGyUjAJD
+QZSMA01TRZSQc4wLX192ZXJzaW9uX1+USwGMEGNvbnRleHRfc2V0dGluZ3OUXZR1Lg==
+</properties>
+	</node_properties>
+	<session_state>
+		<window_groups />
+	</session_state>
+</scheme>
