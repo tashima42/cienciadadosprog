@@ -39,3 +39,10 @@ O Orange pode ser obtido em: [https://orangedatamining.com/download/](https://or
 Para fazer o download dos exemplos, clique neste [link](https://gitlab.com/introcienciadedados/tutoriais/-/archive/master/tutoriais-master.zip)
 
 Para abrir os exemplos, primeiro descompacte o arquivo baixado. Em seguida, abra o Orange, cliquem em `open` e navegue até o diretório onde você descompactou os tutoriais.
+
+### Playlists de vídeos de Orange
+
+Vários vídeos práticos sobre o Orange com base nos tutoriais podem ser encontrados nas playlists abaixo:
+ 
+ - [Canal do Prof. Luiz Celso Gomes-Jr](https://www.youtube.com/playlist?list=PLI_WaTKy-Dj3B_6bas_gbMx0AYiEZBGxk)
+ - [Canal do Prof. André Santanchè](https://www.youtube.com/playlist?list=PL3JRjVnXiTBZoCdQ_llJRt7dmxpaFqVg0)
