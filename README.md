@@ -1,4 +1,4 @@
-# Introdução a Ciência de Dados com Python
+# Introdução a Ciência de Dados com Python e Orange
 
 Este repositório contém exemplos de código para suporte às disciplinas relacionadas com Ciência de Dados na UTFPR-Curitiba. Os exemplos de python/jupyter se encontram na pasta *notebooks*. Os exemplos de Orange se encontram na pasta *orange*.
 
