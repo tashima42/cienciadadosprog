@@ -2,7 +2,7 @@
 
 Este repositório contém exemplos de código para suporte às disciplinas relacionadas com Ciência de Dados na UTFPR-Curitiba. Os exemplos de python/jupyter se encontram na pasta *notebooks*. Os exemplos de Orange se encontram na pasta *orange*.
 
-Os notebooks podem ser executados usando o Binder. Clique no link: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gl/introcienciadedados%2Ftutoriais/master)
+Os notebooks podem ser executados usando o Binder. Clique no link: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gl/introcienciadedados%2Ftutoriais/HEAD)
 
 ## Requistos e instalações (Python)
 
