@@ -1,8 +1,8 @@
-# Introdução a Ciência de Dados com Python e Orange
+# Introdução a Ciência de Dados com Python, R e Orange
 
-Este repositório contém exemplos de código para suporte às disciplinas relacionadas com Ciência de Dados na UTFPR-Curitiba. Os exemplos de python/jupyter se encontram na pasta *notebooks*. Os exemplos de Orange se encontram na pasta *orange*.
+Este repositório contém exemplos de código para suporte às disciplinas relacionadas com Ciência de Dados na UTFPR-Curitiba. Os exemplos de python/jupyter se encontram na pasta *notebooks*. Os exemplos de R se encontram na pasta *r*. Os exemplos de Orange se encontram na pasta *orange*.
 
-Os notebooks podem ser executados usando o Binder. Clique no link: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gl/introcienciadedados%2Ftutoriais/HEAD)
+Os notebooks em python podem ser executados usando o Binder. Clique no link: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gl/introcienciadedados%2Ftutoriais/HEAD)
 
 ## Requistos e instalações (Python)
 
@@ -29,6 +29,18 @@ jupyter-notebook
 ```
 
 O Jupyter iniciará uma janela do navegador mostrando a lista de diretórios do projeto. Os exemplos se encontram na pasta `notebooks`.
+
+## Requistos e instalações (R)
+
+O R pode ser obtido em: [http://cran.r-project.org/bin/](http://cran.r-project.org/bin/)
+
+O RStudio (interface para edição e execução de código) pode ser obtido em: [https://www.rstudio.com/products/rstudio/download/](https://www.rstudio.com/products/rstudio/download/)
+
+###  Download dos tutoriais e execução
+
+Para fazer o download dos exemplos, clique neste [link](https://gitlab.com/introcienciadedados/tutoriais/-/archive/master/tutoriais-master.zip)
+
+Para abrir os exemplos, primeiro descompacte o arquivo baixado. Em seguida, abra o RStudio, cliquem em `File->Open File` e navegue até o diretório onde você descompactou os tutoriais.
 
 ## Requistos e instalações (Orange)
 
