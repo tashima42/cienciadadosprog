@@ -1,0 +1,182 @@
+---
+title: "Introdução à linguagem R para Ciência de Dados"
+author: "Luiz Gomes-Jr"
+date: '2022-06-21'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Este notebook R Markdown tem como objetivo cobrir conceitos básicos sobre a linguagem R para uso em tarefas de Ciência de Dados. Os conceitos abaixo já são suficientes para começar a aprender sobre as ferramentas de ciência de dados. Conceitos mais avançados da linguagem serão explorados em outros notebooks 
+
+Execute cada célula de código abaixo para ver o resultado da execução dos comandos. Você pode copiar e colar o código em um script no RStudio ou abrir o fonte deste documento (`02a-R_Introdução.Rmd`) também no RStudio. 
+
+Para aprender outros conceitos e praticar a linguagem R, os seguintes sites são recomendados:
+
+- [W3 Schools - R](https://www.w3schools.com/r/)
+- [Tutorial R](https://www.tutorialspoint.com/r/index.htm)
+
+## Comandos e Variáveis
+
+Uma linguagem de programação nos permite controlar o que o computador deve fazer através de comandos. Por exemplo, abaixo estamos requisitando que o computador imprima uma mensagem.
+
+```{r}
+# O código abaixo imprime uma mensagem na tela
+print("Olá Mundo!")
+```
+
+**Variáveis** são usadas para armazenar valores. Sempre que temos que armazenar algo para uso futuro, podemos inicializar uma variável com o valor desejado. Por exemplo, abaixo inicializamos uma variável chamada `mensagem` com o valor `"Olá Mundo!!!"`. As aspas indicam que o valor armazenado é uma *String* (texto). 
+
+```{r}
+mensagem <- "Olá Mundo!!!"
+
+print(mensagem)
+```
+Variáveis também podem armazenar valores numéricos. Abaixo definimos duas variáveis contendo números *Inteiros*. Em seguida estas variáveis são usadas para iniciar uma terceira variável, que neste caso contém o resultado de uma operação de adição.
+
+```{r}
+area1 <- 45
+area2 <- 60
+
+total <- area1 + area2
+
+print("Área total: ")
+print(total)
+```
+Para que um comando seja ignorado ou para deixar claro o que uma linha de código está fazendo, podemos usar **comentários de código**. Basta iniciar a linha a ser comentada com um `#`. Veja exemplos abaixo.
+
+```{r}
+# Inicializando variáveis
+area1 <- 45
+area2 <- 60
+
+# Total recebe a soma de area1 e area2
+total <- area1 + area2
+
+print("Área total: ")
+print(total)
+```
+
+### Operações
+
+Na célula acima utilizamos a operação de soma para obter o valor total da área. As demais operações matemáticas básicas são:
+
+- Subtração: -
+- Multiplicação: *
+- Divisão: /
+
+### Exercício
+
+Execute abaixo os comandos necessários para calcular a média das áreas usando as variáveis definidas acima. Imprima o resultado com o comando `print`.
+
+```{r}
+# Responda aqui
+
+```
+
+## Listas
+
+Listas são variáveis que armazenam sequências de valores. Abaixo definimos duas listas contendo informações sobre apartamentos (rua, área e valor do aluguel). 
+
+```{r}
+apartamento1 <- list("Av V. Guarapuava, 1000", 45, 800)
+apartamento2 <- list("Av Sete de Setembro, 170", area2, 700 + 250)
+
+print(apartamento1)
+print(apartamento2)
+
+```
+Para ter acesso a um valor dentro de uma lista, usamos o índice do item desejado entre colchetes. Por exemplo, abaixo obtemos o valor do terceiro item da lista `apartamento1`.  
+
+```{r}
+apartamento1 <- list("Av V. Guarapuava, 1000", 45, 800)
+
+aluguel1 = apartamento1[3]
+
+aluguel1
+```
+Também podemos atribuir um novo valor em uma posição de índice. Abaixo atribuímos o valor 850 para o terceiro item da lista.
+
+```{r}
+apartamento1[3] = 850
+
+apartamento1
+```
+Podemos criar listas vazias como na primeira linha abaixo. Para adicionar valores em uma lista (vazia ou não), usa-se o método `append`. Abaixo adicionamos informações sobre um outro apartamento, um valor por vez.
+
+```{r}
+apartamento3 <- list()
+
+apartamento3 <- append(apartamento3, "Av Marechal Deodoro, 2130")
+apartamento3 <- append(apartamento3, 50)
+apartamento3 <- append(apartamento3, 1050)
+
+apartamento3
+```
+Podemos também criar uma lista que contém outras listas. Abaixo criamos a lista `apartamentos` que contém os três apartamentos definidos anteriormente.
+
+```{r}
+apartamentos <- list(apartamento1, apartamento2, apartamento3)
+
+apartamentos
+```
+Podemos acessar cada apartamento usando os índices, como anteriormente:
+
+```{r}
+apartamentos[1]
+```
+### Exercício
+
+Adicione um novo apartamento à lista *apartamentos* (defina os dados como preferir). 
+
+```{r}
+# Responda aqui
+
+
+```
+
+## Vetores
+
+Vetores são estruturas importantes no R. Vetores são parecidos com listas, mas neles todos os elementos são do mesmo tipo. Para criar um vetor, podemos usar a função de concatenação `c()`:
+
+```{r}
+v1 <- c(1, 2, 3, 4, 5)
+
+v1
+```
+Podemos também criar vetores a partir de sequências. O código abaixo cria um vetor com os mesmos elementos do vetor que criamos acima.
+
+```{r}
+v2 = 1:5
+
+v2
+```
+Veja abaixo como os vetores são sempre criados com o mesmo tipo. Ainda que os elementos de entrada sejam diferentes, a função os converte para um tipo comum.
+
+```{r}
+v3 = c(1, 5, 5, FALSE, -1, '0')
+
+print(typeof(v3))
+
+v3
+```
+
+
+## Importação de pacotes
+
+Pacotes no R são elementos que adicionam funcionalidades à linguagem. Por exemplo, o pacote `stringr` possui diversas funções úteis de operação sobre strings, como transformação de caixa, segmentação e expressões regulares. Abaixo importamos este pacote e usamos uma de suas funções:
+
+```{r}
+library(stringr)
+
+str_to_lower("OLÁ MUNDO!!!")
+```
+Para instalar pacotes, basta usar o comando `install.packages` como abaixo:
+
+```{r, message=FALSE}
+install.packages("stringr")
+```
+

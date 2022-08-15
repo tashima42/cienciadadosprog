@@ -1,0 +1,108 @@
+---
+title: "Introdução a Manipulação de dados no R"
+output: html_document
+---
+
+O principal elemento para representação e manipulação de dados no R é o DataFrame. DataFrames são dados estruturados em formato de planilha. Quem está familiarizado com o Excel pode pensar nessa manipulação como criação de novas colunas usando fórmulas, ordenação de valores, cálculo de estatísticas, etc. A vantagem do R é poder fazer isto tudo de uma forma programável, que se adequa até mesmo a grandes quantidades de dados.
+
+## Lendo dados de um arquivo
+
+Muitos dados são gravados em arquivos CSV (Comma Separated Values, ou Valores Separados por Vírgula). É muito fácil importar dados em CSV usando o R, como mostra a célula abaixo. Estes dados também poderiam vir de uma planilha do Excel ou de um banco de dados, dependendo do caso.
+
+Nos comandos abaixo, a função *read.csv* lê os dados do arquivo *aluguel.csv* que se encontra na pasta *data*. Os dados são atribuídos para o DataFrame que chamamos de df (mas poderíamos usar qualquer outro nome). Para exibir o conteúdo do DataFrame, basta escrever o nome na última linha da célula.
+
+O DataFrame carregado contém dados de apartamentos para alugar na cidade de Curitiba.
+
+```{r}
+# lê o arquivo CSV
+df <- read.csv('../data/aluguel.csv', header = T, sep=",")
+
+# mostra o conteúdo do DataFrame
+df
+```
+
+Para obter informações sobre a estrutura do DataFrame, podemos usar a função `str()`:
+
+```{r}
+str(df)
+```
+Para apenas as primeiras linhas do DataFrame, podemos usar a função `head()`:
+
+```{r}
+head(df, 5)
+```
+
+Para saber o total de linhas do DataFrame, podemos usar a função `nrow()`:
+
+```{r}
+nrow(df)
+```
+## Manipulando o DataFrame
+
+Podemos manipular o DataFrame de diversas formas. É possível criar novos DataFrames com subconjuntos de colunas do DataFrame original. Abaixo um DataFrame chamado df_small é criado com o conteúdo das colunas aluguel e condominio.
+
+```{r}
+df_small <- data.frame(df$aluguel,df$condominio)
+
+df_small
+```
+
+
+
+Também é possível selecionar subconjuntos das linhas do DataFrame. Abaixo selecionamos apenas as linhas representando apartamentos de área maior que $50m^2$. Outras operações de comparação podem ser usadas como `==` para igualdade, `!=` para diferente ou `>=` para maior ou igual.
+
+```{r}
+df[df$area > 50, ]
+```
+
+Também é possível selecionar subconjuntos das linhas e colunas ao mesmo tempo. Abaixo selecionamos apartamentos com números de quartos diferente (`!=`) de 1 e apenas três colunas representadas pelos seus índices.
+
+```{r}
+df[df$quartos != 1, c(2, 3, 7)]
+```
+
+Perceba que o comando acima não alterou o DataFrame original, como pode ser visto abaixo. Ele apenas retornou um novo DataFrame. Para alterar um DataFrame, em geral, você precisa atribuir o resultado do comando à variável original. Por exemplo, usando df <- df[df$area > 50, ]
+
+```{r}
+df
+```
+
+É possível criar novas colunas a partir de outras colunas do DataFrame. Abaixo criamos uma coluna chamada *total* contendo o valor do aluguel somado ao condomínio.
+
+```{r}
+df$total <- df$aluguel + df$condominio
+
+df
+```
+
+### Exercício
+
+Suponha que o seu orçamento para alugar um apartamento é de R$ 900. Crie uma nova coluna com o nome "diferença" que contenha o valor que irá sobrar/faltar do seu orçamento de acordo com o valor total do apartamento.
+
+```{r}
+# Responda aqui
+```
+
+## Analisando dados do DataFrame
+
+O R possui uma função chamada *summary* que exibe estatísticas sobre as colunas do DataFrame. Por exemplo, como pode ser visto abaixo, o valor máximo para o condomínio é 520, enquanto a média é 335.85.
+
+```{r}
+summary(df)
+```
+
+
+É possível calcular separadamente a média de uma coluna com a função `mean()`:
+
+```{r}
+mean(df$aluguel)
+```
+
+E várias outras estatísticas:
+
+```{r}
+print(max(df$aluguel))
+print(min(df$aluguel))
+print(median(df$aluguel))
+```
+

@@ -1,0 +1,166 @@
+---
+title: Manipulação e Agregação de Dados
+output: html_document
+---
+
+Manipulação e agregação de dados são funcionalidades essenciais no dplyr. O dplyr possui diversas funções para transformação, agrupamento e agregação dos dados. Execute cada célula de código abaixo para ver o resultado.
+
+```{r}
+#importação de bibliotecas
+library(dplyr)
+```
+
+## Lendo dados de um arquivo
+
+O DataFrame carregado contém dados de apartamentos para alugar na cidade de Curitiba.
+
+
+```{r}
+# lê o arquivo CSV
+df <- read.csv('../data/aluguel.csv', header = T, sep=",", stringsAsFactors=FALSE)
+
+# mostra o conteúdo do DataFrame
+df
+```
+
+## Analisando dados do DataFrame
+
+### Agrupamento
+
+Uma funcionalidade muito útil é o agrupamento de valores. No exemplo abaixo os valores são agrupados de acordo com o número de quartos. A média é calculada para cada valor distinto de número de quartos. Neste caso, apartamentos de 1 quarto têm valor médio de aluguel 701 enquanto os de 2 quartos têm valor médio 1095.
+
+```{r}
+df_grouped <- df %>%
+  group_by(quartos) %>%
+  summarise(
+    mediaAluguel = mean(aluguel, na.rm = TRUE)
+  )
+
+df_grouped
+```
+
+Podemos também agrupar por mais de um valor. Abaixo calculamos a média de valor do aluguel agrupando por número de quartos e também o número de vagas. Neste caso, o valor médio de aluguel para apartamentos de 2 quartos sem vaga é de R$ 1216.
+
+```{r}
+df_grouped <- df %>%
+  group_by(quartos, vaga) %>%
+  summarise(
+    mediaAluguel = mean(aluguel, na.rm = TRUE)
+  )
+
+df_grouped
+```
+
+
+Podemos usar outras funções de agregação, como `max`, `min`, etc. Para contar as ocorrências em cada grupo, usamos a função `n()`. 
+
+```{r}
+df_grouped2 <- df %>%
+  group_by(quartos, vaga) %>%
+  summarise(
+    quantidade = n(),
+    mediaAluguel = mean(aluguel, na.rm = TRUE),
+    maxAluguel = max(aluguel, na.rm = TRUE)
+  )
+
+df_grouped2
+```
+
+### Pivot
+
+```{r}
+library(tidyr)
+```
+
+Uma outra biblioteca importante do tidyverse para manipulação de dados é a tidyr. A tidyr é usada para rearranjar (pivotear) as linhas e colunas de um DataFrame. Podemos usar a função *pivot_wider()* para rearranjar as linhas do DataFrame que agrupamos acima. Neste caso, queremos que a coluna vaga seja mostrada em colunas (deixando o DataFreme mais largo - wider). Como na visualização anterior, aqui também podemos ver que o valor médio de aluguel para um apartamento com um quarto e sem vaga é de R$ 601.
+
+```{r}
+df_wide <- df_grouped %>% 
+  pivot_wider(names_from = vaga, values_from = mediaAluguel)
+
+df_wide
+```
+
+Podemos também fazer a agregação diretamente com a função *pivot_wider*. Abaixo obtemos os mesmo resultados que acima, porém partindo do DataFreme original, sem agrupamento:
+
+```{r}
+df %>% 
+  select(quartos, vaga, aluguel) %>% 
+  pivot_wider(
+    names_from = vaga, 
+    values_from = aluguel,
+    values_fn = list(aluguel = mean)
+  )
+```
+A operação oposta do *pivot_wider* é a *pivot_longer*. Com ela podemos transforma valores listados em colunas para a representação em linhas, como é mostrado abaixo:
+
+```{r}
+df_long <- df_wide %>%
+  pivot_longer(!quartos, names_to = "vaga", values_to = "mediaAluguel")
+
+df_long
+```
+
+### Crosstab
+
+As funções de pivot podem ser usadas para criam uma *crosstab* dos valores. As crosstabs mostram o total de itens atendendo dois critérios diferentes. Por exemplo, abaixo podemos ver que o DataFrame original tem 6 ofertas de aluguel com 1 quarto e 0 vagas.
+
+
+```{r}
+df %>%
+  group_by(quartos, vaga) %>%
+  summarise(quantidade = n()) %>%
+  pivot_wider(names_from = vaga, values_from = quantidade)
+```
+
+
+
+## Junção de Dados
+
+Quando temos dois DataFrames e precisamos uni-los, usamos as funcionalidades de junção de dados. Existem vários métodos para fazer junção, dependendo do resultado esperado. Para os exemplos desta seção vamos continuar usando o DataFrame de apartamentos (repetido abaixo) e vamos também definir um novo DataFrame (na célula seguinte) contendo códigos de apartamentos e imobiliárias fictícias repensáveis por eles.
+
+```{r}
+df
+```
+
+```{r}
+# Criando um novo DataFrame para ser usado na junção
+df_imobiliarias <- data.frame (codigo  = c(469,74,59375, 2381, 34),
+                  imobiliaria = c('Apollo', 'ImobiOne', 'ImobiOne', 'Apollo', 'ImobiTwo')
+                  )
+
+df_imobiliarias
+```
+
+A função mais usada para junção de duas colunas é a *inner_join*. No exemplo abaixo a aplicação da função retorna um novo DataFrame com as colunas dos dois DataFrames originais unidas e com as linhas associadas de acordo com a coluna em comum (código).
+
+```{r}
+df_joined <- df %>% inner_join(df_imobiliarias)
+df_joined
+```
+
+Também podemos fazer a união das linhas de dois DataFrames diferentes (de preferência contendo as mesmas colunas). Abaixo definimos um novo DataFrame com duas novas ofertas de aluguel para unirmos ao DataFrame original.
+
+
+```{r}
+# Cria dataframe vazia 
+df_mais_apartamentos <- df[0,]
+# Adiciona novas linhas
+df_mais_apartamentos[1,] = list(734, 'Rua Nova', 2, 1, 84, 0, 1250, 490, '02/11/17')
+df_mais_apartamentos[2,] = list(4124, 'Rua Nova 2', 1, 1, 60, 0, 850, 310, '30/09/17')
+
+df_mais_apartamentos
+```
+
+
+A função usada para a união das linhas de dois DataFrames é a *bind_rows*:
+
+```{r}
+df %>% bind_rows(df_mais_apartamentos)
+```
+
+### Referências
+
+- Documentação do [dplyr](https://dplyr.tidyverse.org/)
+- Cheatsheet do [dplyr](https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf)
+

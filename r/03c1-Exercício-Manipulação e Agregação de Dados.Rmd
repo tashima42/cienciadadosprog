@@ -1,0 +1,94 @@
+---
+title: Manipulação e Agregação de Dados - Exercícios
+output: html_document
+---
+
+
+Resolva os exercícios propostos abaixo. Os exercícios usam um dataset de reclamações registradas por cidadãos. O detaset foi derivado de dados do [Portal de Dados Abertos da Prefeitura de Curitiba](https://www.curitiba.pr.gov.br/DADOSABERTOS/).
+
+## Leitura e análise inicial dos dados
+
+Inicie um DataFrame a partir do arquivo `2017-02-01_156_-_Base_de_Dados_sample.csv`. 
+
+**Dica:** Caso o arquivo não seja separado por vírgulas, o R não conseguirá reconhecer os campos adequadamente. Você precisará fornecer o parâmetro `sep=';'` para indicar o separador correto (neste caso, o `;`).
+
+**Dica:** Aplicativos modernos tendem a armazenar arquivos no formato UTF-8, mas é comum encontrar arquivos codificados em outros formatos. Caso você tenha problemas para ler o arquivo, utilize o parâmetro `fileEncoding='latin1'` para selecionar o encoding correto (*latin1* neste exemplo).
+
+
+```{r}
+# Resposta:
+
+```
+
+
+Visualize algumas linhas de dados:
+
+```{r}
+# Resposta:
+
+```
+
+Use o método `str()` para exibir informações sobre as colunas.
+
+```{r}
+# Resposta:
+
+```
+
+Crie um novo DataFrame chamado `df_elogios` contendo apenas as linhas cujos valores na coluna `TIPO` são iguais a 'ELOGIO'. Este DataFrame deve ter as colunas TIPO, ASSUNTO, e BAIRRO_CIDADAO.
+
+```{r}
+# Resposta:
+
+```
+
+Quais são os 5 bairros com mais elogios? Agrupe pelo `BAIRRO_CIDADAO` e ordene o resultado para responder.
+
+```{r}
+# Resposta:
+
+```
+
+Crie dois novos DataFrames, um contendo as linhas de reclamações de pessoas do sexo masculino e outra do sexo feminino. Use estes DataFrames para responder:
+
+Qual é a proporção de reclamações entre homens e mulheres? (total de reclamações de homens dividido pelo total de reclamações de mulheres)
+
+# Resposta:
+
+```
+
+Concatene os dois DataFrames criados acima para criar um DataFrame chamado `df_todos`. Verifique se este DataFrame tem o mesmo número de linhas do DataFrame lido do CSV.
+
+```{r}
+# Resposta:
+
+```
+
+Crie um novo DataFrame chamado `df_sexo` contendo a contagem de reclamações para cada sexo. A coluna com a contagem deve se chamar `contagem`.
+
+```{r}
+# Resposta:
+
+```
+
+Crie um novo DataFrame chamado `df_sexo_tipo` contendo a contagem de reclamações para cada sexo e tipo. A coluna com a contagem deve se chamar `total`.
+
+
+```{r}
+# Resposta:
+
+```
+
+Faça uma junção dos DataFrames `df_sexo, df_sexo_tipo` para criar um novo DataFrame chamado `df_juncao` contendo as contagens por sexo e também por sexo/tipo.
+
+```{r}
+# Resposta:
+
+```
+
+Crie uma nova coluna no DataFrame `df_juncao` chamada `proporcao` contendo a porcentagem de homens e mulheres que fizeram cada tipo de reclamação. Responda: qual sexo faz mais elogios? Qual faz mais solicitações? Qual faz mais reclamações?
+
+```{r}
+# Resposta:
+
+```

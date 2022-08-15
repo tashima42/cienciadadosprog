@@ -1,0 +1,92 @@
+---
+title: "Introdução a Manipulação de dados no R usando dplyr"
+output: html_document
+---
+
+# dplyr e o tidyverse
+
+*dplyr* é um pacote para a manipulação de DataFrames no R. dplyr faz parte do [*tidyverse*](https://www.tidyverse.org/), que é um conjunto de pacotes com uma filosofia de uso compartilhada, simplificando o processo de manipulação e análise de dados. 
+
+Para usar o dplyr, o primeiro passo é importar a biblioteca. Execute todas as células de código do tutorial para ver o resultado.
+
+```{r}
+#importing libraries
+library(dplyr)
+```
+
+
+
+## Lendo dados de um arquivo
+
+O DataFrame carregado contém dados de apartamento para alugar na cidade de Curitiba.
+
+```{r}
+# lê o arquivo CSV
+df <- read.csv('../data/aluguel.csv', header = T, sep=",")
+
+# mostra o conteúdo do DataFrame
+df
+```
+
+## Filtrando e selecionando dados
+
+O dplyr usa um operador especial para manipular os dados, o `%>%` (pipe). Este operador "envia" informação da operação à esquerda para a operação à direita. Abaixo usamos o operador junto com a função `filter()` para filtrar apenas os apartamentos com área maior que 80m2.
+
+```{r}
+df %>% filter(area > 80)
+```
+
+Para selecionar algumas colunas de um DataFrame, usamos a função `select()`, listando os nomes das colunas ou referenciando suas posições no DataFrame. Abaixo selecionamos a coluna endereco e também a 3a e 5a colunas.
+
+```{r}
+df %>% 
+  select(endereco, c(3, 5))
+```
+Podemos também selecionar todas as colunas exceto alguma. Para isso, basta usar o operador de negação (!):
+```{r}
+df %>% 
+  select(!c("endereco", "suite"))
+```
+
+## Manipulação dos dados
+
+Além de selecionar dados, o dplyr também tem funções para manipulação. Para incluir uma nova coluna, é possível usar o `mutate()`. Abaixo incluímos uma nova coluna `total` contendo a soma dos valores de aluguel e condomínio.
+
+```{r}
+df %>% 
+  mutate(total = aluguel + condominio)
+```
+
+Para ordenar um DataFrame de acordo com uma coluna, usa-se a função `arrange()`. Abaixo ordenamos o DataFrame pela coluna *aluguel* em ordem decrescente:
+
+```{r}
+df %>% 
+  arrange(desc(aluguel))
+```
+
+As funções do dplyr podem ser combinadas. Por exemplo, abaixo fazemos diversas operações em cascata usando múltiplos operadores `%>%`.
+
+```{r}
+df %>% 
+  filter(area > 80) %>% 
+  mutate(total = aluguel + condominio) %>% 
+  select(endereco:vaga, total) %>% 
+  arrange(total)
+```
+
+Perceba que as operações não afetam o DataFrame original:
+
+```{r}
+df
+```
+Para efetivar as alterações, é preciso sobrescrever o DataFrame original:
+
+```{r}
+df <- df %>% 
+  filter(area > 80) %>% 
+  mutate(total = aluguel + condominio) %>% 
+  select(endereco:vaga, total) %>% 
+  arrange(total)
+
+df
+```
