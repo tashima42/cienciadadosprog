@@ -56,8 +56,24 @@ area2 <- 60
 # Total recebe a soma de area1 e area2
 total <- area1 + area2
 
-print("Área total: ")
-print(total)
+paste("Área total: ", total)
+```
+
+Variáveis podem ser de diversos tipos como no exemplo abaixo:
+
+```{r}
+# Inicializando variáveis
+endereco <- "Rua Marechal Deodoro, 2130" # variável do tipo caracter (texto/string)
+
+area <- 45 # variável do tipo double (inteiro/numérico)
+
+aluguel = 1299.5 # variável do tipo double (numérico)
+
+# Imprime as variáveis
+paste(endereco, area, aluguel)
+
+# Imprime os tipos das variáveis
+paste(typeof(endereco), typeof(area), typeof(aluguel))
 ```
 
 ### Operações

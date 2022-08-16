@@ -429,10 +429,22 @@ area2 &lt;- 60
 # Total recebe a soma de area1 e area2
 total &lt;- area1 + area2
 
-print(&quot;Área total: &quot;)</code></pre>
-<pre><code>## [1] &quot;Área total: &quot;</code></pre>
-<pre class="r"><code>print(total)</code></pre>
-<pre><code>## [1] 105</code></pre>
+paste(&quot;Área total: &quot;, total)</code></pre>
+<pre><code>## [1] &quot;Área total:  105&quot;</code></pre>
+<p>Variáveis podem ser de diversos tipos como no exemplo abaixo:</p>
+<pre class="r"><code># Inicializando variáveis
+endereco &lt;- &quot;Rua Marechal Deodoro, 2130&quot; # variável do tipo caracter (texto/string)
+
+area &lt;- 45 # variável do tipo double (inteiro/numérico)
+
+aluguel = 1299.5 # variável do tipo double (numérico)
+
+# Imprime as variáveis
+paste(endereco, area, aluguel)</code></pre>
+<pre><code>## [1] &quot;Rua Marechal Deodoro, 2130 45 1299.5&quot;</code></pre>
+<pre class="r"><code># Imprime os tipos das variáveis
+paste(typeof(endereco), typeof(area), typeof(aluguel))</code></pre>
+<pre><code>## [1] &quot;character double double&quot;</code></pre>
 <div id="operações" class="section level3">
 <h3>Operações</h3>
 <p>Na célula acima utilizamos a operação de soma para obter o valor
