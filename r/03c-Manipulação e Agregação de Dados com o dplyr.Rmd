@@ -5,7 +5,7 @@ output: html_document
 
 Manipulação e agregação de dados são funcionalidades essenciais no dplyr. O dplyr possui diversas funções para transformação, agrupamento e agregação dos dados. Execute cada célula de código abaixo para ver o resultado.
 
-```{r}
+```{r, message=FALSE}
 #importação de bibliotecas
 library(dplyr)
 ```

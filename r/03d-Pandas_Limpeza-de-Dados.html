@@ -11,7 +11,7 @@
 
 
 
-<title>Introdução a Manipulação de dados no R usando dplyr</title>
+<title>Limpeza de Dados</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -361,154 +361,82 @@ pre code {
 
 
 
-<h1 class="title toc-ignore">Introdução a Manipulação de dados no R
-usando dplyr</h1>
+<h1 class="title toc-ignore">Limpeza de Dados</h1>
 
 </div>
 
 
-<div id="dplyr-e-o-tidyverse" class="section level1">
-<h1>dplyr e o tidyverse</h1>
-<p><em>dplyr</em> é um pacote para a manipulação de DataFrames no R.
-dplyr faz parte do <a href="https://www.tidyverse.org/"><em>tidyverse</em></a>, que é um
-conjunto de pacotes com uma filosofia de uso compartilhada,
-simplificando o processo de manipulação e análise de dados.</p>
-<p>Para usar o dplyr, o primeiro passo é importar a biblioteca. Execute
-todas as células de código do tutorial para ver o resultado.</p>
-<pre class="r"><code>#importing libraries
-library(dplyr)</code></pre>
-<div id="lendo-dados-de-um-arquivo" class="section level2">
-<h2>Lendo dados de um arquivo</h2>
-<p>O DataFrame carregado contém dados de apartamento para alugar na
-cidade de Curitiba.</p>
-<pre class="r"><code># lê o arquivo CSV
-df &lt;- read.csv(&#39;../data/aluguel.csv&#39;, header = T, sep=&quot;,&quot;)
+<p>Os processos de limpeza e preparação de dados são muito importantes.
+Dados limpos, completos e organizados tornam as análises mais fáceis e
+confiáveis. Abaixo descrevemos alguns dos principais mecanismos para
+tratar dados que tenham algum problema.</p>
+<p>Execute cada célula de código abaixo para ver o resultado.</p>
+<div id="leitura-e-análise-inicial-dos-dados" class="section level2">
+<h2>Leitura e análise inicial dos dados</h2>
+<pre class="r"><code>#importação de bibliotecas
+library(dplyr)
+library(tidyr)
 
-# mostra o conteúdo do DataFrame
-df</code></pre>
-<pre><code>##    codigo                       endereco quartos suite area vaga aluguel
-## 1      34   Rua Desembargador Westphalen       2     0   90    0     900
-## 2     167              Rua Jose Loureiro       2     0   64    0     650
-## 3    6784              Rua Jose Loureiro       2     0   81    0    1100
-## 4      82             Rua Lourenço Pinto       2     0   50    0    1350
-## 5    2970             Rua Lourenço Pinto       2     0   63    0    1300
-## 6   34197          Alameda Doutor Muricy       2     0   80    1     900
-## 7    5072          Alameda Doutor Muricy       2     0   84    0    1100
-## 8     469   Rua Desembargador Westphalen       1     0   30    0     550
-## 9      24   Rua Desembargador Westphalen       1     0   60    1     800
-## 10     74 Avenida Visconde de Guarapuava       2     1  132    1    1800
-## 11   9850 Avenida Visconde de Guarapuava       1     0   64    1     600
-## 12  82343       Avenida Sete de Setembro       1     0   45    0     750
-## 13  20802       Avenida Sete de Setembro       1     0   47    0     600
-## 14    568               Rua Alferes Poli       1     0   43    0     600
-## 15 294579           Avenida Silva Jardim       1     0   36    0     550
-## 16  59375           Avenida Silva Jardim       1     0   33    0     560
-## 17     80   Rua Desembargador Westphalen       1     0   80    1     900
-## 18  66490   Rua Desembargador Westphalen       1     0   80    1    1100
-## 19   2381                Rua Rockefeller       2     0   54    0     900
-## 20  44803                Rua Rockefeller       2     0   77    1     950
-##    condominio     data
-## 1         371 11/10/17
-## 2         428 15/07/17
-## 3         400 23/08/17
-## 4         300 19/09/17
-## 5         300 05/08/17
-## 6         410 23/10/17
-## 7         382 02/09/17
-## 8         210 03/07/17
-## 9         120 30/09/17
-## 10        520 12/10/17
-## 11        326 15/07/17
-## 12        420 11/10/17
-## 13        405 27/07/17
-## 14        330 12/08/17
-## 15        350 01/10/17
-## 16        305 11/09/17
-## 17        350 12/08/17
-## 18        350 29/08/17
-## 19        240 19/09/17
-## 20        200 19/07/17</code></pre>
-</div>
-<div id="filtrando-e-selecionando-dados" class="section level2">
-<h2>Filtrando e selecionando dados</h2>
-<p>O dplyr usa um operador especial para manipular os dados, o
-<code>%&gt;%</code> (pipe). Este operador “envia” informação da operação
-à esquerda para a operação à direita. Abaixo usamos o operador junto com
-a função <code>filter()</code> para filtrar apenas os apartamentos com
-área maior que 80m2.</p>
-<pre class="r"><code>df %&gt;% filter(area &gt; 80)</code></pre>
-<pre><code>##   codigo                       endereco quartos suite area vaga aluguel
-## 1     34   Rua Desembargador Westphalen       2     0   90    0     900
-## 2   6784              Rua Jose Loureiro       2     0   81    0    1100
-## 3   5072          Alameda Doutor Muricy       2     0   84    0    1100
-## 4     74 Avenida Visconde de Guarapuava       2     1  132    1    1800
+# lê o arquivo CSV
+df &lt;- read.csv(&#39;../data/aluguel-com-erros.csv&#39;, header = T, sep=&quot;,&quot;, stringsAsFactors = FALSE)</code></pre>
+<p>O primeiro passo ao se analisar dados desconhecidos é visualizar
+algumas linhas de dados:</p>
+<pre class="r"><code>head(df)</code></pre>
+<pre><code>##   codigo                     endereco quartos suite area vaga aluguel
+## 1     34 Rua Desembargador Westphalen       2     0   90    0     900
+## 2    167            Rua Jose Loureiro       2     0   64    0     650
+## 3   6784            Rua Jose Loureiro       2     0   81    0    1100
+## 4     82           Rua Lourenço Pinto       2     0   50    0    1350
+## 5   2970           Rua Lourenço Pinto       2     0   63    0    1300
+## 6  34197        Alameda Doutor Muricy       2     0   80    1     900
 ##   condominio     data
 ## 1        371 11/10/17
-## 2        400 23/08/17
-## 3        382 02/09/17
-## 4        520 12/10/17</code></pre>
-<p>Para selecionar algumas colunas de um DataFrame, usamos a função
-<code>select()</code>, listando os nomes das colunas ou referenciando
-suas posições no DataFrame. Abaixo selecionamos a coluna endereco e
-também a 3a e 5a colunas.</p>
-<pre class="r"><code>df %&gt;% 
-  select(endereco, c(3, 5))</code></pre>
-<pre><code>##                          endereco quartos area
-## 1    Rua Desembargador Westphalen       2   90
-## 2               Rua Jose Loureiro       2   64
-## 3               Rua Jose Loureiro       2   81
-## 4              Rua Lourenço Pinto       2   50
-## 5              Rua Lourenço Pinto       2   63
-## 6           Alameda Doutor Muricy       2   80
-## 7           Alameda Doutor Muricy       2   84
-## 8    Rua Desembargador Westphalen       1   30
-## 9    Rua Desembargador Westphalen       1   60
-## 10 Avenida Visconde de Guarapuava       2  132
-## 11 Avenida Visconde de Guarapuava       1   64
-## 12       Avenida Sete de Setembro       1   45
-## 13       Avenida Sete de Setembro       1   47
-## 14               Rua Alferes Poli       1   43
-## 15           Avenida Silva Jardim       1   36
-## 16           Avenida Silva Jardim       1   33
-## 17   Rua Desembargador Westphalen       1   80
-## 18   Rua Desembargador Westphalen       1   80
-## 19                Rua Rockefeller       2   54
-## 20                Rua Rockefeller       2   77</code></pre>
-<p>Podemos também selecionar todas as colunas exceto alguma. Para isso,
-basta usar o operador de negação (!):</p>
-<pre class="r"><code>df %&gt;% 
-  select(!c(&quot;endereco&quot;, &quot;suite&quot;))</code></pre>
-<pre><code>##    codigo quartos area vaga aluguel condominio     data
-## 1      34       2   90    0     900        371 11/10/17
-## 2     167       2   64    0     650        428 15/07/17
-## 3    6784       2   81    0    1100        400 23/08/17
-## 4      82       2   50    0    1350        300 19/09/17
-## 5    2970       2   63    0    1300        300 05/08/17
-## 6   34197       2   80    1     900        410 23/10/17
-## 7    5072       2   84    0    1100        382 02/09/17
-## 8     469       1   30    0     550        210 03/07/17
-## 9      24       1   60    1     800        120 30/09/17
-## 10     74       2  132    1    1800        520 12/10/17
-## 11   9850       1   64    1     600        326 15/07/17
-## 12  82343       1   45    0     750        420 11/10/17
-## 13  20802       1   47    0     600        405 27/07/17
-## 14    568       1   43    0     600        330 12/08/17
-## 15 294579       1   36    0     550        350 01/10/17
-## 16  59375       1   33    0     560        305 11/09/17
-## 17     80       1   80    1     900        350 12/08/17
-## 18  66490       1   80    1    1100        350 29/08/17
-## 19   2381       2   54    0     900        240 19/09/17
-## 20  44803       2   77    1     950        200 19/07/17</code></pre>
+## 2        428 15/07/17
+## 3       1100 23/08/17
+## 4        300 19/09/17
+## 5        300 05/08/17
+## 6        410 23/10/17</code></pre>
+<p>A função <code>summary</code> é útil para vermos quais colunas do
+DataFrame tiveram seus tipos de dados corretamente identificados pelo R.
+No caso abaixo já é possível identificar alguns problemas. As colunas
+<em>area, aluguel e condomínio</em> foram interpretadas como caracteres
+de texto (string) enquanto deveriam ser numéricas. A coluna
+<em>data</em> deveria ser do tipo <code>Date</code>.</p>
+<pre class="r"><code>summary(df)</code></pre>
+<pre><code>##      codigo           endereco            quartos       suite          
+##  Min.   :    24.0   Length:20          Min.   :1.0   Length:20         
+##  1st Qu.:   145.8   Class :character   1st Qu.:1.0   Class :character  
+##  Median :  4021.0   Mode  :character   Median :1.5   Mode  :character  
+##  Mean   : 31557.2                      Mean   :1.5                     
+##  3rd Qu.: 36848.5                      3rd Qu.:2.0                     
+##  Max.   :294579.0                      Max.   :2.0                     
+##      area                vaga        aluguel           condominio       
+##  Length:20          Min.   :0.00   Length:20          Length:20         
+##  Class :character   1st Qu.:0.00   Class :character   Class :character  
+##  Mode  :character   Median :0.00   Mode  :character   Mode  :character  
+##                     Mean   :0.35                                        
+##                     3rd Qu.:1.00                                        
+##                     Max.   :1.00                                        
+##      data          
+##  Length:20         
+##  Class :character  
+##  Mode  :character  
+##                    
+##                    
+## </code></pre>
 </div>
-<div id="manipulação-dos-dados" class="section level2">
-<h2>Manipulação dos dados</h2>
-<p>Além de selecionar dados, o dplyr também tem funções para
-manipulação. Para incluir uma nova coluna, é possível usar o
-<code>mutate()</code>. Abaixo incluímos uma nova coluna
-<code>total</code> contendo a soma dos valores de aluguel e
-condomínio.</p>
-<pre class="r"><code>df %&gt;% 
-  mutate(total = aluguel + condominio)</code></pre>
+<div id="localizando-e-tratando-valores-inválidos" class="section level2">
+<h2>Localizando e tratando valores inválidos</h2>
+<p>Valores inválidos ou não existentes podem ser convenientemente
+representados pelo valor NA (not available). Mas para que isto seja
+possível, é preciso indicar quais valores devem ser considerados NA. Uma
+rápida avaliação dos dados do csv (você pode editar o arquivo em um
+editor, por exemplo) mostra que diversos campos estão sem valor e alguns
+são marcados com o caracter <code>?</code>. Para que a leitura do
+arquivo reconheça os valores inválidos e ausentes como NA, podemos
+incluir o parâmetro <code>na.strings</code> como no exemplo abaixo.</p>
+<pre class="r"><code>df &lt;- read.csv(&#39;../data/aluguel-com-erros.csv&#39;, header = T, sep=&quot;,&quot;, stringsAsFactors = FALSE, na.strings=c(&quot;&quot;,&quot;NA&quot;, &quot;?&quot;))
+df</code></pre>
 <pre><code>##    codigo                       endereco quartos suite area vaga aluguel
 ## 1      34   Rua Desembargador Westphalen       2     0   90    0     900
 ## 2     167              Rua Jose Loureiro       2     0   64    0     650
@@ -517,102 +445,56 @@ condomínio.</p>
 ## 5    2970             Rua Lourenço Pinto       2     0   63    0    1300
 ## 6   34197          Alameda Doutor Muricy       2     0   80    1     900
 ## 7    5072          Alameda Doutor Muricy       2     0   84    0    1100
-## 8     469   Rua Desembargador Westphalen       1     0   30    0     550
-## 9      24   Rua Desembargador Westphalen       1     0   60    1     800
+## 8     469                           &lt;NA&gt;       1     0   30    0     550
+## 9      24    R. Desembargador Westphalen       1     0   60    1     800
 ## 10     74 Avenida Visconde de Guarapuava       2     1  132    1    1800
 ## 11   9850 Avenida Visconde de Guarapuava       1     0   64    1     600
 ## 12  82343       Avenida Sete de Setembro       1     0   45    0     750
 ## 13  20802       Avenida Sete de Setembro       1     0   47    0     600
 ## 14    568               Rua Alferes Poli       1     0   43    0     600
-## 15 294579           Avenida Silva Jardim       1     0   36    0     550
+## 15 294579               Av. Silva Jardim       1     0   36    0     550
 ## 16  59375           Avenida Silva Jardim       1     0   33    0     560
 ## 17     80   Rua Desembargador Westphalen       1     0   80    1     900
 ## 18  66490   Rua Desembargador Westphalen       1     0   80    1    1100
 ## 19   2381                Rua Rockefeller       2     0   54    0     900
-## 20  44803                Rua Rockefeller       2     0   77    1     950
-##    condominio     data total
-## 1         371 11/10/17  1271
-## 2         428 15/07/17  1078
-## 3         400 23/08/17  1500
-## 4         300 19/09/17  1650
-## 5         300 05/08/17  1600
-## 6         410 23/10/17  1310
-## 7         382 02/09/17  1482
-## 8         210 03/07/17   760
-## 9         120 30/09/17   920
-## 10        520 12/10/17  2320
-## 11        326 15/07/17   926
-## 12        420 11/10/17  1170
-## 13        405 27/07/17  1005
-## 14        330 12/08/17   930
-## 15        350 01/10/17   900
-## 16        305 11/09/17   865
-## 17        350 12/08/17  1250
-## 18        350 29/08/17  1450
-## 19        240 19/09/17  1140
-## 20        200 19/07/17  1150</code></pre>
-<p>Para ordenar um DataFrame de acordo com uma coluna, usa-se a função
-<code>arrange()</code>. Abaixo ordenamos o DataFrame pela coluna
-<em>aluguel</em> em ordem decrescente:</p>
-<pre class="r"><code>df %&gt;% 
-  arrange(desc(aluguel))</code></pre>
-<pre><code>##    codigo                       endereco quartos suite area vaga aluguel
-## 1      74 Avenida Visconde de Guarapuava       2     1  132    1    1800
-## 2      82             Rua Lourenço Pinto       2     0   50    0    1350
-## 3    2970             Rua Lourenço Pinto       2     0   63    0    1300
-## 4    6784              Rua Jose Loureiro       2     0   81    0    1100
-## 5    5072          Alameda Doutor Muricy       2     0   84    0    1100
-## 6   66490   Rua Desembargador Westphalen       1     0   80    1    1100
-## 7   44803                Rua Rockefeller       2     0   77    1     950
-## 8      34   Rua Desembargador Westphalen       2     0   90    0     900
-## 9   34197          Alameda Doutor Muricy       2     0   80    1     900
-## 10     80   Rua Desembargador Westphalen       1     0   80    1     900
-## 11   2381                Rua Rockefeller       2     0   54    0     900
-## 12     24   Rua Desembargador Westphalen       1     0   60    1     800
-## 13  82343       Avenida Sete de Setembro       1     0   45    0     750
-## 14    167              Rua Jose Loureiro       2     0   64    0     650
-## 15   9850 Avenida Visconde de Guarapuava       1     0   64    1     600
-## 16  20802       Avenida Sete de Setembro       1     0   47    0     600
-## 17    568               Rua Alferes Poli       1     0   43    0     600
-## 18  59375           Avenida Silva Jardim       1     0   33    0     560
-## 19    469   Rua Desembargador Westphalen       1     0   30    0     550
-## 20 294579           Avenida Silva Jardim       1     0   36    0     550
-##    condominio     data
-## 1         520 12/10/17
-## 2         300 19/09/17
-## 3         300 05/08/17
-## 4         400 23/08/17
-## 5         382 02/09/17
-## 6         350 29/08/17
-## 7         200 19/07/17
-## 8         371 11/10/17
-## 9         410 23/10/17
-## 10        350 12/08/17
-## 11        240 19/09/17
-## 12        120 30/09/17
-## 13        420 11/10/17
-## 14        428 15/07/17
-## 15        326 15/07/17
-## 16        405 27/07/17
-## 17        330 12/08/17
-## 18        305 11/09/17
-## 19        210 03/07/17
-## 20        350 01/10/17</code></pre>
-<p>As funções do dplyr podem ser combinadas. Por exemplo, abaixo fazemos
-diversas operações em cascata usando múltiplos operadores
-<code>%&gt;%</code>.</p>
-<pre class="r"><code>df %&gt;% 
-  filter(area &gt; 80) %&gt;% 
-  mutate(total = aluguel + condominio) %&gt;% 
-  select(endereco:vaga, total) %&gt;% 
-  arrange(total)</code></pre>
-<pre><code>##                         endereco quartos suite area vaga total
-## 1   Rua Desembargador Westphalen       2     0   90    0  1271
-## 2          Alameda Doutor Muricy       2     0   84    0  1482
-## 3              Rua Jose Loureiro       2     0   81    0  1500
-## 4 Avenida Visconde de Guarapuava       2     1  132    1  2320</code></pre>
-<p>Perceba que as operações não afetam o DataFrame original:</p>
-<pre class="r"><code>df</code></pre>
+## 20  44803                Rua Rockefeller       2    NA   NA    1      NA
+##    condominio       data
+## 1         371   11/10/17
+## 2         428   15/07/17
+## 3        1100   23/08/17
+## 4         300   19/09/17
+## 5         300   05/08/17
+## 6         410   23/10/17
+## 7         382   02/09/17
+## 8         210   03/07/17
+## 9         120   30/09/17
+## 10        520   12/10/17
+## 11        326   15/07/17
+## 12        420 janeiro 17
+## 13        405   27/07/17
+## 14        330   12/08/17
+## 15        350   01/10/17
+## 16        305   11/09/17
+## 17        350   12/08/17
+## 18        350   29/08/17
+## 19        240   19/09/17
+## 20         NA   19/07/17</code></pre>
+<p>Com os NA representados adequadamente, podemos usar diversas funções
+que os referenciam. Por exemplo, abaixo usamos o teste
+<code>is.na</code> para identificar as linhas que contenham valores
+nulos em qualquer variável (coluna).</p>
+<pre class="r"><code>df %&gt;%
+  filter_all(any_vars(is.na(.)))</code></pre>
+<pre><code>##   codigo        endereco quartos suite area vaga aluguel condominio     data
+## 1    469            &lt;NA&gt;       1     0   30    0     550        210 03/07/17
+## 2  44803 Rua Rockefeller       2    NA   NA    1      NA         NA 19/07/17</code></pre>
+<p>O apartamento com código 44803 mostrado acima tem muitos campos
+vazios. Uma boa estratégia neste caso é eliminar esta linha. O comando
+abaixo define um novo DataFrame sem este apartamento.</p>
+<pre class="r"><code>df_sem_nulos &lt;- df %&gt;%
+  filter(codigo != &#39;44803&#39;)
+
+df_sem_nulos</code></pre>
 <pre><code>##    codigo                       endereco quartos suite area vaga aluguel
 ## 1      34   Rua Desembargador Westphalen       2     0   90    0     900
 ## 2     167              Rua Jose Loureiro       2     0   64    0     650
@@ -621,23 +503,249 @@ diversas operações em cascata usando múltiplos operadores
 ## 5    2970             Rua Lourenço Pinto       2     0   63    0    1300
 ## 6   34197          Alameda Doutor Muricy       2     0   80    1     900
 ## 7    5072          Alameda Doutor Muricy       2     0   84    0    1100
-## 8     469   Rua Desembargador Westphalen       1     0   30    0     550
-## 9      24   Rua Desembargador Westphalen       1     0   60    1     800
+## 8     469                           &lt;NA&gt;       1     0   30    0     550
+## 9      24    R. Desembargador Westphalen       1     0   60    1     800
 ## 10     74 Avenida Visconde de Guarapuava       2     1  132    1    1800
 ## 11   9850 Avenida Visconde de Guarapuava       1     0   64    1     600
 ## 12  82343       Avenida Sete de Setembro       1     0   45    0     750
 ## 13  20802       Avenida Sete de Setembro       1     0   47    0     600
 ## 14    568               Rua Alferes Poli       1     0   43    0     600
-## 15 294579           Avenida Silva Jardim       1     0   36    0     550
+## 15 294579               Av. Silva Jardim       1     0   36    0     550
 ## 16  59375           Avenida Silva Jardim       1     0   33    0     560
 ## 17     80   Rua Desembargador Westphalen       1     0   80    1     900
 ## 18  66490   Rua Desembargador Westphalen       1     0   80    1    1100
 ## 19   2381                Rua Rockefeller       2     0   54    0     900
-## 20  44803                Rua Rockefeller       2     0   77    1     950
+##    condominio       data
+## 1         371   11/10/17
+## 2         428   15/07/17
+## 3        1100   23/08/17
+## 4         300   19/09/17
+## 5         300   05/08/17
+## 6         410   23/10/17
+## 7         382   02/09/17
+## 8         210   03/07/17
+## 9         120   30/09/17
+## 10        520   12/10/17
+## 11        326   15/07/17
+## 12        420 janeiro 17
+## 13        405   27/07/17
+## 14        330   12/08/17
+## 15        350   01/10/17
+## 16        305   11/09/17
+## 17        350   12/08/17
+## 18        350   29/08/17
+## 19        240   19/09/17</code></pre>
+<p>Se você quer eliminar as linhas com valores nulos em uma determinada
+coluna, basta usar o <code>drop_na()</code> especificando a coluna. Se
+quiser eliminar todas as linhas com valores nulos em qualquer coluna,
+use <code>drop_na()</code> sem especificar colunas.</p>
+<pre class="r"><code>df %&gt;% drop_na(endereco)</code></pre>
+<pre><code>##    codigo                       endereco quartos suite area vaga aluguel
+## 1      34   Rua Desembargador Westphalen       2     0   90    0     900
+## 2     167              Rua Jose Loureiro       2     0   64    0     650
+## 3    6784              Rua Jose Loureiro       2     0   81    0    1100
+## 4      82             Rua Lourenço Pinto       2     0   50    0    1350
+## 5    2970             Rua Lourenço Pinto       2     0   63    0    1300
+## 6   34197          Alameda Doutor Muricy       2     0   80    1     900
+## 7    5072          Alameda Doutor Muricy       2     0   84    0    1100
+## 8      24    R. Desembargador Westphalen       1     0   60    1     800
+## 9      74 Avenida Visconde de Guarapuava       2     1  132    1    1800
+## 10   9850 Avenida Visconde de Guarapuava       1     0   64    1     600
+## 11  82343       Avenida Sete de Setembro       1     0   45    0     750
+## 12  20802       Avenida Sete de Setembro       1     0   47    0     600
+## 13    568               Rua Alferes Poli       1     0   43    0     600
+## 14 294579               Av. Silva Jardim       1     0   36    0     550
+## 15  59375           Avenida Silva Jardim       1     0   33    0     560
+## 16     80   Rua Desembargador Westphalen       1     0   80    1     900
+## 17  66490   Rua Desembargador Westphalen       1     0   80    1    1100
+## 18   2381                Rua Rockefeller       2     0   54    0     900
+## 19  44803                Rua Rockefeller       2    NA   NA    1      NA
+##    condominio       data
+## 1         371   11/10/17
+## 2         428   15/07/17
+## 3        1100   23/08/17
+## 4         300   19/09/17
+## 5         300   05/08/17
+## 6         410   23/10/17
+## 7         382   02/09/17
+## 8         120   30/09/17
+## 9         520   12/10/17
+## 10        326   15/07/17
+## 11        420 janeiro 17
+## 12        405   27/07/17
+## 13        330   12/08/17
+## 14        350   01/10/17
+## 15        305   11/09/17
+## 16        350   12/08/17
+## 17        350   29/08/17
+## 18        240   19/09/17
+## 19         NA   19/07/17</code></pre>
+<p>Podemos usar o método <code>fillna</code> para substituir os valores
+em branco por um valor definido, neste caso a <em>String</em>
+“Desconhecido”. Após a substituição não há mais valores em branco no
+campo <code>endereco</code>.</p>
+<pre class="r"><code>df_sem_nulos &lt;- df_sem_nulos %&gt;% 
+  mutate(endereco = replace_na(endereco, &quot;desconhecido&quot;))
+
+df_sem_nulos</code></pre>
+<pre><code>##    codigo                       endereco quartos suite area vaga aluguel
+## 1      34   Rua Desembargador Westphalen       2     0   90    0     900
+## 2     167              Rua Jose Loureiro       2     0   64    0     650
+## 3    6784              Rua Jose Loureiro       2     0   81    0    1100
+## 4      82             Rua Lourenço Pinto       2     0   50    0    1350
+## 5    2970             Rua Lourenço Pinto       2     0   63    0    1300
+## 6   34197          Alameda Doutor Muricy       2     0   80    1     900
+## 7    5072          Alameda Doutor Muricy       2     0   84    0    1100
+## 8     469                   desconhecido       1     0   30    0     550
+## 9      24    R. Desembargador Westphalen       1     0   60    1     800
+## 10     74 Avenida Visconde de Guarapuava       2     1  132    1    1800
+## 11   9850 Avenida Visconde de Guarapuava       1     0   64    1     600
+## 12  82343       Avenida Sete de Setembro       1     0   45    0     750
+## 13  20802       Avenida Sete de Setembro       1     0   47    0     600
+## 14    568               Rua Alferes Poli       1     0   43    0     600
+## 15 294579               Av. Silva Jardim       1     0   36    0     550
+## 16  59375           Avenida Silva Jardim       1     0   33    0     560
+## 17     80   Rua Desembargador Westphalen       1     0   80    1     900
+## 18  66490   Rua Desembargador Westphalen       1     0   80    1    1100
+## 19   2381                Rua Rockefeller       2     0   54    0     900
+##    condominio       data
+## 1         371   11/10/17
+## 2         428   15/07/17
+## 3        1100   23/08/17
+## 4         300   19/09/17
+## 5         300   05/08/17
+## 6         410   23/10/17
+## 7         382   02/09/17
+## 8         210   03/07/17
+## 9         120   30/09/17
+## 10        520   12/10/17
+## 11        326   15/07/17
+## 12        420 janeiro 17
+## 13        405   27/07/17
+## 14        330   12/08/17
+## 15        350   01/10/17
+## 16        305   11/09/17
+## 17        350   12/08/17
+## 18        350   29/08/17
+## 19        240   19/09/17</code></pre>
+<p>Podemos também fazer substituições de partes das <em>strings</em> no
+DataFrame. Por exemplo, podemos padronizar ruas e avenidas com as
+abreviações R. e Av. O código abaixo faz isto:</p>
+<pre class="r"><code>library(stringr)
+
+df_sem_nulos &lt;- df_sem_nulos %&gt;%
+  mutate(endereco = str_replace(endereco, &quot;Rua&quot;, &quot;R.&quot;)) %&gt;%
+  mutate(endereco = str_replace(endereco, &quot;Avenida&quot;, &quot;Av.&quot;)) 
+
+df_sem_nulos</code></pre>
+<pre><code>##    codigo                    endereco quartos suite area vaga aluguel
+## 1      34 R. Desembargador Westphalen       2     0   90    0     900
+## 2     167            R. Jose Loureiro       2     0   64    0     650
+## 3    6784            R. Jose Loureiro       2     0   81    0    1100
+## 4      82           R. Lourenço Pinto       2     0   50    0    1350
+## 5    2970           R. Lourenço Pinto       2     0   63    0    1300
+## 6   34197       Alameda Doutor Muricy       2     0   80    1     900
+## 7    5072       Alameda Doutor Muricy       2     0   84    0    1100
+## 8     469                desconhecido       1     0   30    0     550
+## 9      24 R. Desembargador Westphalen       1     0   60    1     800
+## 10     74  Av. Visconde de Guarapuava       2     1  132    1    1800
+## 11   9850  Av. Visconde de Guarapuava       1     0   64    1     600
+## 12  82343        Av. Sete de Setembro       1     0   45    0     750
+## 13  20802        Av. Sete de Setembro       1     0   47    0     600
+## 14    568             R. Alferes Poli       1     0   43    0     600
+## 15 294579            Av. Silva Jardim       1     0   36    0     550
+## 16  59375            Av. Silva Jardim       1     0   33    0     560
+## 17     80 R. Desembargador Westphalen       1     0   80    1     900
+## 18  66490 R. Desembargador Westphalen       1     0   80    1    1100
+## 19   2381              R. Rockefeller       2     0   54    0     900
+##    condominio       data
+## 1         371   11/10/17
+## 2         428   15/07/17
+## 3        1100   23/08/17
+## 4         300   19/09/17
+## 5         300   05/08/17
+## 6         410   23/10/17
+## 7         382   02/09/17
+## 8         210   03/07/17
+## 9         120   30/09/17
+## 10        520   12/10/17
+## 11        326   15/07/17
+## 12        420 janeiro 17
+## 13        405   27/07/17
+## 14        330   12/08/17
+## 15        350   01/10/17
+## 16        305   11/09/17
+## 17        350   12/08/17
+## 18        350   29/08/17
+## 19        240   19/09/17</code></pre>
+</div>
+<div id="conversão-de-tipos" class="section level2">
+<h2>Conversão de tipos</h2>
+<p>Como pode ser visto pela execução do método <code>str</code> abaixo,
+as colunas ainda possuem tipos incorretos. Precisamos então fazer a
+conversão manual dos tipos.</p>
+<pre class="r"><code>str(df_sem_nulos)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    19 obs. of  9 variables:
+##  $ codigo    : int  34 167 6784 82 2970 34197 5072 469 24 74 ...
+##  $ endereco  : chr  &quot;R. Desembargador Westphalen&quot; &quot;R. Jose Loureiro&quot; &quot;R. Jose Loureiro&quot; &quot;R. Lourenço Pinto&quot; ...
+##  $ quartos   : int  2 2 2 2 2 2 2 1 1 2 ...
+##  $ suite     : int  0 0 0 0 0 0 0 0 0 1 ...
+##  $ area      : int  90 64 81 50 63 80 84 30 60 132 ...
+##  $ vaga      : int  0 0 0 0 0 1 0 0 1 1 ...
+##  $ aluguel   : int  900 650 1100 1350 1300 900 1100 550 800 1800 ...
+##  $ condominio: int  371 428 1100 300 300 410 382 210 120 520 ...
+##  $ data      : chr  &quot;11/10/17&quot; &quot;15/07/17&quot; &quot;23/08/17&quot; &quot;19/09/17&quot; ...</code></pre>
+<p>Para uma coluna com datas, precisamos usar o <code>as.Date</code>. O
+componente <code>format</code> especifica o formato da data.
+<code>&quot;%d/%m/%y&quot;</code> representa datas como 23/04/67 enquanto
+<code>&quot;%d-%m-%Y&quot;</code> representa 23-04-1967.</p>
+<pre class="r"><code>df_ajustado &lt;- df_sem_nulos %&gt;% 
+  mutate(data = as.Date(data, format= &quot;%d/%m/%y&quot;))
+
+# Verificando nulos
+df_ajustado %&gt;%
+  filter_all(any_vars(is.na(.)))</code></pre>
+<pre><code>##   codigo             endereco quartos suite area vaga aluguel condominio data
+## 1  82343 Av. Sete de Setembro       1     0   45    0     750        420 &lt;NA&gt;</code></pre>
+<p>Após converter a coluna para o tipo Date, temos ainda uma linha com
+um valor NA. Podemos ver os dados no DataFrame original para entender o
+problema:</p>
+<pre class="r"><code>df %&gt;% filter(codigo == 82343)</code></pre>
+<pre><code>##   codigo                 endereco quartos suite area vaga aluguel condominio
+## 1  82343 Avenida Sete de Setembro       1     0   45    0     750        420
+##         data
+## 1 janeiro 17</code></pre>
+<p>No resultado acima podemos ver que o valor original de data para o
+registro é “janeiro 17”. Precisamos então substituir este valor antes de
+fazer a conversão para data:</p>
+<pre class="r"><code>df_sem_nulos &lt;- df_sem_nulos %&gt;%
+  mutate(data = str_replace(data, &#39;janeiro 17&#39;, &#39;01/01/17&#39;))
+
+df_sem_nulos</code></pre>
+<pre><code>##    codigo                    endereco quartos suite area vaga aluguel
+## 1      34 R. Desembargador Westphalen       2     0   90    0     900
+## 2     167            R. Jose Loureiro       2     0   64    0     650
+## 3    6784            R. Jose Loureiro       2     0   81    0    1100
+## 4      82           R. Lourenço Pinto       2     0   50    0    1350
+## 5    2970           R. Lourenço Pinto       2     0   63    0    1300
+## 6   34197       Alameda Doutor Muricy       2     0   80    1     900
+## 7    5072       Alameda Doutor Muricy       2     0   84    0    1100
+## 8     469                desconhecido       1     0   30    0     550
+## 9      24 R. Desembargador Westphalen       1     0   60    1     800
+## 10     74  Av. Visconde de Guarapuava       2     1  132    1    1800
+## 11   9850  Av. Visconde de Guarapuava       1     0   64    1     600
+## 12  82343        Av. Sete de Setembro       1     0   45    0     750
+## 13  20802        Av. Sete de Setembro       1     0   47    0     600
+## 14    568             R. Alferes Poli       1     0   43    0     600
+## 15 294579            Av. Silva Jardim       1     0   36    0     550
+## 16  59375            Av. Silva Jardim       1     0   33    0     560
+## 17     80 R. Desembargador Westphalen       1     0   80    1     900
+## 18  66490 R. Desembargador Westphalen       1     0   80    1    1100
+## 19   2381              R. Rockefeller       2     0   54    0     900
 ##    condominio     data
 ## 1         371 11/10/17
 ## 2         428 15/07/17
-## 3         400 23/08/17
+## 3        1100 23/08/17
 ## 4         300 19/09/17
 ## 5         300 05/08/17
 ## 6         410 23/10/17
@@ -646,30 +754,202 @@ diversas operações em cascata usando múltiplos operadores
 ## 9         120 30/09/17
 ## 10        520 12/10/17
 ## 11        326 15/07/17
-## 12        420 11/10/17
+## 12        420 01/01/17
 ## 13        405 27/07/17
 ## 14        330 12/08/17
 ## 15        350 01/10/17
 ## 16        305 11/09/17
 ## 17        350 12/08/17
 ## 18        350 29/08/17
-## 19        240 19/09/17
-## 20        200 19/07/17</code></pre>
-<p>Para efetivar as alterações, é preciso sobrescrever o DataFrame
-original:</p>
-<pre class="r"><code>df &lt;- df %&gt;% 
-  filter(area &gt; 80) %&gt;% 
-  mutate(total = aluguel + condominio) %&gt;% 
-  select(endereco:vaga, total) %&gt;% 
-  arrange(total)
+## 19        240 19/09/17</code></pre>
+<p>Como substituímos o valor com problema, conseguimos converter
+corretamente a coluna:</p>
+<pre class="r"><code>df_ajustado &lt;- df_sem_nulos %&gt;% 
+  mutate(data = as.Date(data, format= &quot;%d/%m/%y&quot;))
 
-df</code></pre>
-<pre><code>##                         endereco quartos suite area vaga total
-## 1   Rua Desembargador Westphalen       2     0   90    0  1271
-## 2          Alameda Doutor Muricy       2     0   84    0  1482
-## 3              Rua Jose Loureiro       2     0   81    0  1500
-## 4 Avenida Visconde de Guarapuava       2     1  132    1  2320</code></pre>
+df_ajustado %&gt;%
+  filter_all(any_vars(is.na(.)))</code></pre>
+<pre><code>## [1] codigo     endereco   quartos    suite      area       vaga       aluguel   
+## [8] condominio data      
+## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
+<p>Agora podemos conferir os tipos e verificar que estão todos
+corretos:</p>
+<pre class="r"><code>str(df_ajustado)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    19 obs. of  9 variables:
+##  $ codigo    : int  34 167 6784 82 2970 34197 5072 469 24 74 ...
+##  $ endereco  : chr  &quot;R. Desembargador Westphalen&quot; &quot;R. Jose Loureiro&quot; &quot;R. Jose Loureiro&quot; &quot;R. Lourenço Pinto&quot; ...
+##  $ quartos   : int  2 2 2 2 2 2 2 1 1 2 ...
+##  $ suite     : int  0 0 0 0 0 0 0 0 0 1 ...
+##  $ area      : int  90 64 81 50 63 80 84 30 60 132 ...
+##  $ vaga      : int  0 0 0 0 0 1 0 0 1 1 ...
+##  $ aluguel   : int  900 650 1100 1350 1300 900 1100 550 800 1800 ...
+##  $ condominio: int  371 428 1100 300 300 410 382 210 120 520 ...
+##  $ data      : Date, format: &quot;2017-10-11&quot; &quot;2017-07-15&quot; ...</code></pre>
+<p>Para converter as colunas para os tipos adequados, usamos o método
+<code>astype</code>. Podemos tanto aplicar a uma coluna por vez ou em
+várias colunas. No código abaixo convertemos <code>aluguel</code> e
+<code>condominio</code> para o tipo numeric (números reais, com casas
+decimais):</p>
+<pre class="r"><code>df_ajustado &lt;- df_ajustado %&gt;% 
+  mutate_at(c(&quot;aluguel&quot;, &quot;condominio&quot;), as.numeric)
+
+str(df_ajustado)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    19 obs. of  9 variables:
+##  $ codigo    : int  34 167 6784 82 2970 34197 5072 469 24 74 ...
+##  $ endereco  : chr  &quot;R. Desembargador Westphalen&quot; &quot;R. Jose Loureiro&quot; &quot;R. Jose Loureiro&quot; &quot;R. Lourenço Pinto&quot; ...
+##  $ quartos   : int  2 2 2 2 2 2 2 1 1 2 ...
+##  $ suite     : int  0 0 0 0 0 0 0 0 0 1 ...
+##  $ area      : int  90 64 81 50 63 80 84 30 60 132 ...
+##  $ vaga      : int  0 0 0 0 0 1 0 0 1 1 ...
+##  $ aluguel   : num  900 650 1100 1350 1300 900 1100 550 800 1800 ...
+##  $ condominio: num  371 428 1100 300 300 410 382 210 120 520 ...
+##  $ data      : Date, format: &quot;2017-10-11&quot; &quot;2017-07-15&quot; ...</code></pre>
+<p>E podemos fazer ajustes, como corrigir os valores de aluguel de
+acordo com um índice de inflação:</p>
+<pre class="r"><code>df_ajustado &lt;- df_ajustado %&gt;% 
+  mutate(aluguel = aluguel * 1.162)
+
+head(df_ajustado)</code></pre>
+<pre><code>##   codigo                    endereco quartos suite area vaga aluguel condominio
+## 1     34 R. Desembargador Westphalen       2     0   90    0  1045.8        371
+## 2    167            R. Jose Loureiro       2     0   64    0   755.3        428
+## 3   6784            R. Jose Loureiro       2     0   81    0  1278.2       1100
+## 4     82           R. Lourenço Pinto       2     0   50    0  1568.7        300
+## 5   2970           R. Lourenço Pinto       2     0   63    0  1510.6        300
+## 6  34197       Alameda Doutor Muricy       2     0   80    1  1045.8        410
+##         data
+## 1 2017-10-11
+## 2 2017-07-15
+## 3 2017-08-23
+## 4 2017-09-19
+## 5 2017-08-05
+## 6 2017-10-23</code></pre>
+<p>Com todos os tipos convertidos corretamente, podemos aplicar funções
+estatísticas e exibir corretamente os valores em gráficos como mostrado
+abaixo:</p>
+<pre class="r"><code>paste(&#39;Média do aluguel (dados sujos):&#39;, mean(df$aluguel))</code></pre>
+<pre><code>## [1] &quot;Média do aluguel (dados sujos): NA&quot;</code></pre>
+<pre class="r"><code>paste(&#39;Média do aluguel (dados limpos): &#39;, mean(df_ajustado$aluguel))</code></pre>
+<pre><code>## [1] &quot;Média do aluguel (dados limpos):  1040.29578947368&quot;</code></pre>
+<pre class="r"><code>plot(condominio ~ aluguel, data=df_ajustado)</code></pre>
+<p><img src="data:image/png;base64,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" width="672" /></p>
 </div>
+<div id="identificando-outliers" class="section level2">
+<h2>Identificando outliers</h2>
+<p>Outliers são valores fora da faixa esperada para uma observação. Um
+forma conveniente de identificar outliers é usando BoxPlots. Abaixo
+podemos perceber que existem dois valores de condomínio fora do que
+seria esperado (mostrados como círculos abaixo e acima da caixa).</p>
+<pre class="r"><code>boxplot(df_ajustado$condominio)</code></pre>
+<p><img src="data:image/png;base64,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gAKdUVlAVy5aPaXnBRQop7KATpWAAuUIKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKEBShQFd/+Bda+6478nUswIKlFNZQB+5YvEhY7HFQcdf9lDr5wUUKKeqgK47a1r0m37aoy13EFCgnJoCeu/ciWqOz1t0womLj50/a+Jm7t3tthBQoJyKArphQcScC257bvJ2050XHxYx/+lWewgoUE5FAb0iYskT261sODNiZas9BBQop6KAHhNzdvxyc9PCWNhqDwEFyqkooLPj9IG1lXFAqz0EFCinooCOx/KBtatjvNUeAgqUU1FA58WigbWlcWirPQQUKKeigC6LuGaHpTUzd/Jt/YsRUKCcigK6djymLX+4b2HdRbNi+u2t9hBQoJyKAtpbPRYx7ehll1974803XXflucftHRGXtNtCQIFyagpo77OzY3v7XNVyBwEFyqkqoL3HLzyiL5+Hn/9Y2w0EFCinroBu9sANK85besoZ56y4/v7E0wIKlFNdQKdGQIFyBBQgqcKAmkgPdENlATWRHuiOqgJqIj3QJTUF1ER6oFMqCqiJ9EC3VBRQE+mBbqkooK0n0m+8d+2OFggoUExFAW09kf69sRM/M6zjAbudigLaeiL9pXMHzNjJUGaAnIoCaiI90C0VBdREeqBbKgqoifRAt1QUUBPpgW6pKaAm0gOdUlVATaQHuqSugPZMpAe6o7qATo2AAuUIKEBStQG97wufvmVD66cEFCinroCuu/F3zv7ExESmR98+MZf+361qu4GAAuVUFdA//7GJH77P/rveo6+Z/EH829qNAxVQoKCaAvoHk9V8+Xf+S8TcXzv3+OkRH2m3hYAC5VQU0O+/POJX/vB/nrFnHBFx1sTff976kzHjnlZ7CChQTkUB/a2I/zbxesPmL0LftHXploilrfYQUKCcigL6c7Fg05aLJRFfnFz7mXhNqz0EFCinooD+RLx368XvRWz7F+F/PfZrtYeAAuVUFNB94oNbLz4R8eTk2jkxo9UeAgqUU1FAXx+Lt158IOIbk2u/GAe32kNAgXIqCui7YvpdE68TP40/f+vSY/vHL7faQ0CBcioK6FciXvXXG3v/8IaIGP+HiZXn3hnxuVZ7CChQTkUB7Z20uZyz9tv8nz94ZYz/3tfv/8IxEf9xU6stBBQop6aAfn/J1nciLet9cY/JNyXN/Pt2WwgoUE5NAe31PnHkXtMXrN588bm9tvTzyLtbbiCgQDl1BXSzyW/ZH/jQW17/ttWt59kJKFBOdQGdGgEFyhFQgCQBBUgSUIAkAQVIElCAJAEFSBJQgCQBBUgSUIAkAQVIElCAJAEFSBJQgCQBBUgSUIAkAQVIElCAJAEFSBJQgCQBBUgSUIAkAQVIElCAJAEFSBJQgCQBBUgSUIAkAQVIElCAJAEFSBJQgCQBBUgSUIAkAQVIElCAJAEFSBJQgCQBBUgSUIAkAQVIElCAJAEFSBJQgCQBBUgSUIAkAQVIElCAJAEFSBJQgCQBBUgSUIAkAQVIElCAJAEFSBJQgCQBBUgSUIAkAQVIElCAJAEFSBJQgCQBBUiqMKDrH7xrzR33PZl6VkCBcioL6CNXLD5kLLY46PjLHmr9vIAC5VQV0HVnTYt+0097tOUOAgqUU1NA7507Uc3xeYtOOHHxsfNnTdzMvbvdFgIKlFNRQDcsiJhzwW3PTd5uuvPiwyLmP91qDwEFyqkooFdELHliu5UNZ0asbLWHgALlVBTQY2LOjl9ubloYC1vtIaBAORUFdHacPrC2Mg5otYeAAuVUFNDxWD6wdnWMt9pDQIFyKgrovFg0sLY0Dm21h4AC5VQU0GUR1+ywtGbmTr6tfzECCpRTUUDXjse05Q/3Lay7aFZMv73VHgIKlFNRQHurxyKmHb3s8mtvvPmm664897i9I+KSdlsIKFBOTQHtfXZ2bG+fq1ruIKBAOVUFtPf4hUf05fPw8x9ru4GAAuXUFdDNHrhhxXlLTznjnBXX3594WkCBcqoL6NQIKFCOgAIkVRhQE+mBbqgsoCbSA91RVUBNpAe6pKaAmkgPdEpFATWRHuiWigJqIj3QLRUFtPVE+rs+NuCgWDKs4wG7nYoC2noi/ZLYidcO63jAbqeigLaeSP+NcwccGCcM63jAbqeigJpID3RLRQE1kR7olooCaiI90C0VBdREeqBbagqoifRAp1QVUBPpgS6pK6A9E+mB7qguoFMjoEA5AgqQVGtAH/r8pz5/T/vHBBQop66A3v6Rk7a8rn3rlp8iHfl3bTcQUKCcmgK68bf3iFdPXFw1c/Ln8Ht+aFO7LQQUKKemgJ46OUzpH2dEvOLtH/71126+v7LdFgIKlFNRQP92LF72+/+y+eINEWevn1i55uXxsna/zCSgQDkVBfSkGPvaxOs3IxZPLv1ZxAda7SGgQDkVBXRBHL/l9ZMRt2xbe30c0WoPAQXKqSig4/GhLa8XRXx/29oZsU+rPQQUKKeigL4yTt3yuvkr0O9sW3ufgAIjU1FA/1Mc9MzE65qIG7atHRXzW+0hoEA5FQX02oj3bfm1zyNi4catS9f4IRIwOhUFdOPPRrz1G5svvjo9Tt36a0z7xfRvtdpDQIFyKgpo78FXRcT8037nk2dE/MR7Vpz9xs23F7XbQkCBcmoKaO/RxTtMpB9v+UYkAQUKqiqgvd7NJ858IZ/7veeBts8LKFBOZQHt9Z7+2h9+5OxT3/P+31z9N8+0f1pAgXKqC+jUCChQjoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCSh1+eSpL4W3//S7XpKP86VRfzqZGgGlLvvHruQto/50MjUCSl2+vuql8KY4+SX5OPeO+tPJ1AgoDDo1Vo36CNRAQGGQgNKIgMIgAaURAYVBAkojAgqDBJRGBBQGCSiNCCgM+mB8btRHoAYCCoPWXfPsqI9ADQQUIElAAZIEFCBJQAGSBBQgSUBh0D/+xvdHfQRqIKAw6Iz41KiPQA0EFAZ5JxKNCCgMElAaEVAYJKA0IqAwSEBpREBhkIDSiIDCIAGlEQGFQQJKIwIKg8wDpREBhUHmgdKIgAIkCShAkoACJAkoQJKAAiQJKAwyD5RGBBQGmQdKIwIKg7wTiUYEFAYJKI0IKAwSUBoRUBgkoDQioDBIQGlEQGGQgNKIgMIgAaURAYVB5oHSiIDCIPNAaURAAZIqDOj6B+9ac8d9T6aeFVCgnMoC+sgViw8Ziy0OOv6yh1o/L6BAOVUFdN1Z06Lf9NMebbmDgALl1BTQe+dOVHN83qITTlx87PxZEzdz7263hYAC5VQU0A0LIuZccNtzk7eb7rz4sIj5T7faQ0BpxDxQGqkooFdELHliu5UNZ0asbLWHgNKIeaA0UlFAj4k5O365uWlhLGy1h4DSiHci0UhFAZ0dpw+srYwDWu0hoDQioDRSUUDHY/nA2tUx3moPAaURAaWRigI6LxYNrC2NQ1vtIaA0IqA0UlFAl0Vcs8PSmpk7+bb+xQgojQgojVQU0LXjMW35w30L6y6aFdNvb7WHgNKIgNJIRQHtrR6LmHb0ssuvvfHmm6678tzj9o6IS9ptIaA0IqA0UlNAe5+dHdvb56qWOwgojZgHSiNVBbT3+IVH9OXz8PMfa7uBgNKIeaA0UldAN3vghhXnLT3ljHNWXH9/4mkBBcqpLqBTI6BAOQIKkFRhQE2kB7qhsoCaSA90R1UBNZG+0763dtdx03u/MeojFPTUqP9o7LpqCqiJ9J128x5BN73su6P+w7HLqiigJtJ326rYd+4u48C9Dh71EcqZEbeO+g/HLquigJpI322r4tRRH4Gdep2ADk1FATWRvtsEtKsEdHgqCmjrifSrXzdgZhw3rOPt9gS0qwR0eCoKaOuJ9Cfv7O/T3zCs4+32BLSrBHR4Kgpo64n0G267dUeH+xZ+aAS0qwR0eCoKqIn03SagXSWgw1NRQE2k7zYB7SoBHZ6KAmoifbcJaFcJ6PDUFFAT6TtNQLtKQIenqoCaSN9lAtpVAjo8dQW0ZyJ9dwloVwno8FQX0KkR0OER0K4S0OERUAoR0K4S0OGpN6DvfveftH9IQIdHQLtKQIen3oBGnNf+IQEdHgHtKgEdHgGlEAHtKgEdnooC+pfbi3jHltdWewjo8AhoVwno8FQU0B/xzxW02kNAh0dAu0pAh6eigO4loJ0moF0loMNTUUBvmx+x5ykf2ibiDVteW+0hoMMjoF0loMNTUUB7T58RcdCXnv84fojULQLaVQI6PDUFtNf78wNj7AOT/zCSgHaMgHaVgA5PXQHtfW9JxOFb/zQIaMcIaFcJ6PBUFtBe7xMzY/pHJ/5teAHtGAHtKgEdnuoC2rvrqIiF9who5whoVwno8NQX0N4z5+4Rs1YLaNcIaFcJ6PBUGNBe75ZXRiwR0I4R0K4S0OGpMqC9de+Y+BV6Ae0UAe0qAR2eOgPa6/3xvgLaMaviHWvpolcL6NDUGtDeD7797R+0f0pAh2fVjxhWwOgJ6LBUG9AcAR0eAe0uAR0WAaUQAe0uAR0WAaUQAe0uAR0WAaUQAe0uAR0WAaWQVbHvXLpohoAOjYBSiN8D7Sq/Bzo8AkohAtpVAjo8AkohAtpVAjo8AkohAtpVAjo8AkohAtpVAjo8AkohAtpVAjo8AkohAtpVAjo8AkohAtpVAjo8AkohAtpVAjo8AkohAtpVAjo8AkohAtpVAjo8AkohAtpVAjo8AkohAtpVAjo8AkohAtpVAjo8AkohAtpVAjo8AkohAtpVAjo8AkohAtpVAjo8AkohAtpVAjo8AkohAtpVAjo8AkohAtpVAjo8AkohAtpVAjo8AkohAtpVAjo8AkohAtpVAjo8Akohq2LG/ruMWXvsO+ojlLOngA6NgFLIV6cH3bT/90b9h2OXJaCUsv7xXce74tJRH6GgH476j8auS0Bh0KmxatRHoAYCCoMElEYEFAYJKI0IKAy6dM9bRn0EaiCgsBNPjfoAVEFAAZIEFCBJQAGSBBQgSUABkgQUBl274FujPgI1EFAYdGqsHvURqIGAwiDvRKIRAYVBAkojAgqDBJRGBBQGCSiNCCgMElAaEVAYJKA0IqAwSEBpREBhkHmgNCKgsBPmgdKEgAIkCShAkoACJAkoQJKAAiQJKAwyD5RGBBQGmQdKIwIKg7wTiUYEFAYJKI0IKAwSUBqpMKDrH7xrzR33PZl6VkBpREBppLKAPnLF4kPGYouDjr/sodbPCyiNCCiNVBXQdWdNi37TT3u05Q4CSiMCSiM1BfTeuRPVHJ+36IQTFx87f9bEzdy7220hoDQioDRSUUA3LIiYc8Ftz03ebrrz4sMi5j/dag8BpRHzQGmkooBeEbHkie1WNpwZsbLVHgJKM+aB0kRFAT0m5uz45eamhbGw1R4CCpRTUUBnx+kDayvjgFZ7CChQTkUBHY/lA2tXx3irPQQUKKeigM6LRQNrS+PQVnsIKFBORQFdFnHNDktrZu7k2/oXI6BAORUFdO14TFv+cN/CuotmxfTbW+0hoDRiHiiNVBTQ3uqxiGlHL7v82htvvum6K889bu+IuKTdFgJKI+aB0khNAe19dnZsb5+rWu4goDTinUg0UlVAe49feERfPg8//7G2GwgojQgojdQV0M0euGHFeUtPOeOcFdffn3haQGlEQGmkuoBOjYDSiIDSiIDCIAGlkQoDaiI9QyegNFJZQE2k3+29ff+XwoyY+VJ8mB+7cNSfTqamqoCaSE/viNiVvHPUn06mpqaAmkhPr/fM4y+J77w0H2bjqD+dTE1FATWRHuiWigJqIj3QLRUFtPVE+mf+/tYdHS6gQDEVBbT1RPp37uxv7d84rOMBu52KAtp6Iv2q1w3YP04Z1vGA3U5FAS0xkX5ZfLzUcYDdXkUBLTGRXkCBcioKaImJ9AIKlFNRQEtMpBdQoJyaAlpgIr2AAuVUFdCpT6QXUKCcugLam+pEegEFyqkuoFMjoEA5AgqQVFlAn/365/+2/y8+7/nmN1s9L6BAOVUFdNPlL4+IsV954Xc/F0W7DyegQDk1BfTRn5v88fuMP922JKDA6NQU0JM3f/X5+lNPPjhijz+bXBJQYHQqCuhXI+Z8afPrht8di9nf3bomoMDoVBTQd0X85daryyJO3HoloMDoVBTQN8bPbrs8IeKvtlwIKDA6FQV0vzh72+XaGXHUpokLAQVGp6KA7hPnPX/94Ygtc0QEFBidigJ6WLz5+ev1B8fsR3oCCoxSRQF9V4x98fmbP404/lkBBUapooDeFLHX879B3/vPEb/6QwEFRqiigPZOjIifPnNyBv0Tr474qRWvEVBgZGoK6Lo3T7yPc+/Ju8eP2fq+zlZbCChQTk0B7T27+tUvBLT39PL9BRQYoaoCutk/feHTL9w89an3/fxPtXpcQIFyagvoFAkoUI6AAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoDCjjZ8+bKPXvn1TaM+Bt0noLC9py7cb8ugxEP+SEL5NwgobOeBfx9x5NIPv/eQiLetH/Vh6DgBhX7r5sX8v5m42PS5l8cvbRz1ceg2AYV+746jnpi8/KcD4sqRnoXOE1Do8//2nHHv8zfXxSueGeFZ6D4BhT6/G7/Wd/ea+PLITkINBBT6/HL8r7675fHRkZ2EGggo9Dk6vtZ3d1m8f2QnoQYCCn1+Pv6i7+6j8eGRnYQaCCj0WRq/3Xe3OK4e2UmogYBCn5vikH99/mbtXtP+eYRnofsEFPpsfG18aNv1s8fFe0d5FrpPQKHf1/aK33x2y9UTvxg//t0Rn4aOE1DYzmemx7xL19zzlfMPiAPWjPowdJyAwvb++vDY6rh7/+3/md2bgMIOnv2Tk1/3qqPPvGXU56D7BBQgSUABkgQUIElAAZIEFCBJQAGSBBQgSUABkgQUIElAAZIEFCBJQAGSBBQgabcL6Oy5AGW8bPcK6MoAKGbsq4Ub1emA9u5fC1DKw6UT1e2AAnSYgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIkCShAkoACJAkoQJKAAiQJKECSgAIk/X8JLt5iJNVbOAAAAABJRU5ErkJggg==" width="672" /></p>
+<p>Outra forma de identificar outliers é calcular os <em>z-scores</em>
+para uma variável. O z-score fornece informação sobre o quão inesperado
+um valor é considerando os demais valores presentes. Abaixo calculamos
+os z-scores para a variável condomínio. Veja que um valor ‘inesperado’ é
+o 120 com z-score -1.3, indicando que é um valor mais baixo que o
+esperado. O outro outlier é o de condomínio 1100 com z-score 3.7
+indicando que está muito acima do esperado. Em geral valores de z-score
+abaixo de -3 e acima de +3 são fortes candidados a serem outliers.</p>
+<pre class="r"><code>df_ajustado %&gt;% 
+  mutate(condominio_zscore = (condominio - mean(condominio))/sd(condominio)) %&gt;%
+  arrange(condominio_zscore)</code></pre>
+<pre><code>##    codigo                    endereco quartos suite area vaga aluguel
+## 1      24 R. Desembargador Westphalen       1     0   60    1  929.60
+## 2     469                desconhecido       1     0   30    0  639.10
+## 3    2381              R. Rockefeller       2     0   54    0 1045.80
+## 4      82           R. Lourenço Pinto       2     0   50    0 1568.70
+## 5    2970           R. Lourenço Pinto       2     0   63    0 1510.60
+## 6   59375            Av. Silva Jardim       1     0   33    0  650.72
+## 7    9850  Av. Visconde de Guarapuava       1     0   64    1  697.20
+## 8     568             R. Alferes Poli       1     0   43    0  697.20
+## 9  294579            Av. Silva Jardim       1     0   36    0  639.10
+## 10     80 R. Desembargador Westphalen       1     0   80    1 1045.80
+## 11  66490 R. Desembargador Westphalen       1     0   80    1 1278.20
+## 12     34 R. Desembargador Westphalen       2     0   90    0 1045.80
+## 13   5072       Alameda Doutor Muricy       2     0   84    0 1278.20
+## 14  20802        Av. Sete de Setembro       1     0   47    0  697.20
+## 15  34197       Alameda Doutor Muricy       2     0   80    1 1045.80
+## 16  82343        Av. Sete de Setembro       1     0   45    0  871.50
+## 17    167            R. Jose Loureiro       2     0   64    0  755.30
+## 18     74  Av. Visconde de Guarapuava       2     1  132    1 2091.60
+## 19   6784            R. Jose Loureiro       2     0   81    0 1278.20
+##    condominio       data condominio_zscore
+## 1         120 2017-09-30       -1.33086748
+## 2         210 2017-07-03       -0.86990264
+## 3         240 2017-09-19       -0.71624770
+## 4         300 2017-09-19       -0.40893781
+## 5         300 2017-08-05       -0.40893781
+## 6         305 2017-09-11       -0.38332865
+## 7         326 2017-07-15       -0.27577019
+## 8         330 2017-08-12       -0.25528286
+## 9         350 2017-10-01       -0.15284623
+## 10        350 2017-08-12       -0.15284623
+## 11        350 2017-08-29       -0.15284623
+## 12        371 2017-10-11       -0.04528777
+## 13        382 2017-09-02        0.01105237
+## 14        405 2017-07-27        0.12885450
+## 15        410 2017-10-23        0.15446366
+## 16        420 2017-01-01        0.20568197
+## 17        428 2017-07-15        0.24665662
+## 18        520 2017-10-12        0.71786512
+## 19       1100 2017-08-23        3.68852739</code></pre>
+<p>Uma possibilidade para eliminar o valor que está muito acima seria
+excluir a linha que o contém. O problema disso é que perderíamos todos
+os dados da linha, que inclui dados aparentemente corretos. Uma forma de
+manter os dados corretos e ao mesmo tempo minimizar a influência do
+valor incorreto é substituir o valor incorreto pela média dos demais
+valores para a variável, como fazemos abaixo. Veja que agora o valor de
+condomínio para a linha problemática é 379.84.</p>
+<pre class="r"><code>df_ajustado &lt;- df_ajustado %&gt;% 
+  mutate(condominio = replace(condominio, condominio == 1100, mean(condominio)))
+
+df_ajustado</code></pre>
+<pre><code>##    codigo                    endereco quartos suite area vaga aluguel
+## 1      34 R. Desembargador Westphalen       2     0   90    0 1045.80
+## 2     167            R. Jose Loureiro       2     0   64    0  755.30
+## 3    6784            R. Jose Loureiro       2     0   81    0 1278.20
+## 4      82           R. Lourenço Pinto       2     0   50    0 1568.70
+## 5    2970           R. Lourenço Pinto       2     0   63    0 1510.60
+## 6   34197       Alameda Doutor Muricy       2     0   80    1 1045.80
+## 7    5072       Alameda Doutor Muricy       2     0   84    0 1278.20
+## 8     469                desconhecido       1     0   30    0  639.10
+## 9      24 R. Desembargador Westphalen       1     0   60    1  929.60
+## 10     74  Av. Visconde de Guarapuava       2     1  132    1 2091.60
+## 11   9850  Av. Visconde de Guarapuava       1     0   64    1  697.20
+## 12  82343        Av. Sete de Setembro       1     0   45    0  871.50
+## 13  20802        Av. Sete de Setembro       1     0   47    0  697.20
+## 14    568             R. Alferes Poli       1     0   43    0  697.20
+## 15 294579            Av. Silva Jardim       1     0   36    0  639.10
+## 16  59375            Av. Silva Jardim       1     0   33    0  650.72
+## 17     80 R. Desembargador Westphalen       1     0   80    1 1045.80
+## 18  66490 R. Desembargador Westphalen       1     0   80    1 1278.20
+## 19   2381              R. Rockefeller       2     0   54    0 1045.80
+##    condominio       data
+## 1    371.0000 2017-10-11
+## 2    428.0000 2017-07-15
+## 3    379.8421 2017-08-23
+## 4    300.0000 2017-09-19
+## 5    300.0000 2017-08-05
+## 6    410.0000 2017-10-23
+## 7    382.0000 2017-09-02
+## 8    210.0000 2017-07-03
+## 9    120.0000 2017-09-30
+## 10   520.0000 2017-10-12
+## 11   326.0000 2017-07-15
+## 12   420.0000 2017-01-01
+## 13   405.0000 2017-07-27
+## 14   330.0000 2017-08-12
+## 15   350.0000 2017-10-01
+## 16   305.0000 2017-09-11
+## 17   350.0000 2017-08-12
+## 18   350.0000 2017-08-29
+## 19   240.0000 2017-09-19</code></pre>
+</div>
+<div id="escrevendo-os-dados-limpos-no-disco" class="section level2">
+<h2>Escrevendo os dados limpos no disco</h2>
+<p>Para salvar os dados limpos em um arquivo, usamos a função
+<code>write.csv</code>, como no exemplo abaixo:</p>
+<pre class="r"><code>write.csv(df_ajustado, file = &#39;../data/aluguel-limpo.csv&#39;)</code></pre>
 </div>
 
 

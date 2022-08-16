@@ -11,7 +11,7 @@
 
 
 
-<title>Introdução a Manipulação de dados no R usando dplyr</title>
+<title>Limpeza de Dados - Exercícios</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -361,315 +361,78 @@ pre code {
 
 
 
-<h1 class="title toc-ignore">Introdução a Manipulação de dados no R
-usando dplyr</h1>
+<h1 class="title toc-ignore">Limpeza de Dados - Exercícios</h1>
 
 </div>
 
 
-<div id="dplyr-e-o-tidyverse" class="section level1">
-<h1>dplyr e o tidyverse</h1>
-<p><em>dplyr</em> é um pacote para a manipulação de DataFrames no R.
-dplyr faz parte do <a href="https://www.tidyverse.org/"><em>tidyverse</em></a>, que é um
-conjunto de pacotes com uma filosofia de uso compartilhada,
-simplificando o processo de manipulação e análise de dados.</p>
-<p>Para usar o dplyr, o primeiro passo é importar a biblioteca. Execute
-todas as células de código do tutorial para ver o resultado.</p>
-<pre class="r"><code>#importing libraries
-library(dplyr)</code></pre>
-<div id="lendo-dados-de-um-arquivo" class="section level2">
-<h2>Lendo dados de um arquivo</h2>
-<p>O DataFrame carregado contém dados de apartamento para alugar na
-cidade de Curitiba.</p>
-<pre class="r"><code># lê o arquivo CSV
-df &lt;- read.csv(&#39;../data/aluguel.csv&#39;, header = T, sep=&quot;,&quot;)
-
-# mostra o conteúdo do DataFrame
-df</code></pre>
-<pre><code>##    codigo                       endereco quartos suite area vaga aluguel
-## 1      34   Rua Desembargador Westphalen       2     0   90    0     900
-## 2     167              Rua Jose Loureiro       2     0   64    0     650
-## 3    6784              Rua Jose Loureiro       2     0   81    0    1100
-## 4      82             Rua Lourenço Pinto       2     0   50    0    1350
-## 5    2970             Rua Lourenço Pinto       2     0   63    0    1300
-## 6   34197          Alameda Doutor Muricy       2     0   80    1     900
-## 7    5072          Alameda Doutor Muricy       2     0   84    0    1100
-## 8     469   Rua Desembargador Westphalen       1     0   30    0     550
-## 9      24   Rua Desembargador Westphalen       1     0   60    1     800
-## 10     74 Avenida Visconde de Guarapuava       2     1  132    1    1800
-## 11   9850 Avenida Visconde de Guarapuava       1     0   64    1     600
-## 12  82343       Avenida Sete de Setembro       1     0   45    0     750
-## 13  20802       Avenida Sete de Setembro       1     0   47    0     600
-## 14    568               Rua Alferes Poli       1     0   43    0     600
-## 15 294579           Avenida Silva Jardim       1     0   36    0     550
-## 16  59375           Avenida Silva Jardim       1     0   33    0     560
-## 17     80   Rua Desembargador Westphalen       1     0   80    1     900
-## 18  66490   Rua Desembargador Westphalen       1     0   80    1    1100
-## 19   2381                Rua Rockefeller       2     0   54    0     900
-## 20  44803                Rua Rockefeller       2     0   77    1     950
-##    condominio     data
-## 1         371 11/10/17
-## 2         428 15/07/17
-## 3         400 23/08/17
-## 4         300 19/09/17
-## 5         300 05/08/17
-## 6         410 23/10/17
-## 7         382 02/09/17
-## 8         210 03/07/17
-## 9         120 30/09/17
-## 10        520 12/10/17
-## 11        326 15/07/17
-## 12        420 11/10/17
-## 13        405 27/07/17
-## 14        330 12/08/17
-## 15        350 01/10/17
-## 16        305 11/09/17
-## 17        350 12/08/17
-## 18        350 29/08/17
-## 19        240 19/09/17
-## 20        200 19/07/17</code></pre>
+<p>Resolva os exercícios propostos abaixo. Os exercícios usam um dataset
+de reclamações registradas por cidadãos. O detaset foi derivado de dados
+do <a href="https://www.curitiba.pr.gov.br/DADOSABERTOS/">Portal de
+Dados Abertos da Prefeitura de Curitiba</a>.</p>
+<div id="leitura-e-análise-inicial-dos-dados" class="section level2">
+<h2>Leitura e análise inicial dos dados</h2>
+<p>Inicie um DataFrame a partir do arquivo
+<code>2017-02-01_156_-_Base_de_Dados_sample.csv</code>. Exiba algumas
+linhas e informações sobre os tipos identificados automaticamente pelo
+R.</p>
+<p><strong>Dica:</strong> Caso o arquivo não seja separado por vírgulas,
+o R não conseguirá reconhecer os campos adequadamente. Você precisará
+fornecer o parâmetro <code>sep=&#39;;&#39;</code> para indicar o separador
+correto (neste caso, o <code>;</code>).</p>
+<p><strong>Dica:</strong> Aplicativos modernos tendem a armazenar
+arquivos no formato UTF-8, mas é comum encontrar arquivos codificados em
+outros formatos. Caso você tenha problemas para ler o arquivo, utilize o
+parâmetro <code>encoding=&#39;latin1&#39;</code> para selecionar o encoding
+correto (<em>latin1</em> neste exemplo). Use também o parâmetro
+<code>stringsAsFactors = FALSE</code> para evitar conversões
+desnecessárias (detalhes sobre isso nos próximos tutoriais). Também é
+importante usar <code>na.strings=&quot;&quot;</code> para que strings vazias sejam
+identificadas como NA.</p>
+<pre class="r"><code># Resposta:</code></pre>
+<p>Visualize algumas linhas de dados:</p>
+<pre class="r"><code># Resposta:</code></pre>
+<p>Use o método <code>str</code> para exibir as colunas e os tipos
+identificados.</p>
+<pre class="r"><code># Resposta:</code></pre>
+<p>Estamos interessados apenas nos seguintes campos: ‘DATA’, ‘HORARIO’,
+‘ASSUNTO’, ‘BAIRRO_ASS’, ‘SEXO’, ‘DATA_NASC’, ‘RESPOSTA_FINAL’</p>
+<p>Crie (ou substitua) um DataFrame contendo apenas os campos acima.</p>
+<pre class="r"><code># Resposta:</code></pre>
 </div>
-<div id="filtrando-e-selecionando-dados" class="section level2">
-<h2>Filtrando e selecionando dados</h2>
-<p>O dplyr usa um operador especial para manipular os dados, o
-<code>%&gt;%</code> (pipe). Este operador “envia” informação da operação
-à esquerda para a operação à direita. Abaixo usamos o operador junto com
-a função <code>filter()</code> para filtrar apenas os apartamentos com
-área maior que 80m2.</p>
-<pre class="r"><code>df %&gt;% filter(area &gt; 80)</code></pre>
-<pre><code>##   codigo                       endereco quartos suite area vaga aluguel
-## 1     34   Rua Desembargador Westphalen       2     0   90    0     900
-## 2   6784              Rua Jose Loureiro       2     0   81    0    1100
-## 3   5072          Alameda Doutor Muricy       2     0   84    0    1100
-## 4     74 Avenida Visconde de Guarapuava       2     1  132    1    1800
-##   condominio     data
-## 1        371 11/10/17
-## 2        400 23/08/17
-## 3        382 02/09/17
-## 4        520 12/10/17</code></pre>
-<p>Para selecionar algumas colunas de um DataFrame, usamos a função
-<code>select()</code>, listando os nomes das colunas ou referenciando
-suas posições no DataFrame. Abaixo selecionamos a coluna endereco e
-também a 3a e 5a colunas.</p>
-<pre class="r"><code>df %&gt;% 
-  select(endereco, c(3, 5))</code></pre>
-<pre><code>##                          endereco quartos area
-## 1    Rua Desembargador Westphalen       2   90
-## 2               Rua Jose Loureiro       2   64
-## 3               Rua Jose Loureiro       2   81
-## 4              Rua Lourenço Pinto       2   50
-## 5              Rua Lourenço Pinto       2   63
-## 6           Alameda Doutor Muricy       2   80
-## 7           Alameda Doutor Muricy       2   84
-## 8    Rua Desembargador Westphalen       1   30
-## 9    Rua Desembargador Westphalen       1   60
-## 10 Avenida Visconde de Guarapuava       2  132
-## 11 Avenida Visconde de Guarapuava       1   64
-## 12       Avenida Sete de Setembro       1   45
-## 13       Avenida Sete de Setembro       1   47
-## 14               Rua Alferes Poli       1   43
-## 15           Avenida Silva Jardim       1   36
-## 16           Avenida Silva Jardim       1   33
-## 17   Rua Desembargador Westphalen       1   80
-## 18   Rua Desembargador Westphalen       1   80
-## 19                Rua Rockefeller       2   54
-## 20                Rua Rockefeller       2   77</code></pre>
-<p>Podemos também selecionar todas as colunas exceto alguma. Para isso,
-basta usar o operador de negação (!):</p>
-<pre class="r"><code>df %&gt;% 
-  select(!c(&quot;endereco&quot;, &quot;suite&quot;))</code></pre>
-<pre><code>##    codigo quartos area vaga aluguel condominio     data
-## 1      34       2   90    0     900        371 11/10/17
-## 2     167       2   64    0     650        428 15/07/17
-## 3    6784       2   81    0    1100        400 23/08/17
-## 4      82       2   50    0    1350        300 19/09/17
-## 5    2970       2   63    0    1300        300 05/08/17
-## 6   34197       2   80    1     900        410 23/10/17
-## 7    5072       2   84    0    1100        382 02/09/17
-## 8     469       1   30    0     550        210 03/07/17
-## 9      24       1   60    1     800        120 30/09/17
-## 10     74       2  132    1    1800        520 12/10/17
-## 11   9850       1   64    1     600        326 15/07/17
-## 12  82343       1   45    0     750        420 11/10/17
-## 13  20802       1   47    0     600        405 27/07/17
-## 14    568       1   43    0     600        330 12/08/17
-## 15 294579       1   36    0     550        350 01/10/17
-## 16  59375       1   33    0     560        305 11/09/17
-## 17     80       1   80    1     900        350 12/08/17
-## 18  66490       1   80    1    1100        350 29/08/17
-## 19   2381       2   54    0     900        240 19/09/17
-## 20  44803       2   77    1     950        200 19/07/17</code></pre>
+<div id="localizando-e-tratando-valores-inválidos" class="section level2">
+<h2>Localizando e tratando valores inválidos</h2>
+<p>Exiba todas as linhas com valores em branco (<em>NA</em>).</p>
+<pre class="r"><code># Resposta:</code></pre>
+<p>Exclua todas as linhas que contenham algum valor nulo (<em>NA</em>).
+Verifique se todas as linhas com valores em branco foram excluídas
+corretamente.</p>
+<pre class="r"><code># Resposta:</code></pre>
+<p>Faça com que todos os nomes de bairros fiquem em letras minúsculas
+(use a função <code>tolower()</code> para alterar as letras).</p>
+<pre class="r"><code># Resposta:</code></pre>
 </div>
-<div id="manipulação-dos-dados" class="section level2">
-<h2>Manipulação dos dados</h2>
-<p>Além de selecionar dados, o dplyr também tem funções para
-manipulação. Para incluir uma nova coluna, é possível usar o
-<code>mutate()</code>. Abaixo incluímos uma nova coluna
-<code>total</code> contendo a soma dos valores de aluguel e
-condomínio.</p>
-<pre class="r"><code>df %&gt;% 
-  mutate(total = aluguel + condominio)</code></pre>
-<pre><code>##    codigo                       endereco quartos suite area vaga aluguel
-## 1      34   Rua Desembargador Westphalen       2     0   90    0     900
-## 2     167              Rua Jose Loureiro       2     0   64    0     650
-## 3    6784              Rua Jose Loureiro       2     0   81    0    1100
-## 4      82             Rua Lourenço Pinto       2     0   50    0    1350
-## 5    2970             Rua Lourenço Pinto       2     0   63    0    1300
-## 6   34197          Alameda Doutor Muricy       2     0   80    1     900
-## 7    5072          Alameda Doutor Muricy       2     0   84    0    1100
-## 8     469   Rua Desembargador Westphalen       1     0   30    0     550
-## 9      24   Rua Desembargador Westphalen       1     0   60    1     800
-## 10     74 Avenida Visconde de Guarapuava       2     1  132    1    1800
-## 11   9850 Avenida Visconde de Guarapuava       1     0   64    1     600
-## 12  82343       Avenida Sete de Setembro       1     0   45    0     750
-## 13  20802       Avenida Sete de Setembro       1     0   47    0     600
-## 14    568               Rua Alferes Poli       1     0   43    0     600
-## 15 294579           Avenida Silva Jardim       1     0   36    0     550
-## 16  59375           Avenida Silva Jardim       1     0   33    0     560
-## 17     80   Rua Desembargador Westphalen       1     0   80    1     900
-## 18  66490   Rua Desembargador Westphalen       1     0   80    1    1100
-## 19   2381                Rua Rockefeller       2     0   54    0     900
-## 20  44803                Rua Rockefeller       2     0   77    1     950
-##    condominio     data total
-## 1         371 11/10/17  1271
-## 2         428 15/07/17  1078
-## 3         400 23/08/17  1500
-## 4         300 19/09/17  1650
-## 5         300 05/08/17  1600
-## 6         410 23/10/17  1310
-## 7         382 02/09/17  1482
-## 8         210 03/07/17   760
-## 9         120 30/09/17   920
-## 10        520 12/10/17  2320
-## 11        326 15/07/17   926
-## 12        420 11/10/17  1170
-## 13        405 27/07/17  1005
-## 14        330 12/08/17   930
-## 15        350 01/10/17   900
-## 16        305 11/09/17   865
-## 17        350 12/08/17  1250
-## 18        350 29/08/17  1450
-## 19        240 19/09/17  1140
-## 20        200 19/07/17  1150</code></pre>
-<p>Para ordenar um DataFrame de acordo com uma coluna, usa-se a função
-<code>arrange()</code>. Abaixo ordenamos o DataFrame pela coluna
-<em>aluguel</em> em ordem decrescente:</p>
-<pre class="r"><code>df %&gt;% 
-  arrange(desc(aluguel))</code></pre>
-<pre><code>##    codigo                       endereco quartos suite area vaga aluguel
-## 1      74 Avenida Visconde de Guarapuava       2     1  132    1    1800
-## 2      82             Rua Lourenço Pinto       2     0   50    0    1350
-## 3    2970             Rua Lourenço Pinto       2     0   63    0    1300
-## 4    6784              Rua Jose Loureiro       2     0   81    0    1100
-## 5    5072          Alameda Doutor Muricy       2     0   84    0    1100
-## 6   66490   Rua Desembargador Westphalen       1     0   80    1    1100
-## 7   44803                Rua Rockefeller       2     0   77    1     950
-## 8      34   Rua Desembargador Westphalen       2     0   90    0     900
-## 9   34197          Alameda Doutor Muricy       2     0   80    1     900
-## 10     80   Rua Desembargador Westphalen       1     0   80    1     900
-## 11   2381                Rua Rockefeller       2     0   54    0     900
-## 12     24   Rua Desembargador Westphalen       1     0   60    1     800
-## 13  82343       Avenida Sete de Setembro       1     0   45    0     750
-## 14    167              Rua Jose Loureiro       2     0   64    0     650
-## 15   9850 Avenida Visconde de Guarapuava       1     0   64    1     600
-## 16  20802       Avenida Sete de Setembro       1     0   47    0     600
-## 17    568               Rua Alferes Poli       1     0   43    0     600
-## 18  59375           Avenida Silva Jardim       1     0   33    0     560
-## 19    469   Rua Desembargador Westphalen       1     0   30    0     550
-## 20 294579           Avenida Silva Jardim       1     0   36    0     550
-##    condominio     data
-## 1         520 12/10/17
-## 2         300 19/09/17
-## 3         300 05/08/17
-## 4         400 23/08/17
-## 5         382 02/09/17
-## 6         350 29/08/17
-## 7         200 19/07/17
-## 8         371 11/10/17
-## 9         410 23/10/17
-## 10        350 12/08/17
-## 11        240 19/09/17
-## 12        120 30/09/17
-## 13        420 11/10/17
-## 14        428 15/07/17
-## 15        326 15/07/17
-## 16        405 27/07/17
-## 17        330 12/08/17
-## 18        305 11/09/17
-## 19        210 03/07/17
-## 20        350 01/10/17</code></pre>
-<p>As funções do dplyr podem ser combinadas. Por exemplo, abaixo fazemos
-diversas operações em cascata usando múltiplos operadores
-<code>%&gt;%</code>.</p>
-<pre class="r"><code>df %&gt;% 
-  filter(area &gt; 80) %&gt;% 
-  mutate(total = aluguel + condominio) %&gt;% 
-  select(endereco:vaga, total) %&gt;% 
-  arrange(total)</code></pre>
-<pre><code>##                         endereco quartos suite area vaga total
-## 1   Rua Desembargador Westphalen       2     0   90    0  1271
-## 2          Alameda Doutor Muricy       2     0   84    0  1482
-## 3              Rua Jose Loureiro       2     0   81    0  1500
-## 4 Avenida Visconde de Guarapuava       2     1  132    1  2320</code></pre>
-<p>Perceba que as operações não afetam o DataFrame original:</p>
-<pre class="r"><code>df</code></pre>
-<pre><code>##    codigo                       endereco quartos suite area vaga aluguel
-## 1      34   Rua Desembargador Westphalen       2     0   90    0     900
-## 2     167              Rua Jose Loureiro       2     0   64    0     650
-## 3    6784              Rua Jose Loureiro       2     0   81    0    1100
-## 4      82             Rua Lourenço Pinto       2     0   50    0    1350
-## 5    2970             Rua Lourenço Pinto       2     0   63    0    1300
-## 6   34197          Alameda Doutor Muricy       2     0   80    1     900
-## 7    5072          Alameda Doutor Muricy       2     0   84    0    1100
-## 8     469   Rua Desembargador Westphalen       1     0   30    0     550
-## 9      24   Rua Desembargador Westphalen       1     0   60    1     800
-## 10     74 Avenida Visconde de Guarapuava       2     1  132    1    1800
-## 11   9850 Avenida Visconde de Guarapuava       1     0   64    1     600
-## 12  82343       Avenida Sete de Setembro       1     0   45    0     750
-## 13  20802       Avenida Sete de Setembro       1     0   47    0     600
-## 14    568               Rua Alferes Poli       1     0   43    0     600
-## 15 294579           Avenida Silva Jardim       1     0   36    0     550
-## 16  59375           Avenida Silva Jardim       1     0   33    0     560
-## 17     80   Rua Desembargador Westphalen       1     0   80    1     900
-## 18  66490   Rua Desembargador Westphalen       1     0   80    1    1100
-## 19   2381                Rua Rockefeller       2     0   54    0     900
-## 20  44803                Rua Rockefeller       2     0   77    1     950
-##    condominio     data
-## 1         371 11/10/17
-## 2         428 15/07/17
-## 3         400 23/08/17
-## 4         300 19/09/17
-## 5         300 05/08/17
-## 6         410 23/10/17
-## 7         382 02/09/17
-## 8         210 03/07/17
-## 9         120 30/09/17
-## 10        520 12/10/17
-## 11        326 15/07/17
-## 12        420 11/10/17
-## 13        405 27/07/17
-## 14        330 12/08/17
-## 15        350 01/10/17
-## 16        305 11/09/17
-## 17        350 12/08/17
-## 18        350 29/08/17
-## 19        240 19/09/17
-## 20        200 19/07/17</code></pre>
-<p>Para efetivar as alterações, é preciso sobrescrever o DataFrame
-original:</p>
-<pre class="r"><code>df &lt;- df %&gt;% 
-  filter(area &gt; 80) %&gt;% 
-  mutate(total = aluguel + condominio) %&gt;% 
-  select(endereco:vaga, total) %&gt;% 
-  arrange(total)
-
-df</code></pre>
-<pre><code>##                         endereco quartos suite area vaga total
-## 1   Rua Desembargador Westphalen       2     0   90    0  1271
-## 2          Alameda Doutor Muricy       2     0   84    0  1482
-## 3              Rua Jose Loureiro       2     0   81    0  1500
-## 4 Avenida Visconde de Guarapuava       2     1  132    1  2320</code></pre>
-</div>
+<div id="conversão-de-tipos-criação-de-coluna-e-escrita-em-csv" class="section level2">
+<h2>Conversão de tipos, criação de coluna e escrita em CSV</h2>
+<p>Exiba os tipos das colunas do DataFrame.</p>
+<pre class="r"><code># Resposta:</code></pre>
+<p>Converta os campos de data para o formato de data.</p>
+<pre class="r"><code># Resposta:</code></pre>
+<p>Crie uma coluna chamada <code>IDADE</code> contendo a diferença entre
+o ano da reclamação e o ano de nascimento da pessoa.</p>
+<p><strong>Dica:</strong> Para extrair o ano de uma coluna do tipo data,
+use a função <code>year(coluna)</code> da biblioteca lubridate. Por
+exemplo: <code>year(DATA)</code>.</p>
+<pre class="r"><code># Resposta:</code></pre>
+<p>Verifique se as colunas foram corretamente convertidas para os tipos
+corretos.</p>
+<pre class="r"><code># Resposta:</code></pre>
+<p>Identifique outliers na coluna <code>IDADE</code>. Remova do
+DataFrame todas as reclamações de pessoas com idades muito baixas.</p>
+<pre class="r"><code># Resposta:</code></pre>
+<p>Salve o DataFrame em um arquivo CSV chamado
+<code>../data/2017-02-01_156_-_Base_de_Dados_sample-limpo.csv</code>.</p>
+<pre class="r"><code># Resposta:</code></pre>
 </div>
 
 

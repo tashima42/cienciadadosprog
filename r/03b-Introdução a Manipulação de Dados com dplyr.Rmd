@@ -9,7 +9,7 @@ output: html_document
 
 Para usar o dplyr, o primeiro passo é importar a biblioteca. Execute todas as células de código do tutorial para ver o resultado.
 
-```{r}
+```{r, message=FALSE}
 #importing libraries
 library(dplyr)
 ```
