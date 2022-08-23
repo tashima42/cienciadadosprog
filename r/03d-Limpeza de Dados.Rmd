@@ -190,6 +190,6 @@ df_ajustado
 Para salvar os dados limpos em um arquivo, usamos a função `write.csv`, como no exemplo abaixo:
 
 ```{r}
-write.csv(df_ajustado, file = '../data/aluguel-limpo.csv')
+write.csv(df_ajustado, file = '../data/aluguel-limpo.csv', row.names = FALSE)
 ```
 

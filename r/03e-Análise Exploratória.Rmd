@@ -1,0 +1,118 @@
+---
+title: Análise Exploratória
+output: html_document
+---
+
+# Análise Exploratória
+
+A Análise Exploratória é uma fase importante de uma tarefa de Ciência de Dados. É nesta fase que buscamos entender os dados com os seguintes objetivos:
+
+- Identificar padrões iniciais
+- Formular perguntas de pesquisa e hipóteses
+- Identificar dados incompletos ou não confiáveis
+
+Para atingir os objetivos, em geral usa-se uma combinação de análises estatísticas com uma grande ênfase em geração e interpretação de gráficos.
+
+## Leitura e análise inicial dos dados
+
+```{r, message=FALSE}
+#importação de bibliotecas
+library(dplyr)
+
+# lê o arquivo CSV
+df <- read.csv('../data/aluguel.csv', header = T, sep=",", stringsAsFactors=FALSE)
+```
+
+O primeiro passo ao se analisar dados desconhecidos é visualizar algumas linhas de dados:
+
+```{r}
+head(df, 10)
+```
+
+A função `summary()` é útil para se ter uma idéia de estatísticas básicas para as variáveis numéricas. Por exemplo, abaixo podemos ver que a média dos valores de aluguel é 898 enquanto a mediana é 900.
+
+```{r}
+summary(df)
+```
+## Convertendo colunas para fatores (factors)
+
+Para fazer uma análise exploratória adequada, é preciso que as colunas do DataFrame estejam com tipos adequados. Um tipo de dado importante no R é o **factor**, usado para variáveis categóricas com gênero, cor, idioma, etc. A decisão sobre quais variáveis devem ser consideradas fatores depende do problema em questão. No nosso caso, vamos converter a variável `vaga` para fator para que ela seja usada posteriormente.
+
+```{r}
+df$vaga <- as.factor(df$vaga)
+
+str(df)
+```
+
+
+## Visualização da distribuição de variáveis
+
+Visualizar as distribuições das variaveis nos ajuda a identificar os primeiros padrões. Abaixo exibimos os histogramas para `aluguel` e `condomínio`. É possivel ver que a maior concentração de apartamentos é de aluguéis entre 600 e 900. Há também uma concentração menor em aluguéis em torno de 1200. Já a distribuição dos condomínios é mais homogênea, com a maior parte dos valores por volta de 370.
+
+Faz sentido este comportamento? Aparentemente o condomínio não varia na mesma proporção do valor do aluguel. Ou seja, se um apartamento de 600 paga 300 de condomínio, não se espera que um apartamento de 1200 pague 600 de condomínio. Esta pode ser uma questão a se explorar em passos futuros das análises.
+
+```{r}
+# o parâmetro breaks determina o número de agrupamentos
+hist(df$aluguel, breaks=10)
+```
+
+```{r}
+hist(df$condominio, breaks=10)
+```
+Podemos usar gráficos de barras para mostrar a contagem de variáveis fatores. Por exemplo, abaixo mostramos o total de apartamentos sem (0) e com (1) vaga.
+
+```{r}
+plot(df$vaga, main = "Exemplo de Barplot")
+```
+O R também tem uma função dedicada para gráficos de barras. Abaixo usamos o função `barplot` para mostrar um gráfico com os apartamentos de 2 quartos e 1 vaga.
+
+```{r}
+df_bar <- df %>% 
+  filter(quartos == 2 & vaga == 1)
+
+# o parâmetro las=2 faz as descrições serem mostradas na vertical
+barplot(height=df_bar$aluguel, names=df_bar$codigo, las=2)
+```
+
+Outra forma de visualizar a distribuição de variáveis é através de Box Plots. Abaixo exibimos uma gráfico com os valores de aluguéis dependendo da variável vaga. Podemos perceber que a variação nos aluguéis é maior nos apartamentos sem vaga. Podemos ver também um outlier (círculo em cima da barra). Verifique os dados e identifique nos apartamentos com vaga qual apartamento tem este valor de aluguel tão diferente.
+
+```{r}
+plot(df$vaga, df$aluguel, main = "Exemplo de Boxplot")
+
+```
+
+## Análise da correlação entre as variáveis
+
+Para identificar associações entre as variáveis podemos utilizar diversas ferramentas estatísticas e visuais. Para calcular a correlação (Pearson) entre todos os pares de variáves, podemos usar a função `cor`. Abaixo podemos ver que a maior correlação está entre a área do apartamento e o aluguel. Isto significa que, aparentemente, o tamanho do apartamento é o que mais influencia no valor total.
+
+```{r}
+df_corr <- df %>% select(area, aluguel, condominio)
+
+cor(df_corr)
+```
+
+Uma forma interessante de visualizar a matrix de correlações é usar um Heatmap. No caso abaixo usamos cores azuis para identificar as correlações maiores e cores vermelhas para as menores.
+
+```{r}
+library(corrplot)
+
+corrplot(cor(df_corr),
+  method = "color",
+  type = "upper" # show only upper side
+)
+```
+
+A correlação é uma boa medida de associação entre variáveis, mas ela não oferece detalhes sobre a distribuição ou sobre a presença de outliers. Para se ter uma ideia melhor das associações, é interessante visualizar os dados no plano cartesiano. Para isto podemos construir uma matriz com as visualizações dos pontos para todas as combinações de variáveis. Abaixo fazemos isto para área, aluguel e condomínio. Veja que entre aluguel e área há realmente uma tendência de associação (maior concentração de pontos próximos à diagonal).
+
+```{r}
+plot(df_corr)
+```
+
+
+Podemos também construir um gráfico isolando apenas duas variáveis para explorar com mais detalhes:
+```{r}
+plot(df$area, df$aluguel)
+```
+Este foram alguns exemplos simples de análises exploratórias. A complexidade da fase de análise exploratória vai depender do problema e das perguntas de pesquisa. Se for preciso, é possível fazer visualizações mais elaboradas e até algumas modelagens nesta fase.
+
+

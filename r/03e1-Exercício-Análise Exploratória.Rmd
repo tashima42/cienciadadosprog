@@ -1,0 +1,120 @@
+---
+title: Exercícios - Análise Exploratória
+output: html_document
+---
+
+
+Resolva os exercícios propostos abaixo.
+
+## Leitura e análise inicial dos dados
+
+Abra o arquivo `../data/2017-02-01_156_-_Base_de_Dados_sample-limpo.csv` que você criou no exercício de Limpeza de Dados e faça as análises e exibições iniciais do conteúdo.
+
+```{r, message=FALSE}
+# Resposta:
+
+```
+
+
+Responda: Qual a média das idades das pessoas que reclamaram? Qual a idade máxima? Quantos valores únicos possuímos para a coluna `BAIRRO_ASS`?
+
+**Dica:** A função unique() pode ser usada para se obter os valores únicos de uma coluna.
+
+**Dica:** A função length() pode ser usada para se obter o tamanho de listas, colunas ou dataframes. Por exemplo, `length(list(1,3,9))` retorna 3.
+
+
+```{r}
+# Resposta:
+
+```
+
+
+```{r}
+# Resposta:
+
+```
+## Visualização da distribuição das variáveis
+
+Exiba histogramas para visualizar a distribuição de idades para homens e mulheres.
+
+Responda: Existe alguma diferença na distribuição das idades entre homens e mulheres?
+
+```{r}
+# Resposta:
+
+```
+```{r}
+# Resposta:
+
+```
+
+
+Exiba um BoxPlot das idades de acordo com o sexo do reclamante para ver se as diferenças ficam mais óbvias. 
+
+**Dica:** Lembre-se de converter as colunas necessárias para o tipo factor
+
+```{r}
+# Resposta:
+
+```
+
+## Analisando reclamações mais comuns
+
+Nesta etapa vamos filtrar apenas linhas com os tipos de relamação (assuntos) mais comuns. Faça uma contagem dos assuntos mais comuns (usando `group_by`). Exiba apenas os 10 assuntos mais comuns, em ordem decrescente. Revise o procedimento no tutorial de Manipulação e Agregação de Dados, se necessário.
+
+
+
+```{r}
+# Resposta:
+
+```
+
+
+## Análise de bairros mais problemáticos
+
+Agora nosso interesse é determinar os bairros com mais reclamações.
+
+Crie um DataFrame com a contagem de reclamações por bairro (usando a coluna BAIRRO_ASS). A coluna com o total de reclamações deve se chamar `quantidade`.
+
+```{r}
+# Resposta:
+
+```
+Exiba os dados usando um gráfico de barras para visualizarmos apenas os bairros com mais de 200 reclamações.
+
+```{r}
+# Resposta:
+
+```
+
+O problema de considerar apenas o total de reclamações é que não estamos considerando a população dos bairros. Então o ideal é calcular a *taxa* de reclamações, ou seja, o número de reclamações por habitante do bairro. Para isto, você deve abrir um novo dataframe com os dados de população dos bairros e depois fazer a junção com o datafreme com as quantidades de reclamação por bairro.
+
+
+Crie um novo DataFrame a partir dos dados do arquivo `../data/dados_bairros.csv`. A coluna `Total` indica a população do bairro.
+```{r}
+# Resposta:
+
+```
+
+Converta os nomes dos bairros deste DataFrame para caixa-baixo (minúsculo). Para que possamos fazer a junção posteriormente, é importante que o nome da variável com os bairros em minúsculo seja BAIRRO_ASS.
+
+```{r}
+# Resposta:
+
+```
+Faça uma junção do DataFrame de totais por bairro com o DataFrame contedo as informações de população.
+
+```{r}
+# Resposta:
+
+```
+
+Crie uma nova coluna chamada *taxa* contendo o resultado da divisão da coluna de contagem de reclamações pela coluna de total de habitantes. Ordene o resultado de acordo com a taxa de reclamações. Há muita diferença entre os bairros com mais reclamações e os com maiores taxas?
+
+```{r}
+# Resposta:
+
+```
+
+
+
