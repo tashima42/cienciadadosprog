@@ -1,0 +1,159 @@
+---
+title: Visualização de Dados - ggplot2
+output: html_document
+---
+
+Este notebook apresenta conceitos básicos da biblioteca de visualização de dados [ggplot2](https://ggplot2.tidyverse.org/).
+
+## Leitura e análise inicial dos dados
+
+```{r, message=FALSE}
+# Importação de Bibliotecas
+library(ggplot2)
+library(dplyr)
+library(lubridate)
+
+# lê o arquivo CSV
+# lê o arquivo CSV
+df <- read.csv('../data/aluguel.csv', header = T, sep=",", stringsAsFactors = FALSE)
+df$data <- as.Date(df$data,format="%d/%m/%y")
+df$vaga <- as.factor(df$vaga)
+```
+
+
+Vamos utilizar um dataset de ofertas de aluguel. O primeiro passo ao se analisar dados desconhecidos é visualizar algumas linhas de dados:
+
+```{r}
+head(df, 10)
+```
+
+Vamos usar em alguns exemplos um DataFrame com os valores de condomínio e aluguel agregados por mês da oferta:
+```{r}
+df_mensal <- df %>% 
+  group_by(mes=floor_date(data, "month")) %>%
+  summarize(aluguel=mean(aluguel), 
+            condominio=mean(condominio)
+            )
+
+df_mensal
+```
+
+
+# ggplot2 - conceitos básicos
+
+A biblioteca ggplot2 usa, em geral, uma sequência de passos para definir um gráfico. A sequência começa com a definição dos dados da plotagem (função `ggplot`) bem como suas especificações estéticas (função `aes`). Depois disso, adicionamos camadas com as visualizações desejadas. Opcionalmente, podemos incrementar o gráfico com legendas, escalas, sistemas de coordenadas, etc. 
+
+O exemplo abaixo define a estética (aes) como apenas a variável `aluguel` e adiciona uma camada com uma plotagem de histograma (geom_histogram).
+
+```{r}
+ggplot(df, aes(aluguel)) +
+  geom_histogram(bins = 12)
+```
+
+# Correlação
+
+Podemos também definir mais variáveis na estética, como no gráfico de dispersão abaixo.
+
+```{r}
+ggplot(df, aes(area, aluguel)) + 
+  geom_point()
+```
+
+Podemos adicionar cores baseadas em uma terceira variável:
+
+```{r}
+g <- ggplot(df, aes(area, aluguel, colour = vaga)) + 
+  geom_point()
+
+g
+```
+
+Ainda com o gráfico de dispersão construído anteriormente, podemos aproveitar a mesma variável (g) e acrescentar uma camada com as retas de tendência para os pontos. Abaixo configuramos também os títulos e eixos da figura.
+```{r, message=FALSE}
+ g +
+  geom_smooth(method="lm", se=F) +
+  labs(subtitle="area X aluguel", 
+       y="aluguel", 
+       x="area", 
+       title="Gráfico de dispersão", 
+       caption="Fonte: própia")
+```
+
+# Comparações Nominais
+
+Para comparações de valores nominais, frequentemente usamos gráficos de barras. Abaixo montamos um gráfico de barras para a contagem de ofertas de apartamento dependendo da existência de vaga de garagem. A contagem é feita automaticamente a partir da configuração do parâmetro `stat`.
+
+```{r}
+ggplot(df, aes(x=vaga)) + 
+  geom_bar(stat="count", width=.5, fill="tomato3")
+```
+
+Podemos também usar cores de barras diferentes para representar categorias. Para usar categorias como argumentos no ggplot, é em geral interessante formatar os dados como dataframes long (uma variável por linha). Então, primeiramente vamos transformar o dataframe `df_mensal` definido no começo:
+
+```{r}
+library(tidyr)
+
+df_long <- df_mensal %>% 
+  pivot_longer(!mes, names_to = "tipo", values_to = "valor")
+
+df_long
+```
+
+
+Agora podemos usar a variável tipo para distinguir o tipo de despesa (condomínio ou aluguel), com barras representando os valores médios por mês:
+
+```{r}
+ggplot(df_long, aes(x=mes, y=valor, fill=tipo)) + 
+  geom_bar(stat="identity")
+```
+
+Para exibir as barras separadamente, podemos usar o parâmetro `position=position_dodge()`:
+
+
+```{r}
+ggplot(df_long, aes(x=mes, y=valor, fill=tipo)) + 
+  geom_bar(stat="identity", position=position_dodge())
+```
+
+# Séries temporais
+
+Séries temporais são usualmente representadas com gráficos de linhas. O gráfico de linhas equivalente ao de barras apresentado anteriormente seria: 
+
+```{r}
+ggplot(df_long, aes(x=mes, y=valor, color=tipo)) + 
+  geom_line(stat="identity")
+```
+
+É comum exibir séries temporais em gráficos separados, como abaixo. A função `facet_grid()` pode ser usada para isto (ela também pode ser usada com outros tipos de gráficos):
+
+```{r}
+ggplot(df_long, aes(x=mes, y=valor)) + 
+  geom_line(stat="identity") + 
+  facet_grid(tipo ~ ., scales="free")
+```
+
+# Distribuição
+
+Além dos histogramas, apresentados anteriormente, box plots são muito usados para se estudar as distribuições das variáveis. No exemplo abaixo definimos box plots para o valor do aluguel estratificado pelo número de quartos e existência de vaga de garagem.
+
+```{r}
+g <- ggplot(df, aes(x=factor(quartos), y=aluguel, fill=vaga))
+g + geom_boxplot() + 
+    labs(title="Box plot", 
+         subtitle="Valor de aluguel por número de quartos e vaga",
+         caption="Fonte: própia",
+         x="Número de quartos",
+         y="Valor do aluguel")
+```
+
+Uma alternativa ao box plot que deixa a distribuição dos valores de uma forma mais simples de interpretar é o violin plot, como o definido abaixo:
+
+```{r}
+g <- ggplot(df, aes(x=factor(quartos), y=aluguel, fill=vaga))
+g + geom_violin() + 
+    labs(title="Violin plot", 
+         subtitle="Valor de aluguel por número de quartos e vaga",
+         caption="Fonte: própia",
+         x="Número de quartos",
+         y="Valor do aluguel")
+```
