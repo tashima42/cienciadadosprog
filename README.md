@@ -40,7 +40,7 @@ O RStudio (interface para edição e execução de código) pode ser obtido em: 
 
 Para fazer o download dos exemplos, clique neste [link](https://gitlab.com/introcienciadedados/tutoriais/-/archive/master/tutoriais-master.zip)
 
-Para abrir os exemplos, primeiro descompacte o arquivo baixado. Em seguida, abra o RStudio, cliquem em `File->Open File` e navegue até o diretório onde você descompactou os tutoriais.
+Para abrir os exemplos, primeiro descompacte o arquivo baixado. Em seguida, abra o RStudio, clique em `File->Open File` e navegue até o diretório onde você descompactou os tutoriais.
 
 ## Requistos e instalações (Orange)
 
@@ -50,7 +50,7 @@ O Orange pode ser obtido em: [https://orangedatamining.com/download/](https://or
 
 Para fazer o download dos exemplos, clique neste [link](https://gitlab.com/introcienciadedados/tutoriais/-/archive/master/tutoriais-master.zip)
 
-Para abrir os exemplos, primeiro descompacte o arquivo baixado. Em seguida, abra o Orange, cliquem em `open` e navegue até o diretório onde você descompactou os tutoriais.
+Para abrir os exemplos, primeiro descompacte o arquivo baixado. Em seguida, abra o Orange, clique em `open` e navegue até o diretório onde você descompactou os tutoriais.
 
 ### Playlists de vídeos de Orange
 
