@@ -4,10 +4,14 @@ Veja a documentação do Streamlit no [site do projeto](https://docs.streamlit.i
 
 ## Instalação do streamlit:
 
+```
 pip install streamlit
+```
 
 ## Executar a app:
 
+```
 streamlit run app.py
+```
 
 
