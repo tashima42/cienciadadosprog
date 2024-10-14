@@ -23,7 +23,7 @@ Para fazer o download dos exemplos, clique neste [link](https://gitlab.com/intro
 Para fazer o download dos exemplos usando o git, inicie uma janela de terminal e execute (Linux):
 
 ```
-git clone https://gitlab.com/luizcelso/datascience.git
+git clone https://gitlab.com/introcienciadedados/tutoriais.git
 cd datascience/
 jupyter-notebook
 ```
