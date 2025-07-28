@@ -1,0 +1,43 @@
+Nome do Campo;DescriÁ„o;Tipo;Tamanho
+Data do Atendimento;Data de RealizaÁ„o do Atendimento;DATE;
+Data de Nascimento;Data de Nascimento do Paciente;DATE;
+Sexo;Sexo do Paciente;VARCHAR2;1
+CÛdigo do Tipo de Unidade;CÛdigo do Tipo de Unidade de Atendimento;NUMBER;5
+Tipo de Unidade;Tipo de Unidade de Atendimento;VARCHAR2;50
+CÛdigo da Unidade;CÛdigo da Unidade de Atendimento;VARCHAR2;150
+DescriÁ„o da Unidade;DescriÁ„o da Unidade de Atendimento;VARCHAR2;80
+CÛdigo do Procedimento;CÛdigo do Procedimento Realizado;VARCHAR2;12
+DescriÁ„o do Procedimento;DescriÁ„o do Procedimento Realizado;VARCHAR2;255
+CÛdigo do CBO;CÛdigo da OcupaÁ„o do Profissional;VARCHAR2;8
+DescriÁ„o do CBO;DescriÁ„o da OcupaÁ„o do Profissional;VARCHAR2;200
+CÛdigo do CID;CÛdigo do DiagnÛstico;VARCHAR2;4
+DescriÁ„o do CID;DescriÁ„o do DiagnÛstico;VARCHAR2;150
+SolicitaÁ„o de Exames;Indica se ocorreu solicitaÁ„o de Exames;VARCHAR2;3
+Qtde Prescrita Farm·cia Curitibana;Qtde de medicamentos prescritos na Farm·cia Curitibana;NUMBER;10
+Qtde Dispensada Farm·cia Curitibana;Qtde de medicamentos dispensados na Farm·cia Curitibana;NUMBER;10
+Qtde de Medicamento N„o Padronizado;Qtde de Medicamento N„o Padronizado;NUMBER;10
+Encaminhamento para Atendimento Especialista;Indica se houve encaminhamento para Atendimento de Especialista;VARCHAR2;3
+¡Årea de AtuaÁ„o;¡Årea de AtuaÁ„o;VARCHAR2;255
+Desencadeou Internamento;Indica se desencadeou Internamento;VARCHAR2;3
+Data do Internamento;Data do Internamento do paciente;DATE;
+Estabelecimento Solicitante;Estabelecimento que solicitou o internamento;VARCHAR2;80
+Estabelecimento Destino;Estabelecimento que houve a internaÁ„o;VARCHAR2;80
+CID do Internamento;CÛdigo do diagnÛstico do internamento;VARCHAR2;4
+Tratamento no DomicÌlio;Tipo de Tratamento de ¡gua no domicÌlio;VARCHAR2;30
+Abastecimento;Tipo de Abastecimento de ¡gua no domicÌlio;VARCHAR2;40
+Energia ElÈtrica;Indica se h· energia elÈtrica no domicÌlio;VARCHAR2;3
+Tipo de HabitaÁ„o;Tipo de habitaÁ„o no domicÌlio;VARCHAR2;60
+Destino Lixo;Destino do lixo no domicÌlio;VARCHAR2;30
+Fezes/Urina;Destino das fezes/urina no domicÌlio;VARCHAR2;30
+CÙmodos;Qtde de CÙmodos no domicÌlio;NUMBER;5
+Em Caso de DoenÁa;ServiÁos procurados em caso de doenÁa;VARCHAR2;40
+Grupo Comunit·rio;Grupo Comunit·rio em que o paciente participa;VARCHAR2;40
+Meio de ComunicaÁ„o;Meios de ComunicaÁ„o utilizados no domicÌlio;VARCHAR2;40
+Meio de Transporte;Meios de Transporte utilizados no domicÌlio;VARCHAR2;40
+MunicÌpio;MunicÌpio do paciente;VARCHAR2;50
+Bairro;Bairro do paciente;VARCHAR2;72
+Nacionalidade;Nacionalidade do paciente (Brasileira, Naturalizado, Estrangeiro e N„o informado);VARCHAR2;20
+cod_usuario;CÛdigo ˙nico do usu·rio;NUMBER;10
+origem_usuario;1 - RESIDENTE NO MUNICIPIO 2 - N√O RESIDENTE NO MUNICIPIO;NUMBER;1
+residente;1 - COM CADASTRO DEFINITIVO NA UBS 2 - SEM CADASTRO DEFINITIVO NA UBS;NUMBER;1
+cod_profissional ;CÛdigo ˙nico do profissional;NUMBER;10
